@@ -1,0 +1,502 @@
+[
+	{
+		"MESIA":0.9997715696379509,
+		"code":"public void paintInternalFrameTitlePaneBackground ( SynthContext context , Graphics g , int x , int y , int w , int h ) { paintBackground ( context , g , x , y , w , h , null ) ; }\n",
+		"comment":"paints the background of an internal frame title pane ."
+	},
+	{
+		"MESIA":0.8861351242515205,
+		"code":"public static String formatDate ( Date date ) { return mSimpleDateFormat . format ( date ) ; }\n",
+		"comment":"format date to string"
+	},
+	{
+		"MESIA":0.7566311124526062,
+		"code":"public void addToWorkList ( DF_Equation eq ) { workList . add ( eq ) ; }\n",
+		"comment":"add an equation to the work list ."
+	},
+	{
+		"MESIA":0.6169210565955526,
+		"code":"public void addToWeightList ( double weight ) { weightList . add ( weight ) ; }\n",
+		"comment":"add weight to list of weights"
+	},
+	{
+		"MESIA":0.5766362088598115,
+		"code":"public void addGroupPropertiesListener ( GroupPropertiesListener groupPropertiesListener ) { groupPropertiesListeners . add ( groupPropertiesListener ) ; }\n",
+		"comment":"adds a group properties listener ."
+	},
+	{
+		"MESIA":0.4826473485738371,
+		"code":"public static void validateConfAndURI ( DistributedLogConfiguration conf , URI uri ) throws IllegalArgumentException { if ( null == conf ) { throw new IllegalArgumentException ( _STR ) ; } else { conf . validate ( ) ; } if ( ( null == uri ) || ( null == uri . getAuthority ( ) ) || ( null == uri . getPath ( ) ) ) { throw new IllegalArgumentException ( _STR ) ; } }\n",
+		"comment":"validate the configuration and uri ."
+	},
+	{
+		"MESIA":0.3447481061241694,
+		"code":"public void logNumberOfWalletBusyListeners ( ) { log . debug ( _STR + walletBusyListeners . size ( ) + _STR ) ; }\n",
+		"comment":"log the number of wallet busy listeners"
+	},
+	{
+		"MESIA":0,
+		"code":"public static void updatePriceLists ( Properties ctx , ProductBean productBean , String trxName ) throws OperationException { ArrayList < ProductBean > list = productBean . getProductBeanList ( ) ; if ( list != null ) { int productId = productBean . getProductId ( ) ; Iterator < ProductBean > iter = list . iterator ( ) ; while ( iter . hasNext ( ) ) { ProductBean bean = iter . next ( ) ; int priceListId = bean . getPriceListId ( ) ; BigDecimal stdPrice = bean . getStdPrice ( ) ; BigDecimal listPrice = bean . getListPrice ( ) ; BigDecimal limitPrice = bean . getLimitPrice ( ) ; MPriceList priceList = MPriceList . get ( ctx , priceListId , trxName ) ; if ( priceList . isTaxIncluded ( ) ) { stdPrice = bean . getStdPriceIncl ( ) ; listPrice = bean . getListPriceIncl ( ) ; limitPrice = bean . getLimitPriceIncl ( ) ; } updatePriceLists ( ctx , productId , priceListId , stdPrice , listPrice , limitPrice , trxName ) ; } } }\n",
+		"comment":"updates product price ."
+	},
+	{
+		"MESIA":0,
+		"code":"public static void mergeNodeChildren ( TreeNode node ) { DefaultMutableTreeNode masterNode = ( DefaultMutableTreeNode ) node ; for ( int i = _NUM ; i < masterNode . getChildCount ( ) ; i ++ ) { DefaultMutableTreeNode child = ( DefaultMutableTreeNode ) masterNode . getChildAt ( i ) ; if ( ! child . isLeaf ( ) ) { MergeHelpUtilities . mergeNodeChildren ( DEFAULT_MERGE_TYPE , child ) ; } } }\n",
+		"comment":"merge node children ."
+	},
+	{
+		"MESIA":0.7207952610747643,
+		"code":"public void addStaticField ( EncodedField field , Constant value ) { if ( field == null ) { throw new NullPointerException ( _STR ) ; } if ( staticValuesConstant != null ) { throw new UnsupportedOperationException ( _STR ) ; } staticFields . add ( field ) ; staticValues . put ( field , value ) ; }\n",
+		"comment":"adds a static field ."
+	},
+	{
+		"MESIA":1.1042030264343143,
+		"code":"public static byte [ ] convertToBytes ( String strValue ) { int length = strValue . length ( ) ; byte [ ] bytes = new byte [ length ] ; for ( int i = _NUM ; i < length ; i ++ ) { int c = strValue . charAt ( i ) & _NUM ; if ( c > _NUM ) { c = - ( c - _NUM ) ; } bytes [ i ] = ( byte ) c ; } return bytes ; }\n",
+		"comment":"converts string to byte array ."
+	},
+	{
+		"MESIA":1.2006724667438338,
+		"code":"@ Override public int compareTo ( Edge other ) { int cmp = super . compareTo ( other ) ; if ( cmp != _NUM ) { return cmp ; } return type - other . type ; }\n",
+		"comment":"compare with other edge ."
+	},
+	{
+		"MESIA":1.3113862350028325,
+		"code":"public void editIDRepo ( String realmName , String idRepoName , Map values ) throws AMConsoleException { String [ ] params = { realmName , idRepoName } ; logEvent ( _STR , params ) ; values . remove ( _STR ) ; try { ServiceConfigManager svcCfgMgr = new ServiceConfigManager ( IdConstants . REPO_SERVICE , getUserSSOToken ( ) ) ; ServiceConfig cfg = svcCfgMgr . getOrganizationConfig ( realmName , null ) ; ServiceConfig ss = cfg . getSubConfig ( idRepoName ) ; ss . setAttributes ( values ) ; logEvent ( _STR , params ) ; } catch ( SMSException e ) { String strError = getErrorString ( e ) ; String [ ] paramsEx = { realmName , idRepoName , strError } ; logEvent ( _STR , paramsEx ) ; throw new AMConsoleException ( strError ) ; } catch ( SSOException e ) { String strError = getErrorString ( e ) ; String [ ] paramsEx = { realmName , idRepoName , strError } ; logEvent ( _STR , paramsEx ) ; throw new AMConsoleException ( strError ) ; } }\n",
+		"comment":"edit id repo object ."
+	},
+	{
+		"MESIA":1.4143436378238705,
+		"code":"public static boolean revealInFinder ( final File file ) throws FileNotFoundException { if ( file == null || ! file . exists ( ) ) throw new FileNotFoundException ( ) ; final String fileName = file . getAbsolutePath ( ) ; final SecurityManager security = System . getSecurityManager ( ) ; if ( security != null ) security . checkRead ( fileName ) ; return _revealInFinder ( fileName ) ; }\n",
+		"comment":"reveals the specified file in the finder"
+	},
+	{
+		"MESIA":1.5085138345279905,
+		"code":"public static String docToString ( Document dom ) { return XMLUtils . docToString1 ( dom ) ; }\n",
+		"comment":"converts doc to string"
+	},
+	{
+		"MESIA":1.6069303853262848,
+		"code":"public void save ( String fileName ) throws IOException { try ( BufferedWriter w = new BufferedWriter ( new FileWriter ( fileName ) , _NUM ) ) { for ( String key : keySet ( ) ) { Integer value = get ( key ) ; if ( value != null ) w . write ( key + _STR + value + _STR ) ; } } }\n",
+		"comment":"save to a file"
+	},
+	{
+		"MESIA":1.7147459084133434,
+		"code":"static Map addMapToMap ( Map mapToAdd , Map toMap ) { if ( ( mapToAdd != null ) && ( toMap != null ) ) { Set keySet = mapToAdd . keySet ( ) ; Iterator keyIter = keySet . iterator ( ) ; while ( keyIter . hasNext ( ) ) { String key = ( String ) keyIter . next ( ) ; Set values = ( Set ) mapToAdd . get ( key ) ; addElementToMap ( key , values , toMap ) ; } } return toMap ; }\n",
+		"comment":"adds a map to another map"
+	},
+	{
+		"MESIA":1.8101402136333855,
+		"code":"public void expectSuccess ( MessageInfo messageInfo ) { expectedApiCalls . add ( new ApiCall ( SUCCESS , new Object [ ] { messageInfo . getOrigin ( ) , messageInfo . getClient ( ) , messageInfo . getService ( ) } ) ) ; }\n",
+		"comment":"expect a success with the given message info ."
+	},
+	{
+		"MESIA":1.8105789530575447,
+		"code":"void cancelIncludedOnly ( ) { if ( ! _showAllInput ) { _inputAllButton . doClick ( ) ; } if ( ! _showAllOutput ) { _outputAllButton . doClick ( ) ; } if ( ! _showAllAlign ) { _alignAllButton . doClick ( ) ; } }\n",
+		"comment":"cancels included only option"
+	},
+	{
+		"MESIA":1.9696304040974966,
+		"code":"public void changeLockCode ( String code , String data ) { ComponentName demoDeviceAdmin = new ComponentName ( context , AgentDeviceAdminReceiver . class ) ; devicePolicyManager . setPasswordMinimumLength ( demoDeviceAdmin , DEFAULT_PASSWORD_MIN_LENGTH ) ; String password = null ; try { JSONObject lockData = new JSONObject ( data ) ; if ( ! lockData . isNull ( resources . getString ( R . string . intent_extra_password ) ) ) { password = ( String ) lockData . get ( resources . getString ( R . string . intent_extra_password ) ) ; } resultBuilder . build ( code ) ; if ( password != null && ! password . isEmpty ( ) ) { devicePolicyManager . resetPassword ( password , DevicePolicyManager . RESET_PASSWORD_REQUIRE_ENTRY ) ; devicePolicyManager . lockNow ( ) ; } } catch ( JSONException e ) { Log . e ( TAG , _STR + e ) ; } }\n",
+		"comment":"change device lock code ."
+	},
+	{
+		"MESIA":2.0004465936626206,
+		"code":"public static void beforeCall ( URL url , Request request ) { String uri = url . getUri ( ) ; onBeforeCall ( getServiceStat ( uri ) ) ; onBeforeCall ( getMethodStat ( uri , request . getMethodName ( ) , request . getParamtersDesc ( ) ) ) ; }\n",
+		"comment":"call before invoke the request"
+	},
+	{
+		"MESIA":2.118845388253681,
+		"code":"public static String encode ( byte barr [ ] ) { StringBuilder rtn = new StringBuilder ( ) ; int len = barr . length ; int read = _NUM ; boolean stop = _BOOL ; byte b = _NUM ; int offset = _NUM ; do { int left = len - read ; if ( left == _NUM ) stop = _BOOL ; if ( left <= _NUM ) b = ( byte ) left ; else b = _NUM ; rtn . append ( _enc ( b ) ) ; for ( int i = _NUM ; i < b ; i += _NUM ) { if ( len - offset < _NUM ) { byte padding [ ] = new byte [ _NUM ] ; for ( int z = _NUM ; offset + z < len ; z ++ ) padding [ z ] = barr [ offset + z ] ; encodeBytes ( padding , _NUM , rtn ) ; } else { encodeBytes ( barr , offset , rtn ) ; } offset += _NUM ; } rtn . append ( _STR ) ; read += b ; if ( b < _NUM ) stop = _BOOL ; } while ( ! stop ) ; return rtn . toString ( ) ; }\n",
+		"comment":"encodes a byte array to a string"
+	},
+	{
+		"MESIA":2.256410165957767,
+		"code":"public void add ( EventBean theEvent ) { if ( theEvent == null ) { throw new IllegalArgumentException ( _STR ) ; } if ( firstEvent == null ) { firstEvent = theEvent ; return ; } if ( additionalEvents == null ) { additionalEvents = new ArrayDeque < EventBean > ( ) ; } additionalEvents . add ( theEvent ) ; }\n",
+		"comment":"add an event to the collection ."
+	},
+	{
+		"MESIA":2.3775234639370746,
+		"code":"public void recordState ( State currentState ) { mStateDepository . add ( currentState ) ; }\n",
+		"comment":"record the current state of the network"
+	},
+	{
+		"MESIA":2.4534434635186515,
+		"code":"public ResourcesPoet addIntegerArrayStrings ( String name , @ NotNull List < String > values ) { Element element = document . createElement ( _STR ) ; element . setAttribute ( _STR , name ) ; for ( String value : values ) { Element valueElement = document . createElement ( _STR ) ; valueElement . appendChild ( document . createTextNode ( value ) ) ; element . appendChild ( valueElement ) ; } resourceElement . appendChild ( element ) ; return this ; }\n",
+		"comment":"add an integer array to the config"
+	},
+	{
+		"MESIA":2.5675744149303834,
+		"code":"public void sendMessage ( String body , String formattedBody , String format ) { if ( ! TextUtils . isEmpty ( body ) ) { if ( ! SlashComandsParser . manageSplashCommand ( this , mSession , mRoom , body , formattedBody , format ) ) { cancelSelectionMode ( ) ; mVectorMessageListFragment . sendTextMessage ( body , formattedBody , format ) ; } } }\n",
+		"comment":"send a text message with its formatted format"
+	},
+	{
+		"MESIA":2.679013566184829,
+		"code":"public void write ( Color c , String s ) throws IOException { if ( page != null ) { page . setColor ( c ) ; } write ( s ) ; if ( page != null ) { page . setColor ( color ) ; } }\n",
+		"comment":"write the string with the desired color ."
+	},
+	{
+		"MESIA":2.711992535529608,
+		"code":"public void removeLayer ( Layer layer ) { int length = _layers . size ( ) ; int no ; for ( no = _NUM ; no < length ; no ++ ) { if ( ( ( LayerWithZoomLevels ) _layers . elementAt ( no ) ) . layer == layer ) { break ; } } _layers . removeElementAt ( no ) ; refreshLayers = _BOOL ; super . repaint ( ) ; }\n",
+		"comment":"removes a layer from the map"
+	},
+	{
+		"MESIA":2.896610341990783,
+		"code":"public final boolean isScheduledForFlush ( ) { return scheduledForFlush . get ( ) ; }\n",
+		"comment":"tells if the session is scheduled for flushed"
+	},
+	{
+		"MESIA":2.9615463089998113,
+		"code":"public void chmodFile ( String permissions , String file ) { StringBuilder buf = new StringBuilder ( ) ; String command = String . format ( ImageServerDialogProperties . getString ( _STR ) , permissions , file ) ; sendWaitFor ( command , defaultTimeout , prompts , buf ) ; log . debug ( buf . toString ( ) ) ; }\n",
+		"comment":"change permissions on a file ."
+	},
+	{
+		"MESIA":3.0286670878763022,
+		"code":"public void add ( Group group ) { _values . add ( group ) ; }\n",
+		"comment":"adds a group to this command ."
+	},
+	{
+		"MESIA":3.1631499383848145,
+		"code":"public String nextString ( int length ) { char [ ] chars = new char [ length ] ; for ( int i = _NUM ; i < chars . length ; i ++ ) { chars [ i ] = ALPHABET . charAt ( nextInt ( ALPHABET . length ( ) ) ) ; } return new String ( chars ) ; }\n",
+		"comment":"returns a random string of the given length ."
+	},
+	{
+		"MESIA":3.2332789020454107,
+		"code":"public void registerPlayerListener ( CheerleaderPlayerListener listener ) { checkState ( ) ; mCheerleaderPlayerListeners . add ( listener ) ; if ( mState == STATE_PLAYING ) { listener . onPlayerPlay ( mPlayerPlaylist . getCurrentTrack ( ) , mPlayerPlaylist . getCurrentTrackIndex ( ) ) ; } else if ( mState == STATE_PAUSED ) { listener . onPlayerPause ( ) ; } }\n",
+		"comment":"register a listener to catch player events ."
+	},
+	{
+		"MESIA":3.391331795238158,
+		"code":"public static String formatTimeStamp ( long epochTime ) { return TIME_FORMAT . format ( new Date ( epochTime ) ) ; }\n",
+		"comment":"return a readable formatted version of the given epoch time ."
+	},
+	{
+		"MESIA":3.4033784229187014,
+		"code":"public void handleExpansionRecursion ( final HttpServerRequest request ) { removeZipParameter ( request ) ; handleExpansionRequest ( request , RecursiveHandlerFactory . RecursiveHandlerTypes . EXPANSION ) ; }\n",
+		"comment":"handles the request as if it is a recursive expansion ."
+	},
+	{
+		"MESIA":3.5649000005294105,
+		"code":"public static String gitTime ( Date time ) { long t = time . getTime ( ) / _NUM ; return Long . toString ( t ) ; }\n",
+		"comment":"get git time ( unix time ) basing on the date object"
+	},
+	{
+		"MESIA":3.6625793448494104,
+		"code":"public FileEntry createFile ( String name , byte [ ] content ) throws ForbiddenException , ConflictException , ServerException { if ( isRoot ( getVirtualFile ( ) ) ) { throw new ForbiddenException ( _STR ) ; } return createFile ( name , content == null ? null : new ByteArrayInputStream ( content ) ) ; }\n",
+		"comment":"creates new file in this folder ."
+	},
+	{
+		"MESIA":3.7370956851970587,
+		"code":"public Iterator < Resource > resourceIterator ( ) { return resourceList . iterator ( ) ; }\n",
+		"comment":"get an iterator over all resources in the method ."
+	},
+	{
+		"MESIA":3.805209960398411,
+		"code":"public void resolveUrls ( ) { try { pool = Executors . newFixedThreadPool ( numThreads ) ; BufferedReader buffRead = new BufferedReader ( new FileReader ( new File ( urlsFile ) ) ) ; String urlStr = null ; while ( ( urlStr = buffRead . readLine ( ) ) != null ) { LOG . info ( _STR + urlStr ) ; pool . execute ( new ResolverThread ( urlStr ) ) ; } buffRead . close ( ) ; pool . awaitTermination ( _NUM , TimeUnit . SECONDS ) ; } catch ( Exception e ) { pool . shutdownNow ( ) ; LOG . info ( StringUtils . stringifyException ( e ) ) ; } pool . shutdown ( ) ; LOG . info ( _STR + numTotal . get ( ) + _STR + numResolved . get ( ) + _STR + numErrored . get ( ) + _STR + totalTime . get ( ) / numTotal . get ( ) ) ; }\n",
+		"comment":"creates a thread pool for resolving urls ."
+	},
+	{
+		"MESIA":3.963591046166495,
+		"code":"public void clearTickMarkSections ( ) { tickMarkSections . clear ( ) ; fireUpdateEvent ( REDRAW_EVENT ) ; }\n",
+		"comment":"clears the list of tickmark sections ."
+	},
+	{
+		"MESIA":4.043434141865703,
+		"code":"public static String nowAsString ( ) { return Long . toString ( System . currentTimeMillis ( ) ) ; }\n",
+		"comment":"returns currenttimemillis as string"
+	},
+	{
+		"MESIA":4.162023206701883,
+		"code":"public static void showPanel ( ScriptingPanel panel , String [ ] args ) { showPanel ( panel , args , _NUM , _NUM ) ; }\n",
+		"comment":"displays the panel in a frame ."
+	},
+	{
+		"MESIA":4.263019446539954,
+		"code":"static boolean isFulfilling ( int m ) { return ( m & FULFILLING ) != _NUM ; }\n",
+		"comment":"returns true if m has fulfilling bit set ."
+	},
+	{
+		"MESIA":4.330269071360981,
+		"code":"public void notifySessionClosed ( ) { if ( LOGGER . isTraceEnabled ( ) ) LOGGER . logTrace ( this + _STR ) ; boolean notifyOfClosedEvent = _BOOL ; synchronized ( this ) { boolean alreadyTerminated = isTerminated ( ) ; Iterator < TransactionContext > it = allContexts . iterator ( ) ; while ( it . hasNext ( ) ) { TransactionContext b = ( TransactionContext ) it . next ( ) ; if ( LOGGER . isTraceEnabled ( ) ) LOGGER . logTrace ( this + _STR + b ) ; b . sessionClosed ( ) ; } closed = _BOOL ; if ( isTerminated ( ) && ! alreadyTerminated ) notifyOfClosedEvent = _BOOL ; } if ( notifyOfClosedEvent ) { if ( LOGGER . isTraceEnabled ( ) ) LOGGER . logTrace ( this + _STR ) ; fireTerminatedEvent ( ) ; } }\n",
+		"comment":"notification that the session handle has been closed by the application ."
+	},
+	{
+		"MESIA":4.413892740077084,
+		"code":"public void exitProgram ( ) { firePropertyChange ( _STR , null , null ) ; }\n",
+		"comment":"fires an event to close the program ."
+	},
+	{
+		"MESIA":4.551298373865475,
+		"code":"public static void verifiesAccessorMethods ( Class < ? > clazz , MappedField ... fields ) { verifyGetterMethods ( clazz , fields ) ; verifySetterMethods ( clazz , fields ) ; }\n",
+		"comment":"verifies that the accessor methods are compliant with the naming convention ."
+	},
+	{
+		"MESIA":4.620638359525004,
+		"code":"public static DbException wrapException ( String sql , Exception ex ) { SQLException e = DbException . toSQLException ( ex ) ; return DbException . get ( ErrorCode . ERROR_ACCESSING_LINKED_TABLE_2 , e , sql , e . toString ( ) ) ; }\n",
+		"comment":"wrap a sql exception that occurred while accessing a linked table ."
+	},
+	{
+		"MESIA":4.741746331756693,
+		"code":"public void registerService ( String serviceName , boolean createTemplate , boolean activate ) throws AMException , SSOException { if ( debug . messageEnabled ( ) ) { debug . message ( _STR + serviceName + _STR + createTemplate + _STR + activate + _STR ) ; } dsServices . registerService ( super . token , super . entryDN , serviceName ) ; Set serviceStatus = getAttribute ( SERVICE_STATUS_ATTRIBUTE ) ; if ( ! serviceStatus . equals ( Collections . EMPTY_SET ) ) { Iterator iter = serviceStatus . iterator ( ) ; while ( iter . hasNext ( ) ) { String status = ( String ) iter . next ( ) ; if ( status . equalsIgnoreCase ( serviceName ) ) { Object args [ ] = { serviceName } ; throw new AMException ( AMSDKBundle . getString ( _STR , args , super . locale ) , _STR , args ) ; } } } else { serviceStatus = new HashSet ( ) ; } serviceStatus . add ( serviceName ) ; setAttribute ( SERVICE_STATUS_ATTRIBUTE , serviceStatus ) ; try { store ( ) ; } catch ( AMException le ) { try { Set objectClass = getAttribute ( _STR ) ; if ( debug . messageEnabled ( ) ) { debug . message ( _STR + objectClass ) ; } if ( ! objectClass . contains ( _STR ) ) { objectClass . add ( _STR ) ; setAttribute ( _STR , objectClass ) ; setAttribute ( SERVICE_STATUS_ATTRIBUTE , serviceStatus ) ; store ( ) ; } else { throw le ; } } catch ( Exception e ) { if ( debug . messageEnabled ( ) ) { debug . message ( _STR , e ) ; } throw le ; } } if ( createTemplate ) { try { if ( AMServiceUtils . serviceHasSubSchema ( super . token , serviceName , SchemaType . POLICY ) ) { createTemplate ( AMTemplate . POLICY_TEMPLATE , serviceName , null ) ; } if ( AMServiceUtils . serviceHasSubSchema ( super . token , serviceName , SchemaType . DYNAMIC ) ) { createTemplate ( AMTemplate . DYNAMIC_TEMPLATE , serviceName , null ) ; } } catch ( SMSException smsex ) { throw new AMException ( AMSDKBundle . getString ( _STR , super . locale ) , _STR ) ; } } }\n",
+		"comment":"register a service for this organizational unit ."
+	},
+	{
+		"MESIA":4.834239038814197,
+		"code":"public void stop ( ) { if ( null != periodicTickTask ) { stopTask ( periodicTickTask ) ; } if ( null != periodicTickExecutorService ) { periodicTickExecutorService . shutdownNow ( ) ; } }\n",
+		"comment":"calling this method will stop all threads ."
+	},
+	{
+		"MESIA":4.9357441125075585,
+		"code":"@ Override public int hashCode ( ) { return _NUM * super . hashCode ( ) + _NUM * _host . hashCode ( ) + _port ; }\n",
+		"comment":"returns a hashcode for the path ."
+	},
+	{
+		"MESIA":5.067944176306956,
+		"code":"public void hide ( ) { mDismissed = _BOOL ; removeCallbacks ( mDelayedShow ) ; long diff = System . currentTimeMillis ( ) - mStartTime ; if ( diff >= MIN_SHOW_TIME || mStartTime == - _NUM ) { setVisibility ( View . GONE ) ; } else { if ( ! mPostedHide ) { postDelayed ( mDelayedHide , MIN_SHOW_TIME - diff ) ; mPostedHide = _BOOL ; } } }\n",
+		"comment":"hide the progress view if it is visible ."
+	},
+	{
+		"MESIA":5.139080545961502,
+		"code":"public String switchStagePath ( ) { return _STR + RelCoordinates . getRelCoords ( _NUM , _NUM ) + _STR + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + RelCoordinates . getRelCoords ( _NUM , _NUM , _NUM , _NUM ) + _STR ; }\n",
+		"comment":"to switch stage style after flag has been destroyed ."
+	},
+	{
+		"MESIA":5.2310834523613705,
+		"code":"public void notify ( PuzzleBuildingBlock sourceBlock ) { String qualifiedName = sourceBlock . getZoneName ( ) + SEP + sourceBlock . getName ( ) ; for ( String notifyName : notifies . get ( qualifiedName ) ) { PuzzleBuildingBlock targetBlock = buildingBlocks . get ( notifyName ) ; if ( targetBlock != null ) { targetBlock . onInputChanged ( ) ; } } }\n",
+		"comment":"notifies about property changes"
+	},
+	{
+		"MESIA":5.369814041622879,
+		"code":"private void removeLetter ( StringBuilder text ) { int length = text . codePointCount ( _NUM , text . length ( ) ) ; if ( length < _NUM ) { return ; } int index = Rand . rand ( length ) ; int chrIndex = text . offsetByCodePoints ( _NUM , index ) ; int chr = text . codePointAt ( chrIndex ) ; int toRemove = Character . charCount ( chr ) ; for ( int i = _NUM ; i < toRemove ; i ++ ) { text . deleteCharAt ( chrIndex ) ; } }\n",
+		"comment":"remove random letter from a stringbuilder , if it has at least length 2 ."
+	},
+	{
+		"MESIA":5.448022851788108,
+		"code":"void cleanupParameters ( String relayState ) { if ( debug . messageEnabled ( ) ) { debug . message ( _STR + _STR + relayState ) ; } relayStateMap . remove ( relayState ) ; userSessionMap . remove ( relayState ) ; userIDMap . remove ( relayState ) ; isSOAPInitiatedMap . remove ( relayState ) ; isSOAPInitiatedMap . remove ( relayState ) ; isIDPInitiatedMap . remove ( relayState ) ; origProtocolMap . remove ( relayState ) ; protocolListMap . remove ( relayState ) ; realmMap . remove ( relayState ) ; idpEntityIDMap . remove ( relayState ) ; spEntityIDMap . remove ( relayState ) ; sloRequestXMLMap . remove ( relayState ) ; sloResponseXMLMap . remove ( relayState ) ; currentStatusMap . remove ( relayState ) ; }\n",
+		"comment":"removes saved parameters from internal cache map"
+	},
+	{
+		"MESIA":5.519478589313619,
+		"code":"public final synchronized int maxPV ( ) { if ( computerPlayer == null ) return _NUM ; return computerPlayer . getMaxPV ( ) ; }\n",
+		"comment":"return maximum number of pvs supported by engine ."
+	},
+	{
+		"MESIA":5.63758067789623,
+		"code":"public boolean hasItems ( ) { return items != null && ! items . isEmpty ( ) ; }\n",
+		"comment":"indicates whether this dashboard has at least one item ."
+	},
+	{
+		"MESIA":5.717634050288135,
+		"code":"public boolean write ( byte [ ] buffer , int offset , int length ) { if ( length == _NUM ) { return _BOOL ; } int count = length / BLOCK_SIZE + _NUM ; if ( _tailAddress <= _index + length + PAD + _NUM * count ) { return _BOOL ; } _crc . update ( buffer , offset , length ) ; byte [ ] headerBuffer = _headerBuffer ; while ( length > _NUM ) { int sublen = Math . min ( length , BLOCK_SIZE ) ; BitsUtil . writeInt16 ( headerBuffer , _NUM , sublen ) ; writeImpl ( headerBuffer , _NUM , _NUM ) ; writeImpl ( buffer , offset , sublen ) ; length -= sublen ; offset += sublen ; } return _BOOL ; }\n",
+		"comment":"writes a partial journal entry ."
+	},
+	{
+		"MESIA":5.821478298702676,
+		"code":"private static Class < ? > findClass ( ClassLoader loader , Class < ? > clazz ) { final String name = clazz . getName ( ) ; if ( name . startsWith ( _STR ) || name . startsWith ( _STR ) ) return null ; String generatedClassName = generateRetainerClassName ( name ) ; try { if ( Akatsuki . loggingLevel == AkatsukiConfig . LoggingLevel . VERBOSE ) Log . i ( Akatsuki . TAG , _STR + clazz ) ; return Class . forName ( generatedClassName , _BOOL , loader ) ; } catch ( ClassNotFoundException e ) { return findClass ( loader , clazz . getSuperclass ( ) ) ; } }\n",
+		"comment":"traverse the class hierarchy to find correct bundleretainer"
+	},
+	{
+		"MESIA":5.966914431024753,
+		"code":"public void printTree ( PrintWriter p , Node node , int maxDepth , Node markNode ) { printTree ( p , node , maxDepth , markNode , _NUM ) ; p . println ( ) ; p . flush ( ) ; }\n",
+		"comment":"prints a textual ast display , one line per node , with nesting ."
+	},
+	{
+		"MESIA":6.068058427766289,
+		"code":"public void clear ( ) { vPreviousDecisions . clear ( ) ; }\n",
+		"comment":"clear existing decisions cache ."
+	},
+	{
+		"MESIA":6.103367432465718,
+		"code":"public void printComment ( Mark start , Mark stop , char [ ] chars ) { if ( start != null && stop != null ) { println ( _STR + start ) ; println ( _STR + stop ) ; } if ( chars != null ) for ( int i = _NUM ; i < chars . length ; ) { printin ( ) ; print ( _STR ) ; while ( chars [ i ] != _STR && i < chars . length ) writer . print ( chars [ i ++ ] ) ; } }\n",
+		"comment":"print a standard comment for echo outputed chunk ."
+	},
+	{
+		"MESIA":6.2532737123823825,
+		"code":"public void cancelAll ( ) { endpoint . cancelAll ( ) ; }\n",
+		"comment":"cancel all observer relations that this server has established with this ' realtion ' s endpoint ."
+	},
+	{
+		"MESIA":6.365474959319052,
+		"code":"public static void closeQuiet ( @ Nullable SelectionKey rsrc ) { if ( rsrc != null ) closeQuiet ( rsrc . channel ( ) ) ; }\n",
+		"comment":"quietly closes given resource ignoring possible checked exceptions ."
+	},
+	{
+		"MESIA":6.431465935283842,
+		"code":"protected void drawWaferEdge ( Graphics2D g2 , Rectangle2D plotArea ) { Ellipse2D waferEdge = getWaferEdge ( plotArea ) ; g2 . setColor ( Color . black ) ; g2 . draw ( waferEdge ) ; Arc2D notch ; Rectangle2D waferFrame = waferEdge . getFrame ( ) ; double notchDiameter = waferFrame . getWidth ( ) * _NUM ; if ( this . orientation == PlotOrientation . HORIZONTAL ) { Rectangle2D notchFrame = new Rectangle2D . Double ( waferFrame . getX ( ) + waferFrame . getWidth ( ) - ( notchDiameter / _NUM ) , waferFrame . getY ( ) + ( waferFrame . getHeight ( ) / _NUM ) - ( notchDiameter / _NUM ) , notchDiameter , notchDiameter ) ; notch = new Arc2D . Double ( notchFrame , _NUM , _NUM , Arc2D . OPEN ) ; } else { Rectangle2D notchFrame = new Rectangle2D . Double ( waferFrame . getX ( ) + ( waferFrame . getWidth ( ) / _NUM ) - ( notchDiameter / _NUM ) , waferFrame . getY ( ) + waferFrame . getHeight ( ) - ( notchDiameter / _NUM ) , notchDiameter , notchDiameter ) ; notch = new Arc2D . Double ( notchFrame , _NUM , _NUM , Arc2D . OPEN ) ; } g2 . setColor ( Color . white ) ; g2 . fill ( notch ) ; g2 . setColor ( Color . black ) ; g2 . draw ( notch ) ; }\n",
+		"comment":"draws the waferedge , including the notch ."
+	},
+	{
+		"MESIA":6.55924132592792,
+		"code":"public BigDecimal sum ( String sqlExpression ) { return aggregate ( sqlExpression , AGGREGATE_SUM ) ; }\n",
+		"comment":"sum sqlexpression for items that match query criteria"
+	},
+	{
+		"MESIA":6.60325352852373,
+		"code":"public void removeSite ( Site site ) { coordinator . removeServiceConfiguration ( site . toConfiguration ( ) ) ; coordinator . deletePath ( getSitePath ( site . getUuid ( ) ) ) ; ConfigurationImpl sitePropsCfg = new ConfigurationImpl ( ) ; sitePropsCfg . setId ( site . getUuid ( ) ) ; sitePropsCfg . setKind ( PropertyInfoExt . TARGET_PROPERTY ) ; coordinator . removeServiceConfiguration ( sitePropsCfg ) ; log . info ( _STR , site . getUuid ( ) ) ; }\n",
+		"comment":"will remove 3 znodes : 1 ."
+	},
+	{
+		"MESIA":6.716054109030341,
+		"code":"final boolean close ( ) { return ! closed . getAndSet ( _BOOL ) ; }\n",
+		"comment":"logically closes this invocation handler ."
+	},
+	{
+		"MESIA":6.818896459581894,
+		"code":"public static int poissonRand ( double xm ) { double sqrt2xm , logxm , expxm , g ; double t , y ; int k ; if ( xm < _NUM ) { expxm = Math . exp ( - xm ) ; k = - _NUM ; t = _NUM ; do { k ++ ; t *= uniformRand ( ) ; } while ( t > expxm ) ; } else { sqrt2xm = Math . sqrt ( _NUM * xm ) ; logxm = Math . log ( xm ) ; g = xm * logxm - lngamma ( xm + _NUM ) ; do { do { y = Math . tan ( Math . PI * uniformRand ( ) ) ; k = ( int ) Math . floor ( sqrt2xm * y + xm ) ; } while ( k < _NUM ) ; t = _NUM * ( _NUM + y * y ) * Math . exp ( k * logxm - lngamma ( ( double ) k + _NUM ) - g ) ; } while ( uniformRand ( ) > t ) ; } return ( k ) ; }\n",
+		"comment":"poisson random generator from numerical recipes"
+	},
+	{
+		"MESIA":6.93545698874771,
+		"code":"public void dump ( String infoMsg ) { storage . getOnlineMembers ( ) ; storage . getOfflineMembers ( ) ; storage . getOfflineAndEqualMembers ( ) ; storage . getMyInitializingID ( ) ; storage . getMyPersistentID ( ) ; final StringBuilder buf = new StringBuilder ( _NUM ) ; if ( infoMsg != null ) { buf . append ( infoMsg ) ; buf . append ( _STR ) ; } buf . append ( _STR ) ; buf . append ( storage . getMyPersistentID ( ) ) ; buf . append ( _STR ) ; buf . append ( storage . getMyInitializingID ( ) ) ; buf . append ( _STR ) ; for ( PersistentMemberID id : storage . getOnlineMembers ( ) ) { buf . append ( _STR ) ; buf . append ( id ) ; buf . append ( _STR ) ; } buf . append ( _STR ) ; for ( PersistentMemberID id : storage . getOfflineMembers ( ) ) { buf . append ( _STR ) ; buf . append ( id ) ; buf . append ( _STR ) ; } buf . append ( _STR ) ; for ( PersistentMemberID id : storage . getOfflineAndEqualMembers ( ) ) { buf . append ( _STR ) ; buf . append ( id ) ; buf . append ( _STR ) ; } logger . debug ( buf . toString ( ) ) ; }\n",
+		"comment":"callers should have already verified that debug output is enabled ."
+	},
+	{
+		"MESIA":7.03341229505225,
+		"code":"public void stop ( ) { clearCache ( ) ; if ( worker == null && conn == null ) { return ; } if ( looper != null ) { looper . quit ( ) ; } if ( worker != null ) { worker . interrupt ( ) ; try { worker . join ( ) ; } catch ( InterruptedException e ) { Log . i ( TAG , _STR ) ; e . printStackTrace ( ) ; worker . stop ( ) ; } worker = null ; } if ( bos != null ) { try { bos . close ( ) ; } catch ( IOException e ) { Log . i ( TAG , _STR ) ; e . printStackTrace ( ) ; } bos = null ; } if ( conn != null ) { conn . disconnect ( ) ; conn = null ; } Log . i ( TAG , String . format ( _STR , url ) ) ; }\n",
+		"comment":"stop the muxer , disconnect http connection from srs ."
+	},
+	{
+		"MESIA":7.187524304742052,
+		"code":"public static double stringToDouble ( String d ) { if ( d . equalsIgnoreCase ( P_INF ) ) return Double . POSITIVE_INFINITY ; else if ( d . equalsIgnoreCase ( N_INF ) ) return Double . NEGATIVE_INFINITY ; else return Double . parseDouble ( d ) ; }\n",
+		"comment":"redis specific manner to parse floats"
+	},
+	{
+		"MESIA":7.208311356293665,
+		"code":"public synchronized void start ( ) throws RemoteException { if ( ! isRunning ( ) ) { if ( ssf != null ) { registry = LocateRegistry . createRegistry ( port , null , ssf ) ; } else { registry = LocateRegistry . createRegistry ( port ) ; } isRunning = _BOOL ; } }\n",
+		"comment":"starts this mbean : rmiregistry can now accept incoming calls"
+	},
+	{
+		"MESIA":7.3237076329355855,
+		"code":"public static Issuer createIssuer ( String entityID ) throws SAML2Exception { String method = _STR ; Issuer issuer = assertionFactory . createIssuer ( ) ; issuer . setValue ( entityID ) ; if ( debug . messageEnabled ( ) ) { debug . message ( method + _STR + issuer . toXMLString ( ) ) ; } return issuer ; }\n",
+		"comment":"returns url for redirection ."
+	},
+	{
+		"MESIA":7.407236698041486,
+		"code":"public static void d ( String tag , String s , Object ... args ) { if ( LDJSLOG . DEBUG >= LOGLEVEL ) Log . d ( tag , String . format ( s , args ) ) ; }\n",
+		"comment":"debug log message with printf formatting ."
+	},
+	{
+		"MESIA":7.518215229187423,
+		"code":"public static boolean isMac ( ) { String osName = System . getProperty ( _STR ) ; osName = osName . toLowerCase ( ) ; return osName . indexOf ( _STR ) != - _NUM ; }\n",
+		"comment":"do we run on apple"
+	},
+	{
+		"MESIA":7.638381532480315,
+		"code":"private void gc ( ) throws Exception { Runtime rt = Runtime . getRuntime ( ) ; long freeMem0 = rt . freeMemory ( ) ; long freeMem = Long . MAX_VALUE ; int cnt = _NUM ; while ( freeMem0 < freeMem && cnt < GC_CALL_CNT ) { System . gc ( ) ; U . sleep ( WAIT_TIME ) ; cnt ++ ; freeMem = freeMem0 ; freeMem0 = rt . freeMemory ( ) ; } }\n",
+		"comment":"calls garbage collector and wait ."
+	},
+	{
+		"MESIA":7.730056178584801,
+		"code":"@ Override public void removeAttributeNS ( String namespaceURI , String localName ) { if ( ownerDocument . errorChecking && isReadOnly ( ) ) { String msg = DOMMessageFormatter . formatMessage ( DOMMessageFormatter . DOM_DOMAIN , _STR , null ) ; throw new DOMException ( DOMException . NO_MODIFICATION_ALLOWED_ERR , msg ) ; } if ( needsSyncData ( ) ) { synchronizeData ( ) ; } if ( attributes == null ) { return ; } attributes . safeRemoveNamedItemNS ( namespaceURI , localName ) ; }\n",
+		"comment":"introduced in dom level 2 ."
+	},
+	{
+		"MESIA":7.80888031683944,
+		"code":"public void doSendEmail ( EmailParams emailParams ) throws IOException { List < String > filterDomains = new ArrayList < > ( ) ; filterDomains . add ( _STR ) ; filterDomains . add ( _STR ) ; filterDomains . add ( _STR ) ; filterDomains . add ( _STR ) ; filterDomains . add ( _STR ) ; sendViaSendcloudApi ( emailParams ) ; }\n",
+		"comment":"invoked from rabbitmq message handler"
+	},
+	{
+		"MESIA":7.906648327773716,
+		"code":"public void pushDrawListHead ( PspGeList list ) { synchronized ( drawListQueue ) { int arraySize = drawListQueue . size ( ) ; if ( arraySize > _NUM ) { PspGeList [ ] array = drawListQueue . toArray ( new PspGeList [ arraySize ] ) ; ConcurrentLinkedQueue < PspGeList > newQueue = new ConcurrentLinkedQueue < PspGeList > ( ) ; PspGeList [ ] newArray = new PspGeList [ arraySize + _NUM ] ; newArray [ _NUM ] = list ; for ( int i = _NUM ; i < arraySize ; i ++ ) { newArray [ i + _NUM ] = array [ i ] ; newQueue . add ( newArray [ i ] ) ; } drawListQueue = newQueue ; } else { drawListQueue . add ( list ) ; } } }\n",
+		"comment":"called from pspge module"
+	},
+	{
+		"MESIA":8.018492147750708,
+		"code":"public static StringBuffer encode ( StringBuffer src , boolean [ ] caseFlags ) throws ParseException { int [ ] cpBuffer = new int [ MAX_CP_COUNT ] ; int n , delta , handledCPCount , basicLength , destLength , bias , j , m , q , k , t , srcCPCount ; char c , c2 ; int srcLength = src . length ( ) ; int destCapacity = MAX_CP_COUNT ; char [ ] dest = new char [ destCapacity ] ; StringBuffer result = new StringBuffer ( ) ; srcCPCount = destLength = _NUM ; for ( j = _NUM ; j < srcLength ; ++ j ) { if ( srcCPCount == MAX_CP_COUNT ) { throw new IndexOutOfBoundsException ( ) ; } c = src . charAt ( j ) ; if ( isBasic ( c ) ) { if ( destLength < destCapacity ) { cpBuffer [ srcCPCount ++ ] = _NUM ; dest [ destLength ] = caseFlags != null ? asciiCaseMap ( c , caseFlags [ j ] ) : c ; } ++ destLength ; } else { n = ( ( caseFlags != null && caseFlags [ j ] ) ? _NUM : _NUM ) << _NUM ; if ( ! UTF16 . isSurrogate ( c ) ) { n |= c ; } else if ( UTF16 . isLeadSurrogate ( c ) && ( j + _NUM ) < srcLength && UTF16 . isTrailSurrogate ( c2 = src . charAt ( j + _NUM ) ) ) { ++ j ; n |= UCharacter . getCodePoint ( c , c2 ) ; } else { throw new ParseException ( _STR , - _NUM ) ; } cpBuffer [ srcCPCount ++ ] = n ; } } basicLength = destLength ; if ( basicLength > _NUM ) { if ( destLength < destCapacity ) { dest [ destLength ] = DELIMITER ; } ++ destLength ; } n = INITIAL_N ; delta = _NUM ; bias = INITIAL_BIAS ; for ( handledCPCount = basicLength ; handledCPCount < srcCPCount ; ) { for ( m = _NUM , j = _NUM ; j < srcCPCount ; ++ j ) { q = cpBuffer [ j ] & _NUM ; if ( n <= q && q < m ) { m = q ; } } if ( m - n > ( _NUM - MAX_CP_COUNT - delta ) / ( handledCPCount + _NUM ) ) { throw new RuntimeException ( _STR ) ; } delta += ( m - n ) * ( handledCPCount + _NUM ) ; n = m ; for ( j = _NUM ; j < srcCPCount ; ++ j ) { q = cpBuffer [ j ] & _NUM ; if ( q < n ) { ++ delta ; } else if ( q == n ) { for ( q = delta , k = BASE ; ; k += BASE ) { t = k - bias ; if ( t < TMIN ) { t = TMIN ; } else if ( k >= ( bias + TMAX ) ) { t = TMAX ; } if ( q < t ) { break ; } if ( destLength < destCapacity ) { dest [ destLength ++ ] = digitToBasic ( t + ( q - t ) % ( BASE - t ) , _BOOL ) ; } q = ( q - t ) / ( BASE - t ) ; } if ( destLength < destCapacity ) { dest [ destLength ++ ] = digitToBasic ( q , ( cpBuffer [ j ] < _NUM ) ) ; } bias = adaptBias ( delta , handledCPCount + _NUM , ( handledCPCount == basicLength ) ) ; delta = _NUM ; ++ handledCPCount ; } } ++ delta ; ++ n ; } return result . append ( dest , _NUM , destLength ) ; }\n",
+		"comment":"converts unicode to punycode ."
+	},
+	{
+		"MESIA":8.148133665602085,
+		"code":"public void init ( ) { _tokenMgmtExecutor . scheduleWithFixedDelay ( new ExpiredTokenCleaner ( ) , _NUM , _maxLifeValuesHolder . getMaxTokenIdleTimeInMins ( ) , TimeUnit . MINUTES ) ; _tokenMgmtExecutor . scheduleWithFixedDelay ( new TokenKeysUpdater ( ) , _NUM , FOREIGN_TOKEN_KEYS_BUNDLE_REFRESH_RATE_IN_MINS , TimeUnit . MINUTES ) ; }\n",
+		"comment":"initializer , startup the background expired token deletion thread and key updater thread ( no op unless multi vdc )"
+	},
+	{
+		"MESIA":8.205457984724402,
+		"code":"public void childrenRemoved ( BeanContextMembershipEvent bcme ) { Iterator < ? > it = bcme . iterator ( ) ; while ( it . hasNext ( ) ) { findAndUndo ( it . next ( ) ) ; } }\n",
+		"comment":"beancontextmembership interface method ."
+	},
+	{
+		"MESIA":8.314587097291566,
+		"code":"public void await ( ) throws InterruptedException { connectionFactory . join ( ) ; }\n",
+		"comment":"blocks until zookeeper terminates ."
+	},
+	{
+		"MESIA":8.412666483986323,
+		"code":"public void done ( ) { m_TrainingData = null ; if ( m_NumIterationsPerformed > _NUM ) { m_ZeroR = null ; } }\n",
+		"comment":"clean up after boosting ."
+	},
+	{
+		"MESIA":8.571662080947105,
+		"code":"public void projectionChanged ( ProjectionEvent e ) { Projection newProj = e . getProjection ( ) ; if ( ! projection . equals ( newProj ) ) { setProjection ( newProj ) ; } }\n",
+		"comment":"projectionlistener interface method ."
+	},
+	{
+		"MESIA":8.648436613025297,
+		"code":"public static Boolean isLockGrantor ( String serviceName ) { DLockService service = ( DLockService ) DistributedLockService . getServiceNamed ( serviceName ) ; assertNotNull ( service ) ; Boolean result = Boolean . valueOf ( service . isLockGrantor ( ) ) ; logInfo ( _STR + result ) ; return result ; }\n",
+		"comment":"accessed via reflection ."
+	},
+	{
+		"MESIA":8.703391488802117,
+		"code":"private int cleanUp ( ) { if ( log . isDebugEnabled ( ) ) { log . debug ( _STR + fileNames ) ; } String killTask = CommandBuilder . stopTask ( fileNames ) ; log . debug ( _STR + killTask ) ; int exitCode = ProcessUtils . executeCommand ( killTask , null ) ; log . debug ( _STR + exitCode ) ; if ( exitCode != _NUM ) { exitCode = linuxKill ( fileNames ) ; } return exitCode ; }\n",
+		"comment":"stop docker - compose force remove docker images"
+	},
+	{
+		"MESIA":8.802711141133754,
+		"code":"public void componentResized ( ComponentEvent e ) { if ( logger . isLoggable ( Level . FINE ) ) { logger . fine ( _STR + getWidth ( ) + _STR + getHeight ( ) ) ; } projection . setWidth ( getWidth ( ) ) ; projection . setHeight ( getHeight ( ) ) ; fireProjectionChanged ( ) ; }\n",
+		"comment":"componentlistener interface method ."
+	},
+	{
+		"MESIA":8.936259498989026,
+		"code":"public double totalStability ( ) { double stability = excessOfMass ( ) ; double cstab = _NUM ; for ( TempCluster child : children ) { cstab += Math . abs ( child . totalStability ( ) ) ; } return stability > cstab ? stability : - cstab ; }\n",
+		"comment":"excess of mass measure ."
+	},
+	{
+		"MESIA":9.057248374560464,
+		"code":"public void stop ( ) { if ( trimTask != null ) { trimTask . cancel ( ) ; } }\n",
+		"comment":"cease measuring or reporting statistics ."
+	},
+	{
+		"MESIA":9.113074052518268,
+		"code":"public static final double sigma ( double a ) { return _NUM / ( _NUM + Math . exp ( - a ) ) ; }\n",
+		"comment":"sigmoid / logistic function"
+	},
+	{
+		"MESIA":9.289167737497651,
+		"code":"int fp1 ( int level ) { Object x = null ; if ( level > _NUM ) x = new Object ( ) ; if ( level > _NUM ) return x . hashCode ( ) ; return _NUM ; }\n",
+		"comment":"benchmark tests for null pointer defect detectors this benchmark tests local variable tracking tracking fp1 , fp2 , fp3 : false positives tp1 : true positive ifp1 : interprocedural false positives itp1 , itp2 , itp3 : interprocedural true positives"
+	},
+	{
+		"MESIA":9.333303312368564,
+		"code":"public static Calendar updated ( Calendar self , Map < Object , Integer > updates ) { Calendar result = ( Calendar ) self . clone ( ) ; set ( result , updates ) ; return result ; }\n",
+		"comment":"legacy alias for copywith ."
+	},
+	{
+		"MESIA":9.477354933463069,
+		"code":"public synchronized void onDrawFrame ( GL10 gl ) { if ( DRAW_TEXTURE && mTextureIds == null ) { mTextureIds = new int [ _NUM ] ; gl . glGenTextures ( _NUM , mTextureIds , _NUM ) ; for ( int textureId : mTextureIds ) { gl . glBindTexture ( GL10 . GL_TEXTURE_2D , textureId ) ; gl . glTexParameterf ( GL10 . GL_TEXTURE_2D , GL10 . GL_TEXTURE_MIN_FILTER , GL10 . GL_NEAREST ) ; gl . glTexParameterf ( GL10 . GL_TEXTURE_2D , GL10 . GL_TEXTURE_MAG_FILTER , GL10 . GL_NEAREST ) ; gl . glTexParameterf ( GL10 . GL_TEXTURE_2D , GL10 . GL_TEXTURE_WRAP_S , GL10 . GL_CLAMP_TO_EDGE ) ; gl . glTexParameterf ( GL10 . GL_TEXTURE_2D , GL10 . GL_TEXTURE_WRAP_T , GL10 . GL_CLAMP_TO_EDGE ) ; } } if ( DRAW_TEXTURE && mTexturePage . getTexturesChanged ( ) ) { gl . glBindTexture ( GL10 . GL_TEXTURE_2D , mTextureIds [ _NUM ] ) ; Bitmap texture = mTexturePage . getTexture ( mTextureRectFront , CurlPage . SIDE_FRONT ) ; GLUtils . texImage2D ( GL10 . GL_TEXTURE_2D , _NUM , texture , _NUM ) ; texture . recycle ( ) ; mTextureBack = mTexturePage . hasBackTexture ( ) ; if ( mTextureBack ) { gl . glBindTexture ( GL10 . GL_TEXTURE_2D , mTextureIds [ _NUM ] ) ; texture = mTexturePage . getTexture ( mTextureRectBack , CurlPage . SIDE_BACK ) ; GLUtils . texImage2D ( GL10 . GL_TEXTURE_2D , _NUM , texture , _NUM ) ; texture . recycle ( ) ; } else { mTextureRectBack . set ( mTextureRectFront ) ; } mTexturePage . recycle ( ) ; reset ( ) ; } gl . glEnableClientState ( GL10 . GL_VERTEX_ARRAY ) ; if ( DRAW_SHADOW ) { gl . glDisable ( GL10 . GL_TEXTURE_2D ) ; gl . glEnable ( GL10 . GL_BLEND ) ; gl . glBlendFunc ( GL10 . GL_SRC_ALPHA , GL10 . GL_ONE_MINUS_SRC_ALPHA ) ; gl . glEnableClientState ( GL10 . GL_COLOR_ARRAY ) ; gl . glColorPointer ( _NUM , GL10 . GL_FLOAT , _NUM , mBufShadowColors ) ; gl . glVertexPointer ( _NUM , GL10 . GL_FLOAT , _NUM , mBufShadowVertices ) ; gl . glDrawArrays ( GL10 . GL_TRIANGLE_STRIP , _NUM , mDropShadowCount ) ; gl . glDisableClientState ( GL10 . GL_COLOR_ARRAY ) ; gl . glDisable ( GL10 . GL_BLEND ) ; } if ( DRAW_TEXTURE ) { gl . glEnableClientState ( GL10 . GL_TEXTURE_COORD_ARRAY ) ; gl . glTexCoordPointer ( _NUM , GL10 . GL_FLOAT , _NUM , mBufTexCoords ) ; } gl . glVertexPointer ( _NUM , GL10 . GL_FLOAT , _NUM , mBufVertices ) ; gl . glEnableClientState ( GL10 . GL_COLOR_ARRAY ) ; gl . glColorPointer ( _NUM , GL10 . GL_FLOAT , _NUM , mBufColors ) ; gl . glDisable ( GL10 . GL_TEXTURE_2D ) ; gl . glDrawArrays ( GL10 . GL_TRIANGLE_STRIP , _NUM , mVerticesCountFront ) ; if ( DRAW_TEXTURE ) { gl . glEnable ( GL10 . GL_BLEND ) ; gl . glEnable ( GL10 . GL_TEXTURE_2D ) ; if ( ! mFlipTexture || ! mTextureBack ) { gl . glBindTexture ( GL10 . GL_TEXTURE_2D , mTextureIds [ _NUM ] ) ; } else { gl . glBindTexture ( GL10 . GL_TEXTURE_2D , mTextureIds [ _NUM ] ) ; } gl . glBlendFunc ( GL10 . GL_SRC_ALPHA , GL10 . GL_ONE_MINUS_SRC_ALPHA ) ; gl . glDrawArrays ( GL10 . GL_TRIANGLE_STRIP , _NUM , mVerticesCountFront ) ; gl . glDisable ( GL10 . GL_BLEND ) ; gl . glDisable ( GL10 . GL_TEXTURE_2D ) ; } int backStartIdx = Math . max ( _NUM , mVerticesCountFront - _NUM ) ; int backCount = mVerticesCountFront + mVerticesCountBack - backStartIdx ; gl . glDrawArrays ( GL10 . GL_TRIANGLE_STRIP , backStartIdx , backCount ) ; if ( DRAW_TEXTURE ) { gl . glEnable ( GL10 . GL_BLEND ) ; gl . glEnable ( GL10 . GL_TEXTURE_2D ) ; if ( mFlipTexture || ! mTextureBack ) { gl . glBindTexture ( GL10 . GL_TEXTURE_2D , mTextureIds [ _NUM ] ) ; } else { gl . glBindTexture ( GL10 . GL_TEXTURE_2D , mTextureIds [ _NUM ] ) ; } gl . glBlendFunc ( GL10 . GL_SRC_ALPHA , GL10 . GL_ONE_MINUS_SRC_ALPHA ) ; gl . glDrawArrays ( GL10 . GL_TRIANGLE_STRIP , backStartIdx , backCount ) ; gl . glDisable ( GL10 . GL_BLEND ) ; gl . glDisable ( GL10 . GL_TEXTURE_2D ) ; } gl . glDisableClientState ( GL10 . GL_TEXTURE_COORD_ARRAY ) ; gl . glDisableClientState ( GL10 . GL_COLOR_ARRAY ) ; if ( DRAW_POLYGON_OUTLINES ) { gl . glEnable ( GL10 . GL_BLEND ) ; gl . glBlendFunc ( GL10 . GL_SRC_ALPHA , GL10 . GL_ONE_MINUS_SRC_ALPHA ) ; gl . glLineWidth ( _NUM ) ; gl . glColor4f ( _NUM , _NUM , _NUM , _NUM ) ; gl . glVertexPointer ( _NUM , GL10 . GL_FLOAT , _NUM , mBufVertices ) ; gl . glDrawArrays ( GL10 . GL_LINE_STRIP , _NUM , mVerticesCountFront ) ; gl . glDisable ( GL10 . GL_BLEND ) ; } if ( DRAW_CURL_POSITION ) { gl . glEnable ( GL10 . GL_BLEND ) ; gl . glBlendFunc ( GL10 . GL_SRC_ALPHA , GL10 . GL_ONE_MINUS_SRC_ALPHA ) ; gl . glLineWidth ( _NUM ) ; gl . glColor4f ( _NUM , _NUM , _NUM , _NUM ) ; gl . glVertexPointer ( _NUM , GL10 . GL_FLOAT , _NUM , mBufCurlPositionLines ) ; gl . glDrawArrays ( GL10 . GL_LINES , _NUM , mCurlPositionLinesCount * _NUM ) ; gl . glDisable ( GL10 . GL_BLEND ) ; } if ( DRAW_SHADOW ) { gl . glEnable ( GL10 . GL_BLEND ) ; gl . glBlendFunc ( GL10 . GL_SRC_ALPHA , GL10 . GL_ONE_MINUS_SRC_ALPHA ) ; gl . glEnableClientState ( GL10 . GL_COLOR_ARRAY ) ; gl . glColorPointer ( _NUM , GL10 . GL_FLOAT , _NUM , mBufShadowColors ) ; gl . glVertexPointer ( _NUM , GL10 . GL_FLOAT , _NUM , mBufShadowVertices ) ; gl . glDrawArrays ( GL10 . GL_TRIANGLE_STRIP , mDropShadowCount , mSelfShadowCount ) ; gl . glDisableClientState ( GL10 . GL_COLOR_ARRAY ) ; gl . glDisable ( GL10 . GL_BLEND ) ; } gl . glDisableClientState ( GL10 . GL_VERTEX_ARRAY ) ; }\n",
+		"comment":"renders our page curl mesh ."
+	},
+	{
+		"MESIA":9.572084569784428,
+		"code":"public static double tCdf ( double x , double df ) { double t , y , b , a , z , j , n , cdf ; n = df ; z = _NUM ; t = x * x ; y = t / n ; b = _NUM + y ; if ( ( n > Math . floor ( n ) ) || ( ( n >= _NUM ) && ( t < n ) ) || ( n > _NUM ) ) { if ( ( n < _NUM ) && ( n != _NUM ) ) { double da = _NUM , db = _NUM * n , dx , dp ; dx = db / ( db + da * t ) ; dp = betaCdf ( dx , db , da ) ; cdf = ( x >= _NUM ) ? _NUM - _NUM * dp : _NUM * dp ; } else { if ( y > TOL ) { y = Math . log ( b ) ; } a = n - _NUM ; b = _NUM * a * a ; y = a * y ; y = ( ( ( ( ( - _NUM * y - _NUM ) * y - _NUM ) * y - _NUM ) / ( _NUM * y * y + _NUM + b ) + y + _NUM ) / b + _NUM ) * Math . sqrt ( y ) ; y = - _NUM * y ; cdf = normalCdf ( y ) ; if ( x > _NUM ) { cdf = _NUM - cdf ; } } } else { if ( ( n < _NUM ) && ( t < _NUM ) ) { a = Math . sqrt ( y ) ; y = a ; if ( n == _NUM ) { a = _NUM ; } } else { a = Math . sqrt ( b ) ; y = a * n ; for ( j = _NUM ; Math . abs ( a - z ) > TOL ; j += _NUM ) { z = a ; y = ( y * ( j - _NUM ) ) / ( b * j ) ; a = a + y / ( n + j ) ; } n += _NUM ; z = _NUM ; y = _NUM ; a = - a ; } for ( n = n - _NUM ; n > _NUM ; n -= _NUM ) { a = ( ( n - _NUM ) / ( b * n ) ) * a + y ; } a = ( Math . abs ( n ) < TOL ) ? a / Math . sqrt ( b ) : TWOVRPI * ( Math . atan ( y ) + a / b ) ; cdf = z - a ; if ( x > _NUM ) { cdf = _NUM - _NUM * cdf ; } else { cdf = _NUM * cdf ; } } return cdf ; }\n",
+		"comment":"cacm algorithm 395 , by g ."
+	},
+	{
+		"MESIA":9.653232903412864,
+		"code":"public final int readInt ( ) throws IOException { mPosition += _NUM ; d . readFully ( w , _NUM , _NUM ) ; return ( w [ _NUM ] ) << _NUM | ( w [ _NUM ] & _NUM ) << _NUM | ( w [ _NUM ] & _NUM ) << _NUM | ( w [ _NUM ] & _NUM ) ; }\n",
+		"comment":"like datainputstream . readint except little endian ."
+	},
+	{
+		"MESIA":9.752166804492594,
+		"code":"public void startTransaction ( ) throws SQLException { final boolean isAutoCommit = m_connection . getAutoCommit ( ) ; if ( isAutoCommit ) { m_connection . setAutoCommit ( _BOOL ) ; m_returnAutoCommit = _BOOL ; } }\n",
+		"comment":"turn off autocommit ."
+	},
+	{
+		"MESIA":9.86976321280813,
+		"code":"@ Override protected Object [ ] availableIDsArray ( ) { LinkedList retVal = new LinkedList ( ) ; retVal . addAll ( this . durableIDsList ) ; retVal . addAll ( idsAvailable ) ; return retVal . toArray ( ) ; }\n",
+		"comment":"caller must hold rwlock"
+	},
+	{
+		"MESIA":9.970816333588669,
+		"code":"public static void log ( CompilerMessage m , String path , int line , int column ) { m . path = path ; m . line = line ; m . column = column ; log ( m ) ; }\n",
+		"comment":"avoid passthrough ctors in compilermessages"
+	},
+]

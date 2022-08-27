@@ -1,0 +1,502 @@
+[
+	{
+		"code":"public void saveRuntimeInfoInJSONFormat ( String fileName ) throws DMLRuntimeException , IOException { String json = getRuntimeInfoInJSONFormat ( ) ; BufferedWriter bw = new BufferedWriter ( new FileWriter ( fileName ) ) ; bw . write ( json ) ; bw . close ( ) ; }\n",
+		"comment":"useful to avoid passing large string through py4j",
+		"score":2
+	},
+	{
+		"code":"public void writeToFile ( String filename ) { GridUtils . writeSpatialGridTable ( this , filename ) ; }\n",
+		"comment":"just for debugging convenience",
+		"score":2
+	},
+	{
+		"code":"private void assertBackupStatus ( final BackupStatus backupStatus ) { Map < DistributedMember , Set < PersistentID > > backupMap = backupStatus . getBackedUpDiskStores ( ) ; assertFalse ( backupMap . isEmpty ( ) ) ; for ( DistributedMember member : backupMap . keySet ( ) ) { for ( PersistentID id : backupMap . get ( member ) ) { assertNotNull ( id . getHost ( ) ) ; assertNotNull ( id . getUUID ( ) ) ; assertNotNull ( id . getDirectory ( ) ) ; } } }\n",
+		"comment":"used to confirm valid backupstatus data .",
+		"score":2
+	},
+	{
+		"code":"public String displayStructureAsXML ( ) { return _STR ; }\n",
+		"comment":"optional debugging method .",
+		"score":1
+	},
+	{
+		"code":"public VCardBuilder appendNameProperties ( final List < ContentValues > contentValuesList ) { if ( VCardConfig . isVersion40 ( mVCardType ) ) { return appendNamePropertiesV40 ( contentValuesList ) ; } if ( contentValuesList == null || contentValuesList . isEmpty ( ) ) { if ( VCardConfig . isVersion30 ( mVCardType ) ) { appendLine ( VCardConstants . PROPERTY_N , _STR ) ; appendLine ( VCardConstants . PROPERTY_FN , _STR ) ; } else if ( mIsDoCoMo ) { appendLine ( VCardConstants . PROPERTY_N , _STR ) ; } return this ; } final ContentValues contentValues = getPrimaryContentValueWithStructuredName ( contentValuesList ) ; final String familyName = contentValues . getAsString ( StructuredName . FAMILY_NAME ) ; final String middleName = contentValues . getAsString ( StructuredName . MIDDLE_NAME ) ; final String givenName = contentValues . getAsString ( StructuredName . GIVEN_NAME ) ; final String prefix = contentValues . getAsString ( StructuredName . PREFIX ) ; final String suffix = contentValues . getAsString ( StructuredName . SUFFIX ) ; final String displayName = contentValues . getAsString ( StructuredName . DISPLAY_NAME ) ; if ( ! TextUtils . isEmpty ( familyName ) || ! TextUtils . isEmpty ( givenName ) ) { final boolean reallyAppendCharsetParameterToName = shouldAppendCharsetParam ( familyName , givenName , middleName , prefix , suffix ) ; final boolean reallyUseQuotedPrintableToName = ( ! mRefrainsQPToNameProperties && ! ( VCardUtils . containsOnlyNonCrLfPrintableAscii ( familyName ) && VCardUtils . containsOnlyNonCrLfPrintableAscii ( givenName ) && VCardUtils . containsOnlyNonCrLfPrintableAscii ( middleName ) && VCardUtils . containsOnlyNonCrLfPrintableAscii ( prefix ) && VCardUtils . containsOnlyNonCrLfPrintableAscii ( suffix ) ) ) ; final String formattedName ; if ( ! TextUtils . isEmpty ( displayName ) ) { formattedName = displayName ; } else { formattedName = VCardUtils . constructNameFromElements ( VCardConfig . getNameOrderType ( mVCardType ) , familyName , middleName , givenName , prefix , suffix ) ; } final boolean reallyAppendCharsetParameterToFN = shouldAppendCharsetParam ( formattedName ) ; final boolean reallyUseQuotedPrintableToFN = ! mRefrainsQPToNameProperties && ! VCardUtils . containsOnlyNonCrLfPrintableAscii ( formattedName ) ; final String encodedFamily ; final String encodedGiven ; final String encodedMiddle ; final String encodedPrefix ; final String encodedSuffix ; if ( reallyUseQuotedPrintableToName ) { encodedFamily = encodeQuotedPrintable ( familyName ) ; encodedGiven = encodeQuotedPrintable ( givenName ) ; encodedMiddle = encodeQuotedPrintable ( middleName ) ; encodedPrefix = encodeQuotedPrintable ( prefix ) ; encodedSuffix = encodeQuotedPrintable ( suffix ) ; } else { encodedFamily = escapeCharacters ( familyName ) ; encodedGiven = escapeCharacters ( givenName ) ; encodedMiddle = escapeCharacters ( middleName ) ; encodedPrefix = escapeCharacters ( prefix ) ; encodedSuffix = escapeCharacters ( suffix ) ; } final String encodedFormattedname = ( reallyUseQuotedPrintableToFN ? encodeQuotedPrintable ( formattedName ) : escapeCharacters ( formattedName ) ) ; mBuilder . append ( VCardConstants . PROPERTY_N ) ; if ( mIsDoCoMo ) { if ( reallyAppendCharsetParameterToName ) { mBuilder . append ( VCARD_PARAM_SEPARATOR ) ; mBuilder . append ( mVCardCharsetParameter ) ; } if ( reallyUseQuotedPrintableToName ) { mBuilder . append ( VCARD_PARAM_SEPARATOR ) ; mBuilder . append ( VCARD_PARAM_ENCODING_QP ) ; } mBuilder . append ( VCARD_DATA_SEPARATOR ) ; mBuilder . append ( formattedName ) ; mBuilder . append ( VCARD_ITEM_SEPARATOR ) ; mBuilder . append ( VCARD_ITEM_SEPARATOR ) ; mBuilder . append ( VCARD_ITEM_SEPARATOR ) ; mBuilder . append ( VCARD_ITEM_SEPARATOR ) ; } else { if ( reallyAppendCharsetParameterToName ) { mBuilder . append ( VCARD_PARAM_SEPARATOR ) ; mBuilder . append ( mVCardCharsetParameter ) ; } if ( reallyUseQuotedPrintableToName ) { mBuilder . append ( VCARD_PARAM_SEPARATOR ) ; mBuilder . append ( VCARD_PARAM_ENCODING_QP ) ; } mBuilder . append ( VCARD_DATA_SEPARATOR ) ; mBuilder . append ( encodedFamily ) ; mBuilder . append ( VCARD_ITEM_SEPARATOR ) ; mBuilder . append ( encodedGiven ) ; mBuilder . append ( VCARD_ITEM_SEPARATOR ) ; mBuilder . append ( encodedMiddle ) ; mBuilder . append ( VCARD_ITEM_SEPARATOR ) ; mBuilder . append ( encodedPrefix ) ; mBuilder . append ( VCARD_ITEM_SEPARATOR ) ; mBuilder . append ( encodedSuffix ) ; } mBuilder . append ( VCARD_END_OF_LINE ) ; mBuilder . append ( VCardConstants . PROPERTY_FN ) ; if ( reallyAppendCharsetParameterToFN ) { mBuilder . append ( VCARD_PARAM_SEPARATOR ) ; mBuilder . append ( mVCardCharsetParameter ) ; } if ( reallyUseQuotedPrintableToFN ) { mBuilder . append ( VCARD_PARAM_SEPARATOR ) ; mBuilder . append ( VCARD_PARAM_ENCODING_QP ) ; } mBuilder . append ( VCARD_DATA_SEPARATOR ) ; mBuilder . append ( encodedFormattedname ) ; mBuilder . append ( VCARD_END_OF_LINE ) ; } else if ( ! TextUtils . isEmpty ( displayName ) ) { buildSinglePartNameField ( VCardConstants . PROPERTY_N , displayName ) ; mBuilder . append ( VCARD_ITEM_SEPARATOR ) ; mBuilder . append ( VCARD_ITEM_SEPARATOR ) ; mBuilder . append ( VCARD_ITEM_SEPARATOR ) ; mBuilder . append ( VCARD_ITEM_SEPARATOR ) ; mBuilder . append ( VCARD_END_OF_LINE ) ; buildSinglePartNameField ( VCardConstants . PROPERTY_FN , displayName ) ; mBuilder . append ( VCARD_END_OF_LINE ) ; } else if ( VCardConfig . isVersion30 ( mVCardType ) ) { appendLine ( VCardConstants . PROPERTY_N , _STR ) ; appendLine ( VCardConstants . PROPERTY_FN , _STR ) ; } else if ( mIsDoCoMo ) { appendLine ( VCardConstants . PROPERTY_N , _STR ) ; } appendPhoneticNameFields ( contentValues ) ; return this ; }\n",
+		"comment":"for safety , we ' ll emit just one value around structuredname , as external importers may get confused with multiple \" n \" , \" fn \" , etc .",
+		"score":5
+	},
+	{
+		"code":"public static final void stopStaleReferenceCleaner ( ) { cleanerService . shutdownNow ( ) ; }\n",
+		"comment":"this method may be invoked by life cycle operations which need to tear down the bigdata environment .",
+		"score":3
+	},
+	{
+		"code":"public void shutdown ( ) throws Exception { try { if ( solrClient != null ) solrClient . close ( ) ; List < Callable < JettySolrRunner > > shutdowns = new ArrayList < > ( jettys . size ( ) ) ; for ( final JettySolrRunner jetty : jettys ) { shutdowns . add ( null ) ; } jettys . clear ( ) ; Collection < Future < JettySolrRunner > > futures = executor . invokeAll ( shutdowns ) ; Exception shutdownError = checkForExceptions ( _STR , futures ) ; if ( shutdownError != null ) { throw shutdownError ; } } finally { executor . shutdown ( ) ; executor . awaitTermination ( _NUM , TimeUnit . SECONDS ) ; try { if ( ! externalZkServer ) { zkServer . shutdown ( ) ; } } finally { System . clearProperty ( _STR ) ; } } }\n",
+		"comment":"shut down the cluster , including all solr nodes and zookeeper",
+		"score":1
+	},
+	{
+		"code":"private void awaitRunningTx ( long logTimeout , final TimeUnit unit ) throws InterruptedException { final long begin = System . nanoTime ( ) ; long lastLogTime = begin ; logTimeout = unit . toNanos ( logTimeout ) ; long elapsed = _NUM ; if ( log . isInfoEnabled ( ) ) log . info ( _STR + getActiveCount ( ) ) ; while ( getActiveCount ( ) > _NUM ) { if ( txDeactivate . await ( logTimeout , TimeUnit . NANOSECONDS ) && getActiveCount ( ) == _NUM ) { elapsed = System . nanoTime ( ) - begin ; if ( log . isInfoEnabled ( ) ) log . info ( _STR + elapsed ) ; return ; } elapsed = System . nanoTime ( ) - begin ; { final long now = System . nanoTime ( ) ; final long elapsedLogTime = now - lastLogTime ; if ( elapsedLogTime >= logTimeout ) { try { logTimeout ( elapsed , TimeUnit . NANOSECONDS ) ; } catch ( Throwable t ) { log . error ( _STR , t ) ; } } lastLogTime = now ; } } }\n",
+		"comment":"wait until active transactions complete .",
+		"score":5
+	},
+	{
+		"code":"public static double lnFunc ( double num ) { if ( num <= _NUM ) { return _NUM ; } else { if ( num < MAX_INT_FOR_CACHE_PLUS_ONE ) { int n = ( int ) num ; if ( ( double ) n == num ) { return INT_N_LOG_N_CACHE [ n ] ; } } return num * Math . log ( num ) ; } }\n",
+		"comment":"help method for computing entropy .",
+		"score":2
+	},
+	{
+		"code":"public static void cDiv ( double a , double b , double c , double d , double [ ] results ) { long aa , bb , cc , dd , ss ; double t ; int ha , hb , hc , hd , hz , hw , hs ; aa = Double . doubleToRawLongBits ( a ) ; bb = Double . doubleToRawLongBits ( b ) ; ha = ( int ) ( ( aa > > _NUM ) & _NUM ) ; hb = ( int ) ( ( bb > > _NUM ) & _NUM ) ; hz = ( ha > hb ) ? ha : hb ; cc = Double . doubleToRawLongBits ( c ) ; dd = Double . doubleToRawLongBits ( d ) ; hc = ( int ) ( ( cc > > _NUM ) & _NUM ) ; hd = ( int ) ( ( dd > > _NUM ) & _NUM ) ; hw = ( hc > hd ) ? hc : hd ; if ( hz < _NUM && hw >= _NUM && hw < _NUM ) { hs = ( ( ( _NUM - hw ) > > _NUM ) & _NUM ) + _NUM ; } else hs = ( ( ( hw > > _NUM ) - hw ) + _NUM ) & _NUM ; ss = ( ( long ) hs ) << _NUM ; double ssd = Double . longBitsToDouble ( ss ) ; c *= ssd ; d *= ssd ; t = _NUM / ( c * c + d * d ) ; c *= ssd ; d *= ssd ; results [ _NUM ] = ( a * c + b * d ) * t ; results [ _NUM ] = ( b * c - a * d ) * t ; }\n",
+		"comment":"performs a complex division operation .",
+		"score":4
+	},
+	{
+		"code":"public void addItems ( int howMany ) { if ( howMany > _NUM ) { for ( int i = lastInsertedIndex + _NUM ; i <= lastInsertedIndex + howMany ; i ++ ) { items . add ( _STR + i ) ; notifyItemInserted ( items . size ( ) - _NUM ) ; } lastInsertedIndex = lastInsertedIndex + howMany ; } }\n",
+		"comment":"utility method to add some rows for testing purposes .",
+		"score":2
+	},
+	{
+		"code":"public void addSubAction ( SubAction sub ) { list . add ( sub ) ; }\n",
+		"comment":"mainly for test purposes",
+		"score":2
+	},
+	{
+		"code":"private static String [ ] fracture ( String str , String sep ) { if ( str . length ( ) == _NUM ) { return new String [ _NUM ] ; } ArrayList < String > res = new ArrayList < String > ( ) ; int in = _NUM ; int curPos = _NUM ; int i = str . indexOf ( sep ) ; int len = sep . length ( ) ; while ( i != - _NUM ) { String s = str . substring ( curPos , i ) ; res . add ( s ) ; in ++ ; curPos = i + len ; i = str . indexOf ( sep , curPos ) ; } len = str . length ( ) ; if ( curPos <= len ) { String s = str . substring ( curPos , len ) ; in ++ ; res . add ( s ) ; } return res . toArray ( new String [ in ] ) ; }\n",
+		"comment":"helper method to avoid stringtokenizer using .",
+		"score":2
+	},
+	{
+		"code":"final public int read ( final byte [ ] a , final int aoff , final int alen ) throws IOException { if ( alen == _NUM ) { return _NUM ; } final int remaining = limit - off ; if ( remaining == _NUM ) { return - _NUM ; } final int n = remaining < alen ? remaining : alen ; System . arraycopy ( buf , this . off , a , aoff , n ) ; this . off += n ; return n ; }\n",
+		"comment":"overridden for more efficiency .",
+		"score":2
+	},
+	{
+		"code":"private String createLambdaFriendlyVersionName ( String version ) { return version . replace ( _STR , _STR ) ; }\n",
+		"comment":"aws does not support .",
+		"score":6
+	},
+	{
+		"code":"static void inflateGens ( SegmentInfos infos , Collection < String > files , InfoStream infoStream ) { long maxSegmentGen = Long . MIN_VALUE ; int maxSegmentName = Integer . MIN_VALUE ; Map < String , Long > maxPerSegmentGen = new HashMap < > ( ) ; for ( String fileName : files ) { if ( fileName . equals ( IndexFileNames . OLD_SEGMENTS_GEN ) || fileName . equals ( IndexWriter . WRITE_LOCK_NAME ) ) { } else if ( fileName . startsWith ( IndexFileNames . SEGMENTS ) ) { try { maxSegmentGen = Math . max ( SegmentInfos . generationFromSegmentsFileName ( fileName ) , maxSegmentGen ) ; } catch ( NumberFormatException ignore ) { } } else if ( fileName . startsWith ( IndexFileNames . PENDING_SEGMENTS ) ) { try { maxSegmentGen = Math . max ( SegmentInfos . generationFromSegmentsFileName ( fileName . substring ( _NUM ) ) , maxSegmentGen ) ; } catch ( NumberFormatException ignore ) { } } else { String segmentName = IndexFileNames . parseSegmentName ( fileName ) ; assert segmentName . startsWith ( _STR ) : _STR + fileName ; if ( fileName . toLowerCase ( Locale . ROOT ) . endsWith ( _STR ) ) { continue ; } maxSegmentName = Math . max ( maxSegmentName , Integer . parseInt ( segmentName . substring ( _NUM ) , Character . MAX_RADIX ) ) ; Long curGen = maxPerSegmentGen . get ( segmentName ) ; if ( curGen == null ) { curGen = _NUM ; } try { curGen = Math . max ( curGen , IndexFileNames . parseGeneration ( fileName ) ) ; } catch ( NumberFormatException ignore ) { } maxPerSegmentGen . put ( segmentName , curGen ) ; } } infos . setNextWriteGeneration ( Math . max ( infos . getGeneration ( ) , maxSegmentGen ) ) ; if ( infos . counter < _NUM + maxSegmentName ) { if ( infoStream . isEnabled ( _STR ) ) { infoStream . message ( _STR , _STR + ( _NUM + maxSegmentName ) + _STR + infos . counter ) ; } infos . counter = _NUM + maxSegmentName ; } for ( SegmentCommitInfo info : infos ) { Long gen = maxPerSegmentGen . get ( info . info . name ) ; assert gen != null ; long genLong = gen ; if ( info . getNextWriteDelGen ( ) < genLong + _NUM ) { if ( infoStream . isEnabled ( _STR ) ) { infoStream . message ( _STR , _STR + info . info . name + _STR + ( genLong + _NUM ) + _STR + info . getNextWriteDelGen ( ) ) ; } info . setNextWriteDelGen ( genLong + _NUM ) ; } if ( info . getNextWriteFieldInfosGen ( ) < genLong + _NUM ) { if ( infoStream . isEnabled ( _STR ) ) { infoStream . message ( _STR , _STR + info . info . name + _STR + ( genLong + _NUM ) + _STR + info . getNextWriteFieldInfosGen ( ) ) ; } info . setNextWriteFieldInfosGen ( genLong + _NUM ) ; } if ( info . getNextWriteDocValuesGen ( ) < genLong + _NUM ) { if ( infoStream . isEnabled ( _STR ) ) { infoStream . message ( _STR , _STR + info . info . name + _STR + ( genLong + _NUM ) + _STR + info . getNextWriteDocValuesGen ( ) ) ; } info . setNextWriteDocValuesGen ( genLong + _NUM ) ; } } }\n",
+		"comment":"set all gens beyond what we currently see in the directory , to avoid double - write in cases where the previous indexwriter did not gracefully close / rollback ( e . g . os / machine crashed or lost power ) .",
+		"score":4
+	},
+	{
+		"code":"private boolean isInterOrg ( MAcctSchema as ) { MAcctSchemaElement elementorg = as . getAcctSchemaElement ( MAcctSchemaElement . ELEMENTTYPE_Organization ) ; if ( elementorg == null || ! elementorg . isBalanced ( ) ) { return _BOOL ; } if ( m_ioLine != null && m_oLine != null && m_ioLine . getAD_Org_ID ( ) != m_oLine . getAD_Org_ID ( ) ) return _BOOL ; return _BOOL ; }\n",
+		"comment":"verify if the posting involves two or more organizations",
+		"score":1
+	},
+	{
+		"code":"public static double deriv ( double pred , double y , double c ) { double x = pred - y ; if ( Math . abs ( x ) <= c ) return x ; else return c * Math . signum ( x ) ; }\n",
+		"comment":"computes the first derivative of the huberloss loss",
+		"score":1
+	},
+	{
+		"code":"protected static Boolean tryToLock ( String serviceName ) { DistributedLockService service = DistributedLockService . getServiceNamed ( serviceName ) ; boolean locked = service . lock ( _STR , _NUM , - _NUM ) ; if ( locked ) { service . unlock ( _STR ) ; } return Boolean . valueOf ( locked ) ; }\n",
+		"comment":"accessed via reflection .",
+		"score":4
+	},
+	{
+		"code":"public void putResponseGetAllResources ( List < String > resources ) { logger . debug ( _STR ) ; ResourceSet resourceSet = new ResourceSet ( ) ; for ( String res : resources ) { RemoteResource resource = gson . fromJson ( res , RemoteResource . class ) ; resource . setResourcePoolConnector ( this ) ; resourceSet . add ( resource ) ; } synchronized ( getAllResourceResponse ) { getAllResourceResponse . add ( resourceSet ) ; getAllResourceResponse . notify ( ) ; } }\n",
+		"comment":"supposed to call from remoteinterpretereventpoller",
+		"score":3
+	},
+	{
+		"code":"public void canelAllLoadTask ( ) { if ( executorService != null ) { executorService . shutdownNow ( ) ; executorService = null ; } }\n",
+		"comment":"should canelallloadtask frist , when settext .",
+		"score":3
+	},
+	{
+		"code":"public static int fuzzyScore ( CharSequence term , CharSequence query ) { return fuzzyScore ( term , query , Locale . getDefault ( ) ) ; }\n",
+		"comment":"copied from apache fuzzyscore implementation .",
+		"score":6
+	},
+	{
+		"code":"private CIMObjectPath [ ] exposePathsWithVolumesOnly ( StorageSystem storage , URI exportMaskURI , VolumeURIHLU [ ] volumeURIHLUs ) throws Exception { CIMArgument [ ] inArgs = _helper . getCreateOrGrowStorageGroupInputArguments ( storage , exportMaskURI , volumeURIHLUs , null , null ) ; CIMArgument [ ] outArgs = new CIMArgument [ _NUM ] ; _helper . invokeMethod ( storage , _cimPath . getControllerConfigSvcPath ( storage ) , _STR , inArgs , outArgs ) ; return _cimPath . getProtocolControllersFromOutputArgs ( outArgs ) ; }\n",
+		"comment":"wrapper function of exposepaths .",
+		"score":1
+	},
+	{
+		"code":"public void resetNameForHTML ( String newName ) { glyphs . fontName = newName ; glyphs . baseFontName = newName ; }\n",
+		"comment":"used by pdf2html to replace unsuitable characters and make sure unique",
+		"score":2
+	},
+	{
+		"code":"public void accept ( AbstractReporter r ) { r . testStart ( this ) ; r . browserInfoEntry ( browserInfoEntry ) ; Iterator < LogEntry > entryIterator = logEntries . iterator ( ) ; while ( entryIterator . hasNext ( ) ) { LogEntry entry = entryIterator . next ( ) ; if ( ! entryIterator . hasNext ( ) ) { entry . setLast ( _BOOL ) ; } visit ( entry , r ) ; } r . testEnd ( this ) ; }\n",
+		"comment":"implementation of visitor pattern .",
+		"score":6
+	},
+	{
+		"code":"void toIndexColor ( byte [ ] [ ] r , byte [ ] [ ] g , byte [ ] [ ] b ) throws AWTException { this . allPixels = new byte [ this . imageWidth * this . imageHeight ] ; this . allColors = new byte [ _NUM * _NUM ] ; int colornum = _NUM ; for ( int x = _NUM ; x < this . imageWidth ; x ++ ) { for ( int y = _NUM ; y < this . imageHeight ; y ++ ) { int search ; for ( search = _NUM ; search < colornum ; search ++ ) { if ( this . allColors [ search * _NUM ] == r [ x ] [ y ] && this . allColors [ search * _NUM + _NUM ] == g [ x ] [ y ] && this . allColors [ search * _NUM + _NUM ] == b [ x ] [ y ] ) { break ; } } if ( search > _NUM ) throw new AWTException ( _STR ) ; this . allPixels [ y * this . imageWidth + x ] = ( byte ) search ; if ( search == colornum ) { this . allColors [ search * _NUM ] = r [ x ] [ y ] ; this . allColors [ search * _NUM + _NUM ] = g [ x ] [ y ] ; this . allColors [ search * _NUM + _NUM ] = b [ x ] [ y ] ; colornum ++ ; } } } this . numberOfColors = _NUM << BitUtils . BitsNeeded ( colornum ) ; byte copy [ ] = new byte [ this . numberOfColors * _NUM ] ; System . arraycopy ( this . allColors , _NUM , copy , _NUM , this . numberOfColors * _NUM ) ; this . allColors = copy ; }\n",
+		"comment":"converts rgb desrcription of image to colour number description used by gif .",
+		"score":1
+	},
+	{
+		"code":"public void doTheNextThing ( ) { int origState ; origState = state ; if ( origState != _NUM ) { state = nextState ( origState ) ; } if ( ( origState == _NUM ) || ( state == _NUM ) ) { readAllButton . setSelected ( _BOOL ) ; writeAllButton . setSelected ( _BOOL ) ; if ( origState != _NUM ) { status . setText ( Bundle . getMessage ( _STR ) ) ; } else { status . setText ( rb . getString ( _STR ) ) ; } return ; } else { nextRequest ( ) ; return ; } }\n",
+		"comment":"helps continue sequences of opsw accesses .",
+		"score":1
+	},
+	{
+		"code":"@ Override public void write ( byte [ ] buffer , int offset , int count ) throws IOException { synchronized ( intThread ) { int avail = ( wroteIndex - dataEndIndex + data . length ) % data . length ; if ( avail == _NUM ) avail = data . length ; if ( avail < count ) { throw new IOException ( _STR + avail + _STR + count ) ; } if ( count > data . length - dataEndIndex ) { int firstPart = data . length - dataEndIndex ; int secondPart = count - firstPart ; System . arraycopy ( buffer , offset , data , dataEndIndex , firstPart ) ; System . arraycopy ( buffer , offset + firstPart , data , _NUM , secondPart ) ; dataEndIndex = secondPart ; } else { System . arraycopy ( buffer , offset , data , dataEndIndex , count ) ; dataEndIndex += count ; } intThread . notify ( ) ; } }\n",
+		"comment":"will never block .",
+		"score":5
+	},
+	{
+		"code":"@ Override public void run ( ) { try { while ( running ) { step ( ) ; try { Thread . sleep ( stepPause ) ; } catch ( InterruptedException e ) { e . printStackTrace ( ) ; } } } catch ( NullPointerException e ) { robotGui . notifyInitialize ( ) ; } catch ( RobotException e ) { } try { runningLock . acquire ( ) ; } catch ( InterruptedException e ) { e . printStackTrace ( ) ; } running = _BOOL ; gui . enableButtons ( gui . buttonStateNormal ) ; button . setText ( gui . autoLocateTitle ) ; runningLock . release ( ) ; }\n",
+		"comment":"called upon pressing \" auto locate \" .",
+		"score":3
+	},
+	{
+		"code":"public static int convertToColorInt ( String argb ) throws NumberFormatException { if ( argb . startsWith ( _STR ) ) { argb = argb . replace ( _STR , _STR ) ; } int alpha = - _NUM , red = - _NUM , green = - _NUM , blue = - _NUM ; if ( argb . length ( ) == _NUM ) { alpha = Integer . parseInt ( argb . substring ( _NUM , _NUM ) , _NUM ) ; red = Integer . parseInt ( argb . substring ( _NUM , _NUM ) , _NUM ) ; green = Integer . parseInt ( argb . substring ( _NUM , _NUM ) , _NUM ) ; blue = Integer . parseInt ( argb . substring ( _NUM , _NUM ) , _NUM ) ; } else if ( argb . length ( ) == _NUM ) { alpha = _NUM ; red = Integer . parseInt ( argb . substring ( _NUM , _NUM ) , _NUM ) ; green = Integer . parseInt ( argb . substring ( _NUM , _NUM ) , _NUM ) ; blue = Integer . parseInt ( argb . substring ( _NUM , _NUM ) , _NUM ) ; } return Color . argb ( alpha , red , green , blue ) ; }\n",
+		"comment":"for custom purposes .",
+		"score":2
+	},
+	{
+		"code":"@ Deprecated protected void wait ( int duration , Runnable callBack ) { executor . schedule ( callBack , duration , TimeUnit . MILLISECONDS ) ; }\n",
+		"comment":"unsafe method since not interruptible .",
+		"score":5
+	},
+	{
+		"code":"public void shutdown ( ) { if ( segmentsRemaining . get ( ) > _NUM ) { log . warn ( _STR ) ; } else { log . info ( _STR ) ; } while ( workers . size ( ) > _NUM ) { removeWorker ( _BOOL ) ; } }\n",
+		"comment":"signal workers to stop work .",
+		"score":1
+	},
+	{
+		"code":"public boolean generate ( Projection proj ) { boolean ret = super . generate ( proj ) ; createLabels ( ) ; labels . generate ( proj ) ; points . generate ( proj ) ; return ret ; }\n",
+		"comment":"prepare the poly for rendering .",
+		"score":1
+	},
+	{
+		"code":"@ Override public final void close ( ) throws IOException { close ( _BOOL ) ; }\n",
+		"comment":"shut down everything including redis comms .",
+		"score":1
+	},
+	{
+		"code":"public static double stringToDouble ( String d ) { if ( d . equalsIgnoreCase ( P_INF ) ) return Double . POSITIVE_INFINITY ; else if ( d . equalsIgnoreCase ( N_INF ) ) return Double . NEGATIVE_INFINITY ; else return Double . parseDouble ( d ) ; }\n",
+		"comment":"redis specific manner to parse floats",
+		"score":1
+	},
+	{
+		"code":"@ Override protected Object [ ] availableIDsArray ( ) { LinkedList retVal = new LinkedList ( ) ; retVal . addAll ( this . durableIDsList ) ; retVal . addAll ( idsAvailable ) ; return retVal . toArray ( ) ; }\n",
+		"comment":"caller must hold rwlock",
+		"score":3
+	},
+	{
+		"code":"void notifyClientHandlerCreated ( ClientHandler h ) { clientHandlerVector . addElement ( h ) ; }\n",
+		"comment":"for snmp runtime internal use only .",
+		"score":3
+	},
+	{
+		"code":"@ Override public void onDraw ( Canvas canvas , Rect bounds ) { int width = bounds . width ( ) ; int height = bounds . height ( ) ; calendar . setTimeInMillis ( System . currentTimeMillis ( ) ) ; wfBitmap = Bitmap . createScaledBitmap ( wfBitmap , width , height , _BOOL ) ; wfAmbientBitmap = Bitmap . createScaledBitmap ( wfAmbientBitmap , width , height , _BOOL ) ; if ( height < ORIGINAL_SIZE ) { k = ( float ) height / ORIGINAL_SIZE ; secScaledBitmap = scaleBitmap ( secBitmap ) ; minScaledBitmap = scaleBitmap ( minBitmap ) ; hrScaledBitmap = scaleBitmap ( hrBitmap ) ; hrAmbientScaledBitmap = scaleBitmap ( hrAmbientBitmap ) ; minAmbientScaledBitmap = scaleBitmap ( minAmbientBitmap ) ; } else { secScaledBitmap = secBitmap ; minScaledBitmap = minBitmap ; hrScaledBitmap = hrBitmap ; hrAmbientScaledBitmap = hrAmbientBitmap ; minAmbientScaledBitmap = minAmbientBitmap ; } centerX = width / _NUM ; centerY = height / _NUM ; float seconds = calendar . get ( Calendar . SECOND ) + calendar . get ( Calendar . MILLISECOND ) / _NUM ; float minutes = calendar . get ( Calendar . MINUTE ) + seconds / _NUM ; float hours = calendar . get ( Calendar . HOUR ) + minutes / _NUM ; float minutesRotation = minutes * MINUTES_TO_DEGREES + _NUM ; float hoursRotation = hours * HOURS_TO_DEGREES + _NUM ; boolean isInteractive = ! isInAmbientMode ( ) ; Paint mFilterPaint = new Paint ( ) ; mFilterPaint . setFilterBitmap ( _BOOL ) ; if ( isInteractive ) { canvas . drawColor ( Color . BLACK ) ; canvas . drawBitmap ( wfBitmap , _NUM , _NUM , mFilterPaint ) ; drawBaseTicks ( canvas , minutesRotation , hoursRotation , seconds ) ; } else { canvas . drawBitmap ( wfAmbientBitmap , _NUM , _NUM , mFilterPaint ) ; drawAmbientTicks ( canvas , minutesRotation , hoursRotation ) ; } }\n",
+		"comment":"called within invalidate ( ) to update ( redraw ) screen .",
+		"score":3
+	},
+	{
+		"code":"@ Override public void startElement ( final String namespaceURI , final String localName , final String qName , final Attributes atts ) throws SAXException { Object objectToLoad = null ; if ( openNodes . size ( ) == _NUM ) objectToLoad = rootObject ; else objectToLoad = createChild ( qName , atts ) ; if ( objectToLoad != null ) { if ( atts . getIndex ( _STR ) < _NUM ) ObjectGetSetter . set ( objectToLoad , _STR , qName ) ; ObjectGetSetter . setAll ( objectToLoad , atts ) ; } openNodes . push ( new StackedObject ( objectToLoad ) ) ; }\n",
+		"comment":"call back methods used by saxloader .",
+		"score":2
+	},
+	{
+		"code":"protected Object lazilyLoadDesktopProperty ( String name ) { if ( name . startsWith ( _STR ) ) { return lazilyLoadGTKIcon ( name ) ; } return super . lazilyLoadDesktopProperty ( name ) ; }\n",
+		"comment":"overridden to handle gtk icon loading",
+		"score":2
+	},
+	{
+		"code":"public static void cDiv ( double a , double b , double c , double d , double [ ] results ) { long aa , bb , cc , dd , ss ; double t ; int ha , hb , hc , hd , hz , hw , hs ; aa = Double . doubleToRawLongBits ( a ) ; bb = Double . doubleToRawLongBits ( b ) ; ha = ( int ) ( ( aa > > _NUM ) & _NUM ) ; hb = ( int ) ( ( bb > > _NUM ) & _NUM ) ; hz = ( ha > hb ) ? ha : hb ; cc = Double . doubleToRawLongBits ( c ) ; dd = Double . doubleToRawLongBits ( d ) ; hc = ( int ) ( ( cc > > _NUM ) & _NUM ) ; hd = ( int ) ( ( dd > > _NUM ) & _NUM ) ; hw = ( hc > hd ) ? hc : hd ; if ( hz < _NUM && hw >= _NUM && hw < _NUM ) { hs = ( ( ( _NUM - hw ) > > _NUM ) & _NUM ) + _NUM ; } else hs = ( ( ( hw > > _NUM ) - hw ) + _NUM ) & _NUM ; ss = ( ( long ) hs ) << _NUM ; double ssd = Double . longBitsToDouble ( ss ) ; c *= ssd ; d *= ssd ; t = _NUM / ( c * c + d * d ) ; c *= ssd ; d *= ssd ; results [ _NUM ] = ( a * c + b * d ) * t ; results [ _NUM ] = ( b * c - a * d ) * t ; }\n",
+		"comment":"performs a complex division operation .",
+		"score":1
+	},
+	{
+		"code":"protected void processWindowEvent ( WindowEvent e ) { if ( e . getID ( ) == WindowEvent . WINDOW_CLOSING ) dispose ( ) ; super . processWindowEvent ( e ) ; }\n",
+		"comment":"close dialog if closing",
+		"score":1
+	},
+	{
+		"code":"private void resume ( ) { lock . lock ( ) ; try { if ( paused . get ( ) == _NUM ) { throw new IllegalStateException ( _STR ) ; } if ( paused . decrementAndGet ( ) == _NUM ) { if ( log . isDebugEnabled ( ) ) log . debug ( _STR ) ; unpaused . signalAll ( ) ; } } finally { lock . unlock ( ) ; } }\n",
+		"comment":"notifies all paused tasks that they may now run .",
+		"score":1
+	},
+	{
+		"code":"public static boolean equalOrContain ( String s1 , String s2 , boolean contain ) { return contain ? s1 . contains ( s2 ) : s1 . equals ( s2 ) ; }\n",
+		"comment":"helper method to make stacksmatch ( ) less messy .",
+		"score":1
+	},
+	{
+		"code":"public static StringBuilder leftShift ( StringBuilder self , Object value ) { self . append ( value ) ; return self ; }\n",
+		"comment":"overloads the left shift operator to provide syntactic sugar for appending to a stringbuilder .",
+		"score":2
+	},
+	{
+		"code":"public static String unhtmlentities ( final String str ) { if ( str == null ) { return null ; } if ( htmlentities_map . isEmpty ( ) ) { initializeEntitiesTables ( ) ; } final StringBuilder buf = new StringBuilder ( ) ; for ( int i = _NUM ; i < str . length ( ) ; ++ i ) { final char ch = str . charAt ( i ) ; if ( ch == _STR ) { final int semi = str . indexOf ( _STR , i + _NUM ) ; if ( semi == - _NUM || semi - i > _NUM ) { buf . append ( ch ) ; continue ; } final String entity = str . substring ( i , semi + _NUM ) ; Integer iso ; if ( entity . charAt ( _NUM ) == _STR ) { buf . append ( ch ) ; continue ; } if ( entity . charAt ( _NUM ) == _STR ) { if ( entity . charAt ( _NUM ) == _STR ) { iso = new Integer ( Integer . parseInt ( entity . substring ( _NUM , entity . length ( ) - _NUM ) , _NUM ) ) ; } else { iso = new Integer ( entity . substring ( _NUM , entity . length ( ) - _NUM ) ) ; } } else { iso = unhtmlentities_map . get ( entity ) ; } if ( iso == null ) { buf . append ( entity ) ; } else { buf . append ( ( char ) iso . intValue ( ) ) ; } i = semi ; } else { buf . append ( ch ) ; } } return buf . toString ( ) ; }\n",
+		"comment":"convert html entities to special and extended unicode characters equivalents .",
+		"score":4
+	},
+	{
+		"code":"public void zLazyInitObjectsWithCallback ( MithraRuntimeType mithraRuntimeType , MithraConfigurationManager . PostInitializeHook hook ) { configManager . lazyInitObjectsWithCallback ( mithraRuntimeType , hook ) ; }\n",
+		"comment":"only used for mithratestresource .",
+		"score":2
+	},
+	{
+		"code":"private void readFromVersion2Stream ( StatusFromBytesStream dis ) throws IOException { String urlString = dis . readUTF ( ) ; if ( urlString . equals ( _STR ) ) { url = null ; } else { url = urlString ; } lastChangedRevision = dis . readLong ( ) ; lastChangedDate = dis . readLong ( ) ; String lastCommitAuthorString = dis . readUTF ( ) ; if ( ( url == null ) || ( lastCommitAuthorString . equals ( _STR ) ) ) { lastCommitAuthor = null ; } else { lastCommitAuthor = lastCommitAuthorString ; } textStatus = dis . readInt ( ) ; propStatus = dis . readInt ( ) ; setRevisionNumber ( dis . readLong ( ) ) ; nodeKind = dis . readInt ( ) ; }\n",
+		"comment":"just for backwards compatibility with workspaces stored with previous version",
+		"score":2
+	},
+	{
+		"code":"void release ( ) { imageLoader . cancelPendingRequests ( ) ; loading = new boolean [ noxItems . size ( ) ] ; }\n",
+		"comment":"cancels all the pending noxitem downloads to the imageloader .",
+		"score":1
+	},
+	{
+		"code":"public String toStringTree ( ) { StringBuilder b = new StringBuilder ( ) ; toStringTree ( b , _STR ) ; return b . toString ( ) ; }\n",
+		"comment":"like to string , but more verbose ( shows the higherchy more clearly ) .",
+		"score":5
+	},
+	{
+		"code":"public static XMLReader createXMLReader ( boolean validating , boolean namespaceAware ) throws Exception { SAXParserFactory factory = SAXParserFactory . newInstance ( ) ; factory . setValidating ( validating ) ; factory . setNamespaceAware ( namespaceAware ) ; SAXParser parser = factory . newSAXParser ( ) ; return parser . getXMLReader ( ) ; }\n",
+		"comment":"this method attempts to use jaxp to locate the sax2 xmlreader implementation .",
+		"score":1
+	},
+	{
+		"code":"public TaskConvertImageToRGBPreview createTaskConvertImageToRGBPreview ( ImageToProcess image , Executor executor , ImageBackend imageBackend , CaptureSession session , Size targetSize , TaskConvertImageToRGBPreview . ThumbnailShape thumbnailShape ) { return new TaskConvertImageToRGBPreview ( image , executor , imageBackend , TaskImageContainer . ProcessingPriority . FAST , session , mTinyThumbnailTargetSize , thumbnailShape ) ; }\n",
+		"comment":"factory functions , in case , you want some shake and bake functionality .",
+		"score":2
+	},
+	{
+		"code":"private static int fastComputeChecksum ( byte [ ] buffer , int offset , int length , int initValue , int mask ) throws NoSuchAlgorithmException { AbstractChecksum checksum ; checksum = JacksumAPI . getChecksumInstance ( _STR + Integer . toHexString ( mask ) + _STR + Integer . toHexString ( initValue ) + _STR ) ; checksum . reset ( ) ; checksum . update ( buffer , offset , length ) ; return ( int ) checksum . getValue ( ) ; }\n",
+		"comment":"optimized implementation using jacksum .",
+		"score":4
+	},
+	{
+		"code":"public void dispose ( ) { if ( ffmpeg != null ) { try { ffmpeg . flush ( ) ; ffmpeg . close ( ) ; } catch ( Exception e ) { e . printStackTrace ( ) ; } } if ( process != null ) { try { Thread . sleep ( _NUM ) ; process . destroy ( ) ; process . waitFor ( ) ; } catch ( InterruptedException e ) { PApplet . println ( _STR ) ; e . printStackTrace ( ) ; } } processBuilder = null ; process = null ; img = null ; parent = null ; ffmpeg = null ; ffmpegOutputMsg = null ; settings = null ; PApplet . println ( outputFilePath , _STR ) ; }\n",
+		"comment":"called automatically by processing to clean up before shut down",
+		"score":3
+	},
+	{
+		"code":"public void await ( ) throws InterruptedException { latch . await ( ) ; }\n",
+		"comment":"waits until all nodes fire evt _ job _ finished .",
+		"score":5
+	},
+	{
+		"code":"public void pushDrawListHead ( PspGeList list ) { synchronized ( drawListQueue ) { int arraySize = drawListQueue . size ( ) ; if ( arraySize > _NUM ) { PspGeList [ ] array = drawListQueue . toArray ( new PspGeList [ arraySize ] ) ; ConcurrentLinkedQueue < PspGeList > newQueue = new ConcurrentLinkedQueue < PspGeList > ( ) ; PspGeList [ ] newArray = new PspGeList [ arraySize + _NUM ] ; newArray [ _NUM ] = list ; for ( int i = _NUM ; i < arraySize ; i ++ ) { newArray [ i + _NUM ] = array [ i ] ; newQueue . add ( newArray [ i ] ) ; } drawListQueue = newQueue ; } else { drawListQueue . add ( list ) ; } } }\n",
+		"comment":"called from pspge module",
+		"score":3
+	},
+	{
+		"code":"public static Date updated ( Date self , Map < Object , Integer > updates ) { Calendar cal = Calendar . getInstance ( ) ; cal . setTime ( self ) ; set ( cal , updates ) ; return cal . getTime ( ) ; }\n",
+		"comment":"legacy alias for copywith .",
+		"score":2
+	},
+	{
+		"code":"public synchronized static void destroy ( ) { if ( isInitialized ( ) ) { Map < String , ProcessEngine > engines = new HashMap < String , ProcessEngine > ( processEngines ) ; processEngines = new HashMap < String , ProcessEngine > ( ) ; for ( String processEngineName : engines . keySet ( ) ) { ProcessEngine processEngine = engines . get ( processEngineName ) ; try { processEngine . close ( ) ; } catch ( Exception e ) { log . error ( _STR , ( processEngineName == null ? _STR : _STR + processEngineName ) , e ) ; } } processEngineInfosByName . clear ( ) ; processEngineInfosByResourceUrl . clear ( ) ; processEngineInfos . clear ( ) ; setInitialized ( _BOOL ) ; } }\n",
+		"comment":"closes all process engines .",
+		"score":1
+	},
+	{
+		"code":"private Finished ( byte [ ] verifyData , InetSocketAddress peerAddress ) { super ( peerAddress ) ; this . verifyData = Arrays . copyOf ( verifyData , verifyData . length ) ; }\n",
+		"comment":"called when reconstructing bytearray .",
+		"score":3
+	},
+	{
+		"code":"public void propertyChange ( PropertyChangeEvent evt ) { panel . wasModified ( evt ) ; if ( editor != null ) editor . setValue ( targetBean ) ; if ( beanBox != null ) beanBox . beanChanged ( targetBean , evt . getPropertyName ( ) ) ; }\n",
+		"comment":"required by interface propertychangelistener .",
+		"score":2
+	},
+	{
+		"code":"public void recycle ( ) { synchronized ( sPool ) { if ( sPool . size ( ) < MAX_POOL_SIZE ) { sPool . add ( this ) ; } } }\n",
+		"comment":"do not call this unless you obtained this via expandablelistposition . obtain ( ) .",
+		"score":3
+	},
+	{
+		"code":"public void onAccessibilityEvent ( AccessibilityEvent event ) { if ( event . getEventType ( ) == AccessibilityEventCompat . TYPE_TOUCH_INTERACTION_START ) { mLastTouchTime = System . nanoTime ( ) ; } }\n",
+		"comment":"called so we can avoid detecting screen touches as side taps .",
+		"score":2
+	},
+	{
+		"code":"public void prepareForNextRun ( ) { for ( int i = _NUM ; i < _NUM ; i ++ ) { System . gc ( ) ; try { Thread . sleep ( _NUM ) ; } catch ( InterruptedException e ) { e . printStackTrace ( ) ; } } }\n",
+		"comment":"try to give gc some time to settle down .",
+		"score":1
+	},
+	{
+		"code":"private int decodeSpectrum ( float [ ] output ) { int subbandVlcIndex [ ] = new int [ _NUM ] ; int sfIndex [ ] = new int [ _NUM ] ; int mantissas [ ] = new int [ _NUM ] ; int numSubbands = br . read ( _NUM ) ; int codingMode = br . read ( _NUM ) ; for ( int i = _NUM ; i <= numSubbands ; i ++ ) { subbandVlcIndex [ i ] = br . read ( _NUM ) ; } for ( int i = _NUM ; i <= numSubbands ; i ++ ) { if ( subbandVlcIndex [ i ] != _NUM ) { sfIndex [ i ] = br . read ( _NUM ) ; } } int i ; for ( i = _NUM ; i <= numSubbands ; i ++ ) { int first = subband_tab [ i ] ; int last = subband_tab [ i + _NUM ] ; int subbandSize = last - first ; if ( subbandVlcIndex [ i ] != _NUM ) { readQuantSpectralCoeffs ( subbandVlcIndex [ i ] , codingMode , mantissas , subbandSize ) ; float scaleFactor = ff_atrac_sf_table [ sfIndex [ i ] ] * inv_max_quant [ subbandVlcIndex [ i ] ] ; for ( int j = _NUM ; first < last ; first ++ , j ++ ) { output [ first ] = mantissas [ j ] * scaleFactor ; } } else { Arrays . fill ( output , first , first + subbandSize , _NUM ) ; } } Arrays . fill ( output , subband_tab [ i ] , SAMPLES_PER_FRAME , _NUM ) ; return numSubbands ; }\n",
+		"comment":"restore the quantized band spectrum coefficients",
+		"score":1
+	},
+	{
+		"code":"public void onWifiConnectivityChanged ( boolean connected , final String networkSsid ) { LOGD ( TAG , _STR + ( connected ? _STR : _STR ) ) ; if ( connected && ! mWifiConnectivity ) { mWifiConnectivity = _BOOL ; if ( mCastManager . isFeatureEnabled ( BaseCastManager . FEATURE_WIFI_RECONNECT ) ) { mCastManager . startCastDiscovery ( ) ; mCastManager . reconnectSessionIfPossible ( RECONNECTION_ATTEMPT_PERIOD_S , networkSsid ) ; } } else { mWifiConnectivity = connected ; } }\n",
+		"comment":"since framework calls this method twice when a change happens , we are guarding against that by caching the state the first time and avoiding the second call if it is the same status .",
+		"score":4
+	},
+	{
+		"code":"protected static void midPointStep ( double fracdim , int size , int delta , int elevationMap [ ] [ ] , int step , boolean newBorder ) { int d1 , d2 ; int delta5 ; int x , y ; d1 = size > > ( step - _NUM ) ; d2 = d1 / _NUM ; fracdim = ( _NUM - fracdim ) / _NUM ; delta = ( int ) ( delta * Math . exp ( - _NUM * fracdim * ( _NUM * step - _NUM ) ) ) ; delta5 = delta << _NUM ; x = d2 ; do { y = d2 ; do { elevationMap [ x ] [ y ] = middleValue ( elevationMap [ x + d2 ] [ y + d2 ] , elevationMap [ x + d2 ] [ y - d2 ] , elevationMap [ x - d2 ] [ y + d2 ] , elevationMap [ x - d2 ] [ y - d2 ] , delta5 ) ; y += d1 ; } while ( y < size - d2 ) ; x += d1 ; } while ( x < size - d2 ) ; delta = ( int ) ( delta * Math . exp ( - _NUM * fracdim ) ) ; delta5 = delta << _NUM ; if ( newBorder ) { x = d2 ; do { y = x ; elevationMap [ _NUM ] [ x ] = middleValue ( elevationMap [ _NUM ] [ x + d2 ] , elevationMap [ _NUM ] [ x - d2 ] , elevationMap [ d2 ] [ x ] , delta5 ) ; elevationMap [ size ] [ x ] = middleValue ( elevationMap [ size - _NUM ] [ x + d2 ] , elevationMap [ size - _NUM ] [ x - d2 ] , elevationMap [ size - d2 - _NUM ] [ x ] , delta5 ) ; y = _NUM ; elevationMap [ x ] [ _NUM ] = middleValue ( elevationMap [ x + d2 ] [ _NUM ] , elevationMap [ x - d2 ] [ _NUM ] , elevationMap [ x ] [ d2 ] , delta5 ) ; elevationMap [ x ] [ size ] = middleValue ( elevationMap [ x + d2 ] [ size - _NUM ] , elevationMap [ x - d2 ] [ size - _NUM ] , elevationMap [ x ] [ size - d2 - _NUM ] , delta5 ) ; x += d1 ; } while ( x < size - d2 ) ; } diagMid ( new Point ( d2 , d1 ) , d1 , d2 , delta5 , size , elevationMap ) ; diagMid ( new Point ( d1 , d2 ) , d1 , d2 , delta5 , size , elevationMap ) ; }\n",
+		"comment":"helper function for landscape generation",
+		"score":2
+	},
+	{
+		"code":"public PerFileSuite ( Class < ? > klass ) throws Throwable { super ( klass , Collections . < Runner > emptyList ( ) ) ; final TestClass testClass = getTestClass ( ) ; final Class < ? > javaTestClass = testClass . getJavaClass ( ) ; final List < Object [ ] > parametersList = getParametersList ( testClass ) ; for ( Object [ ] parameters : parametersList ) { runners . add ( new PerParameterSetTestRunner ( javaTestClass , parameters ) ) ; } }\n",
+		"comment":"only called reflectively .",
+		"score":3
+	},
+	{
+		"code":"protected Object deserializeUnknownHeader ( DataInput is , int head , ElsaStack objectStack ) throws IOException { throw new IOException ( _STR + head ) ; }\n",
+		"comment":"override this method to extend elsaserializerbase functionality",
+		"score":3
+	},
+	{
+		"code":"public boolean onOwnerChanged ( GridCacheEntryEx entry , GridCacheMvccCandidate owner ) { if ( owner != null ) { IgniteTxAdapter tx = tx ( owner . version ( ) ) ; if ( tx == null ) tx = nearTx ( owner . version ( ) ) ; if ( tx != null ) { if ( ! tx . local ( ) ) { if ( log . isDebugEnabled ( ) ) log . debug ( _STR + owner + _STR + entry + _STR + tx + _STR ) ; tx . onOwnerChanged ( entry , owner ) ; return _BOOL ; } else if ( log . isDebugEnabled ( ) ) log . debug ( _STR + tx ) ; } else if ( log . isDebugEnabled ( ) ) log . debug ( _STR + owner + _STR + entry + _STR ) ; } return _BOOL ; }\n",
+		"comment":"callback invoked whenever a member of a transaction acquires lock ownership .",
+		"score":1
+	},
+	{
+		"code":"void calculateCounters ( ) { if ( ! isDBAvailable ( ) ) return ; long time = System . currentTimeMillis ( ) ; int total = _NUM ; write . lock ( ) ; try { countResetFeedsAndCategories ( ) ; total += countFeedsWithUnread ( ) ; countCategoriesWithUnread ( ) ; countSpecialCategories ( total ) ; } finally { write . unlock ( ) ; } Log . i ( TAG , String . format ( _STR , total , ( System . currentTimeMillis ( ) - time ) ) ) ; }\n",
+		"comment":"set unread counters for feeds and categories according to real amount of unread articles .",
+		"score":1
+	},
+	{
+		"code":"public void run ( ) { try { try { Socket temp = factory . createSocket ( host , port ) ; synchronized ( this ) { socket = temp ; notify ( ) ; } rememberFactory ( host , factory ) ; synchronized ( this ) { if ( cleanUp ) try { socket . close ( ) ; } catch ( IOException e ) { } } } catch ( Exception e ) { synchronized ( this ) { exception = e ; notify ( ) ; } } } finally { } }\n",
+		"comment":"attempt socket connection in separate thread .",
+		"score":1
+	},
+	{
+		"code":"protected void readContents ( ) { boolean done = _BOOL ; while ( ! ( done || err ( ) ) ) { int code = read ( ) ; switch ( code ) { case _NUM : readBitmap ( ) ; break ; case _NUM : code = read ( ) ; switch ( code ) { case _NUM : currentFrame = new GifFrame ( ) ; readGraphicControlExt ( ) ; break ; case _NUM : readBlock ( ) ; String app = _STR ; for ( int i = _NUM ; i < _NUM ; i ++ ) { app += ( char ) block [ i ] ; } if ( app . equals ( _STR ) ) { readNetscapeExt ( ) ; } else { skip ( ) ; } break ; case _NUM : skip ( ) ; break ; case _NUM : skip ( ) ; break ; default : skip ( ) ; } break ; case _NUM : done = _BOOL ; break ; case _NUM : default : status = STATUS_FORMAT_ERROR ; } } }\n",
+		"comment":"main file parser .",
+		"score":1
+	},
+	{
+		"code":"@ Override public void perspective ( float fov , float aspect , float zNear , float zFar ) { float ymax = zNear * ( float ) Math . tan ( fov / _NUM ) ; float ymin = - ymax ; float xmin = ymin * aspect ; float xmax = ymax * aspect ; frustum ( xmin , xmax , ymin , ymax , zNear , zFar ) ; }\n",
+		"comment":"similar to gluperspective ( ) .",
+		"score":6
+	},
+	{
+		"code":"public void notifyInternal ( int notepos ) { int onNotePosition = scopePosition ( notepos ) ; if ( mMode == LayouMode . DEFAULT ) { } else if ( mMode == LayouMode . SINGLE_CHOICE ) { for ( int i = _NUM ; i < mChildViews . size ( ) ; i ++ ) { if ( mChildViews . get ( i ) instanceof TagView ) { TagView tag = ( TagView ) mChildViews . get ( i ) ; if ( onNotePosition == i ) { tag . applyProfile ( profile_active ) ; tag . setFlag_on ( _BOOL ) ; } else { tag . setFlag_on ( _BOOL ) ; tag . applyProfile ( profile_normal ) ; } tag . postInvalidate ( ) ; } } } else if ( mMode == LayouMode . SINGLE_CHOICE_OVERLAY_PRESET ) { for ( int i = _NUM ; i < mChildViews . size ( ) ; i ++ ) { if ( mChildViews . get ( i ) instanceof TagView ) { TagView tag = ( TagView ) mChildViews . get ( i ) ; if ( onNotePosition == i ) { tag . applyProfile ( profile_active ) ; tag . setFlag_on ( _BOOL ) ; } else { processPreselectedOptionsOff ( i , tag ) ; } tag . postInvalidate ( ) ; } } } else if ( mMode == LayouMode . MULTIPLE_CHOICE ) { if ( mChildViews . get ( onNotePosition ) instanceof TagView ) { TagView tag = ( TagView ) mChildViews . get ( onNotePosition ) ; if ( tag . isFlag_on ( ) ) { processPreselectedOptions ( notepos , tag , profile_normal , _BOOL ) ; } else { processPreselectedOptions ( notepos , tag , profile_active , _BOOL ) ; } tag . postInvalidate ( ) ; } } }\n",
+		"comment":"only communicate from the tagview",
+		"score":3
+	},
+	{
+		"code":"public List < Double > results ( ) { return Collections . unmodifiableList ( lapped ) ; }\n",
+		"comment":"getter for lap timing .",
+		"score":2
+	},
+	{
+		"code":"private void deleteProgressItem ( ) { int progressPosition = getGlobalPositionOf ( mProgressItem ) ; if ( progressPosition >= _NUM ) { mItems . remove ( mProgressItem ) ; notifyItemRemoved ( progressPosition ) ; } }\n",
+		"comment":"called when loading more should continue .",
+		"score":3
+	},
+	{
+		"code":"public void onDrawScrollBar ( Canvas canvas , int range , int offset , int extent , int alpha ) { float strokeRadius = mPaint . getStrokeWidth ( ) / _NUM ; float extraAngle = _NUM ; float offsetY = mOffset . y ; if ( offsetY > _NUM ) { float targetHeight = mScreenRadius - offsetY - strokeRadius ; double targetRadians = - Math . asin ( targetHeight / mScreenRadius ) ; float targetAngle = ( float ) ( _NUM * targetRadians / Math . PI / _NUM ) ; extraAngle = MathUtils . constrain ( targetAngle - START_ANGLE , _NUM , - START_ANGLE ) ; } else if ( offsetY < _NUM ) { float targetHeight = mScreenRadius + offsetY - strokeRadius ; double targetRadians = Math . asin ( targetHeight / mScreenRadius ) ; float targetAngle = ( float ) ( _NUM * targetRadians / Math . PI / _NUM ) ; extraAngle = MathUtils . constrain ( START_ANGLE + SWEEP_ANGLE - targetAngle , _NUM , START_ANGLE + SWEEP_ANGLE ) ; } float startAngle = MathUtils . constrain ( START_ANGLE + extraAngle , START_ANGLE , _NUM ) ; float sweepAngle = MathUtils . constrain ( SWEEP_ANGLE - _NUM * extraAngle , _NUM , SWEEP_ANGLE ) ; float minSweep = MIN_SWEEP * sweepAngle / SWEEP_ANGLE ; float thumbSweep = ( extent * sweepAngle ) / range ; thumbSweep = MathUtils . constrain ( thumbSweep , minSweep , sweepAngle ) ; float thumbRotation = ( sweepAngle - thumbSweep ) * ( offset ) / ( range - extent ) ; float opacity = alpha / _NUM ; if ( DesignConfig . DEBUG_SCROLLBAR && offsetY != _NUM ) { Log . v ( TAG , _STR + offsetY + _STR + extraAngle + _STR + startAngle + _STR + sweepAngle + _STR + opacity ) ; } canvas . save ( ) ; canvas . translate ( - mOffset . x , - mOffset . y ) ; if ( mIsRound ) { setColorWithOpacity ( mPaint , mBgColor , opacity ) ; canvas . drawArc ( mOval , startAngle , sweepAngle , _BOOL , mPaint ) ; setColorWithOpacity ( mPaint , mSweepColor , opacity ) ; canvas . rotate ( thumbRotation , mOval . centerX ( ) , mOval . centerY ( ) ) ; canvas . drawArc ( mOval , startAngle , thumbSweep , _BOOL , mPaint ) ; } else { float x = mOval . right ; setColorWithOpacity ( mPaint , mBgColor , opacity ) ; float startY = getY ( startAngle , x ) ; float length = getY ( startAngle + sweepAngle , x ) - startY ; canvas . drawLine ( x , startY , x , startY + length , mPaint ) ; setColorWithOpacity ( mPaint , mSweepColor , opacity ) ; float start = startY + ( thumbRotation / sweepAngle ) * length ; float end = startY + ( ( thumbRotation + thumbSweep ) / sweepAngle ) * length ; canvas . drawLine ( x , start , x , end , mPaint ) ; } canvas . restore ( ) ; }\n",
+		"comment":"call this in hidden api ondrawverticalscrollbar .",
+		"score":3
+	},
+	{
+		"code":"public static int rand ( final int n ) { return rand . nextInt ( n ) ; }\n",
+		"comment":"generates an equally distributed random number .",
+		"score":1
+	},
+	{
+		"code":"public static float [ ] [ ] toMatrix ( AffineTransform xform ) { return new float [ ] [ ] { { ( float ) xform . getScaleX ( ) , ( float ) xform . getShearX ( ) , _NUM } , { ( float ) xform . getShearY ( ) , ( float ) xform . getScaleY ( ) , _NUM } , { ( float ) xform . getTranslateX ( ) , ( float ) xform . getTranslateY ( ) , _NUM } } ; }\n",
+		"comment":"please call this function only on device bound transformation not good for general use cases ;",
+		"score":3
+	},
+	{
+		"code":"private void waitTasksToComplete ( ) { log . info ( _STR , futures . size ( ) ) ; for ( Future f : futures ) { try { f . get ( ) ; } catch ( InterruptedException ex ) { log . warn ( _STR , ex ) ; } catch ( ExecutionException ex ) { log . error ( _STR , ex ) ; } } futures . clear ( ) ; log . info ( _STR ) ; }\n",
+		"comment":"post handling after gc",
+		"score":3
+	},
+	{
+		"code":"public static long daysBetween ( Date startDate , Date endDate ) { Calendar sDate = getDatePart ( startDate ) ; Calendar eDate = getDatePart ( endDate ) ; long daysBetween = _NUM ; while ( sDate . before ( eDate ) ) { sDate . add ( Calendar . DAY_OF_MONTH , _NUM ) ; daysBetween ++ ; } return daysBetween ; }\n",
+		"comment":"this method also assumes enddate > = startdate",
+		"score":5
+	},
+	{
+		"code":"boolean computeAngleOffset ( ) { if ( mFinished ) { return _BOOL ; } long systemClock = AnimationUtils . currentAnimationTimeMillis ( ) ; long timePassed = systemClock - mStartMillis ; if ( timePassed < mDurationMillis ) { switch ( mMode ) { case SCROLL_MODE : float sc = ( float ) timePassed / mDurationMillis ; mCurrAngleDeg = mStartAngleDeg + Math . round ( mDeltaAngleDeg * sc ) ; break ; case FLING_MODE : float timePassedSeconds = timePassed / _NUM ; float distance = mCoeffVelocity * mVelocity * timePassedSeconds - ( DECELERATION * timePassedSeconds * timePassedSeconds / _NUM ) ; mCurrAngleDeg = mStartAngleDeg + Math . round ( distance ) ; break ; } return _BOOL ; } else { mFinished = _BOOL ; return _BOOL ; } }\n",
+		"comment":"call this when you want to know the new location .",
+		"score":3
+	},
+	{
+		"code":"public synchronized void stop ( ) throws NoSuchObjectException { if ( isRunning ( ) ) { isRunning = ! UnicastRemoteObject . unexportObject ( registry , _BOOL ) ; } }\n",
+		"comment":"stops this mbean : rmiregistry cannot accept anymore incoming calls",
+		"score":4
+	},
+	{
+		"code":"public boolean isOutOfMemory ( ) { try { Thread . sleep ( m_SleepTime ) ; } catch ( InterruptedException ex ) { ex . printStackTrace ( ) ; } m_MemoryUsage = m_MemoryMXBean . getHeapMemoryUsage ( ) ; if ( isEnabled ( ) ) { long avail = m_MemoryUsage . getMax ( ) - m_MemoryUsage . getUsed ( ) ; if ( avail > OUT_OF_MEMORY_THRESHOLD ) { long num = ( avail - OUT_OF_MEMORY_THRESHOLD ) / _NUM + _NUM ; m_SleepTime = ( long ) ( _NUM * ( Math . log ( num ) + _NUM ) ) ; if ( m_SleepTime > MAX_SLEEP_TIME ) { m_SleepTime = MAX_SLEEP_TIME ; } } return avail < OUT_OF_MEMORY_THRESHOLD ; } else { return _BOOL ; } }\n",
+		"comment":"checks if there ' s still enough memory left by checking whether there is still a 50mb margin between getused ( ) and getmax ( ) .",
+		"score":4
+	},
+	{
+		"code":"public void removeEvents ( ) { scene . setOnKeyPressed ( null ) ; scene . setOnKeyReleased ( null ) ; up = down = left = right = sprint = jump = shootFireball = _BOOL ; }\n",
+		"comment":"called during final flag pole sequence .",
+		"score":3
+	},
+	{
+		"code":"public void updateProgress ( ) { supportInvalidateOptionsMenu ( ) ; }\n",
+		"comment":"gets called from videolistfragment2",
+		"score":3
+	},
+	{
+		"code":"public void componentRemoved ( ContainerEvent e ) { Layer childLayer = ( Layer ) e . getChild ( ) ; removeProjectionListener ( childLayer ) ; removedLayers . addElement ( childLayer ) ; changeLayers ( e ) ; }\n",
+		"comment":"containerlistener interface method .",
+		"score":2
+	},
+	{
+		"code":"private void buildLines ( ) { while ( ! nodeEdgeStack . empty ( ) ) { HalfEdge e = ( HalfEdge ) nodeEdgeStack . pop ( ) ; if ( MarkHalfEdge . isMarked ( e ) ) continue ; buildLine ( e ) ; } }\n",
+		"comment":"for each edge in stack ( which must originate at a node ) extracts the line it initiates .",
+		"score":4
+	},
+	{
+		"code":"private static InputStreamReader decompressWith7Zip ( final String archivePath ) throws ConfigurationException { PATH_PROGRAM_7ZIP = ( String ) config . getConfigParameter ( ConfigurationKeys . PATH_PROGRAM_7ZIP ) ; if ( PATH_PROGRAM_7ZIP == null ) { throw ErrorFactory . createConfigurationException ( ErrorKeys . CONFIGURATION_PARAMETER_UNDEFINED ) ; } try { Runtime runtime = Runtime . getRuntime ( ) ; Process p = runtime . exec ( PATH_PROGRAM_7ZIP + _STR + archivePath + _STR ) ; return new InputStreamReader ( p . getInputStream ( ) , WIKIPEDIA_ENCODING ) ; } catch ( Exception e ) { throw new RuntimeException ( e ) ; } }\n",
+		"comment":"starts a decompression process using the 7zip program .",
+		"score":1
+	},
+	{
+		"code":"public ResponseEntity < List < Review > > defaultReviews ( int productId ) { LOG . warn ( _STR ) ; return util . createResponse ( Arrays . asList ( new Review ( productId , _NUM , _STR , _STR , _STR ) ) , HttpStatus . OK ) ; }\n",
+		"comment":"fallback method for getreviews ( )",
+		"score":2
+	},
+	{
+		"code":"private List < ? extends Element > sortElements ( final RoundEnvironment env , final Class < ? extends Annotation > annotationClass ) { final Set < ? extends Element > elements = env . getElementsAnnotatedWith ( annotationClass ) ; final List < ? extends Element > result = new ArrayList ( elements ) ; Collections . sort ( result , null ) ; return result ; }\n",
+		"comment":"introduced to handle issue # 1671",
+		"score":2
+	},
+	{
+		"code":"void stop ( ) { this . running = _BOOL ; runningThread . interrupt ( ) ; }\n",
+		"comment":"shut down the message processor .",
+		"score":1
+	},
+	{
+		"code":"public void skip ( int bytes ) throws BufferOverflowException { if ( bytes > remaining ( ) ) throw new BufferOverflowException ( ) ; while ( bytes > _NUM ) { ByteBuffer bb = getReadChunk ( ) ; int n = Math . min ( bb . remaining ( ) , bytes ) ; bb . position ( bb . position ( ) + n ) ; bytes -= n ; } }\n",
+		"comment":"omit data by moving read pointer forward .",
+		"score":4
+	},
+	{
+		"code":"@ Override public DocumentType createDocumentType ( String qualifiedName , String publicID , String systemID ) { checkQName ( qualifiedName ) ; return new DocumentTypeImpl ( null , qualifiedName , publicID , systemID ) ; }\n",
+		"comment":"introduced in dom level 2 .",
+		"score":2
+	},
+	{
+		"code":"public void offerBusyBox ( Activity activity ) { RootTools . log ( _STR ) ; Intent i = new Intent ( Intent . ACTION_VIEW , Uri . parse ( _STR ) ) ; activity . startActivity ( i ) ; }\n",
+		"comment":"this will launch the android market looking for busybox",
+		"score":1
+	},
+	{
+		"code":"public void processStatement ( final Statement statement , long startTime , ResultSetFuture result ) { report ( startTime , statement , result ) ; }\n",
+		"comment":"wrapper for session manager execute async method .",
+		"score":2
+	},
+	{
+		"code":"private boolean isValid ( String to ) { if ( p_SetFutureCostTo . length ( ) == _NUM ) return _BOOL ; String toTarget = to ; if ( to . equals ( TO_AverageInvoiceHistory ) ) to = TO_AverageInvoice ; if ( to . equals ( TO_AveragePOHistory ) ) to = TO_AveragePO ; if ( to . equals ( TO_FutureStandardCost ) ) to = TO_StandardCost ; if ( to . equals ( TO_AverageInvoice ) || to . equals ( TO_AveragePO ) || to . equals ( TO_FiFo ) || to . equals ( TO_LiFo ) || to . equals ( TO_StandardCost ) ) { MCostElement ce = MCostElement . getByMaterialCostElementType ( client ) ; return ce != null ; } return _BOOL ; }\n",
+		"comment":"costing method must exist",
+		"score":5
+	},
+	{
+		"code":"@ Override protected void tearDown ( ) throws Exception { Espresso . unregisterIdlingResources ( webViewIdlingResource ) ; super . tearDown ( ) ; }\n",
+		"comment":"unregister the idling resource",
+		"score":1
+	},
+	{
+		"code":"public static int recompileWithOpt ( NormalMethod method ) { if ( VM . BuildForOptCompiler ) { CompilationPlan plan = new CompilationPlan ( method , ( OptimizationPlanElement [ ] ) optimizationPlan , null , ( OptOptions ) options ) ; return recompileWithOpt ( plan ) ; } else { if ( VM . VerifyAssertions ) VM . _assert ( VM . NOT_REACHED ) ; return - _NUM ; } }\n",
+		"comment":"a wrapper method for those callers who don ' t want to make optimization plans",
+		"score":1
+	},
+	{
+		"code":"public void clear ( ) { items . clear ( ) ; lastModifiedTime = System . currentTimeMillis ( ) ; save ( ) ; }\n",
+		"comment":"clears all workbook opening traces .",
+		"score":1
+	}
+]

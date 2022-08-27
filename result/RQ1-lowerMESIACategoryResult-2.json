@@ -1,0 +1,502 @@
+[
+	{
+		"code":"@ Override public double evaluateSubset ( BitSet subset ) throws Exception { double num = _NUM ; double denom = _NUM ; float corr ; int larger , smaller ; for ( int i = _NUM ; i < m_numAttribs ; i ++ ) { if ( i != m_classIndex ) { if ( subset . get ( i ) ) { if ( i > m_classIndex ) { larger = i ; smaller = m_classIndex ; } else { smaller = i ; larger = m_classIndex ; } if ( m_corr_matrix [ larger ] [ smaller ] == - _NUM ) { corr = correlate ( i , m_classIndex ) ; m_corr_matrix [ larger ] [ smaller ] = corr ; num += ( m_std_devs [ i ] * corr ) ; } else { num += ( m_std_devs [ i ] * m_corr_matrix [ larger ] [ smaller ] ) ; } } } } for ( int i = _NUM ; i < m_numAttribs ; i ++ ) { if ( i != m_classIndex ) { if ( subset . get ( i ) ) { denom += ( _NUM * m_std_devs [ i ] * m_std_devs [ i ] ) ; for ( int j = _NUM ; j < m_corr_matrix [ i ] . length - _NUM ; j ++ ) { if ( subset . get ( j ) ) { if ( m_corr_matrix [ i ] [ j ] == - _NUM ) { corr = correlate ( i , j ) ; m_corr_matrix [ i ] [ j ] = corr ; denom += ( _NUM * m_std_devs [ i ] * m_std_devs [ j ] * corr ) ; } else { denom += ( _NUM * m_std_devs [ i ] * m_std_devs [ j ] * m_corr_matrix [ i ] [ j ] ) ; } } } } } } if ( denom < _NUM ) { denom *= - _NUM ; } if ( denom == _NUM ) { return ( _NUM ) ; } double merit = ( num / Math . sqrt ( denom ) ) ; if ( merit < _NUM ) { merit *= - _NUM ; } return merit ; }\n",
+		"comment":"evaluates a subset of attributes",
+		"score":1
+	},
+	{
+		"code":"private void verifyVPlexVolumeResults ( ) throws Exception { for ( URI volumeURI : vplexTestVolumeURIs ) { Volume volume = _dbClient . queryObject ( Volume . class , volumeURI ) ; Assert . assertNotNull ( String . format ( _STR , volumeURI ) , volume ) ; StringSet associatedVolumes = volume . getAssociatedVolumes ( ) ; if ( ( associatedVolumes != null ) && ( ! associatedVolumes . isEmpty ( ) ) ) { Assert . assertFalse ( _STR , volume . checkInternalFlags ( Flag . INTERNAL_OBJECT ) ) ; } else { Assert . assertTrue ( _STR , volume . checkInternalFlags ( Flag . INTERNAL_OBJECT ) ) ; } } }\n",
+		"comment":"verifies the migration results for volumes .",
+		"score":1
+	},
+	{
+		"code":"public boolean remove ( URI uri , HttpCookie ck ) { if ( ck == null ) { throw new NullPointerException ( _STR ) ; } boolean modified = _BOOL ; lock . lock ( ) ; try { modified = cookieJar . remove ( ck ) ; } finally { lock . unlock ( ) ; } storeCookies ( ) ; return modified ; }\n",
+		"comment":"remove a cookie from store",
+		"score":1
+	},
+	{
+		"code":"public static String domToString ( Document domDoc ) { return domToString ( domDoc . getDocumentElement ( ) , _BOOL ) ; }\n",
+		"comment":"converts a dom to a string",
+		"score":1
+	},
+	{
+		"code":"private boolean stringContainsSpecialCharacters ( String line ) { return line . indexOf ( quotechar ) != - _NUM || line . indexOf ( escapechar ) != - _NUM || line . indexOf ( separator ) != - _NUM || line . contains ( DEFAULT_LINE_END ) || line . contains ( CARRIAGE_RETURN ) ; }\n",
+		"comment":"checks to see if the line contains special characters .",
+		"score":1
+	},
+	{
+		"code":"boolean isContextualSearchUrl ( String url ) { return url . equals ( getSearchUrl ( ) ) ; }\n",
+		"comment":"returns whether the given url is the current contextual search url .",
+		"score":1
+	},
+	{
+		"code":"private static String lowerCaseFirstCharacter ( String str ) { if ( str . length ( ) == _NUM ) { return str ; } return Character . toLowerCase ( str . charAt ( _NUM ) ) + str . substring ( _NUM ) ; }\n",
+		"comment":"lower case the first character of a string .",
+		"score":1
+	},
+	{
+		"code":"private QueryResult ( final QueryTask task ) { mTask = task ; }\n",
+		"comment":"construct a query result",
+		"score":1
+	},
+	{
+		"code":"private void refreshDoneButton ( boolean done ) { butDone . setText ( done ? Messages . getString ( _STR ) : Messages . getString ( _STR ) ) ; }\n",
+		"comment":"refreshes the done button .",
+		"score":1
+	},
+	{
+		"code":"public CDataNodeComponent ( final INaviModule module , final IViewContainer originContainer ) { super ( new BorderLayout ( ) ) ; Preconditions . checkNotNull ( module , _STR ) ; final JideSplitPane splitPane = new JideSplitPane ( JideSplitPane . VERTICAL_SPLIT ) ; splitPane . setDoubleBuffered ( _BOOL ) ; splitPane . setOneTouchExpandable ( _BOOL ) ; splitPane . setMinimumSize ( new Dimension ( _NUM , _NUM ) ) ; splitPane . setProportionalLayout ( _BOOL ) ; splitPane . setInitiallyEven ( _BOOL ) ; final JPanel panel = new JPanel ( new BorderLayout ( ) ) ; dataSectionComponent = new DataSectionComponent ( module , originContainer ) ; panel . add ( dataSectionComponent ) ; final JTabbedPane pane = new JTabbedPane ( ) ; pane . addTab ( _STR , new CNavigationPanel ( dataSectionComponent . getHexView ( ) ) ) ; splitPane . addPane ( panel ) ; splitPane . addPane ( pane ) ; add ( splitPane ) ; }\n",
+		"comment":"creates a new data node component .",
+		"score":1
+	},
+	{
+		"code":"public CharBuffer delete ( int start , int end ) { int length = length ( ) ; if ( start < _NUM || end < start || length < start ) throw new StringIndexOutOfBoundsException ( ) ; end = Math . min ( length , end ) ; int tail = length - end ; char [ ] buffer = buffer ( ) ; for ( int i = _NUM ; i < tail ; i ++ ) { buffer [ start + i ] = buffer [ end + i ] ; } length ( length - ( end - start ) ) ; return this ; }\n",
+		"comment":"deletes characters from the buffer .",
+		"score":1
+	},
+	{
+		"code":"public ShardIterator primaryShardIt ( ) { return new PlainShardIterator ( shardId , primaryAsList ) ; }\n",
+		"comment":"returns an iterator only on the primary shard .",
+		"score":1
+	},
+	{
+		"code":"private void writeToFile ( final InputStream input , final File output ) throws IOException { try ( FileWriter writer = new FileWriter ( output ) ) { BufferedReader reader = new BufferedReader ( new InputStreamReader ( input ) ) ; String line ; while ( ( line = reader . readLine ( ) ) != null ) { writer . write ( line ) ; writer . write ( EOL ) ; } } }\n",
+		"comment":"write the content of the input stream to the output file .",
+		"score":1
+	},
+	{
+		"code":"public static void removeSiteSecondaryURLs ( SSOToken ssoToken , String siteName , Collection secondaryURLs ) throws SMSException , SSOException { ServiceConfig rootNode = getRootSiteConfig ( ssoToken ) ; ServiceConfig sc = rootNode . getSubConfig ( siteName ) ; ServiceConfig accessPoint = sc . getSubConfig ( SUBCONFIG_ACCESS_URL ) ; Set secondary = accessPoint . getSubConfigNames ( _STR ) ; if ( ( secondary != null ) && ! secondary . isEmpty ( ) ) { for ( Iterator i = secondary . iterator ( ) ; i . hasNext ( ) ; ) { String secName = ( String ) i . next ( ) ; if ( secondaryURLs . contains ( secName ) ) { accessPoint . removeSubConfig ( secName ) ; } } } }\n",
+		"comment":"removes the secondary urls from a site .",
+		"score":1
+	},
+	{
+		"code":"protected void generateRandomPopulation ( int population_size ) { logger . debug ( _STR ) ; for ( int i = _NUM ; i < population_size ; i ++ ) { T individual = chromosomeFactory . getChromosome ( ) ; for ( FitnessFunction < ? > fitnessFunction : this . fitnessFunctions ) { individual . addFitness ( fitnessFunction ) ; } population . add ( individual ) ; if ( isFinished ( ) ) break ; } logger . debug ( _STR + population . size ( ) + _STR ) ; }\n",
+		"comment":"generate random population of given size",
+		"score":1
+	},
+	{
+		"code":"public void addUserMessageListener ( UserMessageListener userMessageListener ) { userMessageListeners . add ( userMessageListener ) ; }\n",
+		"comment":"adds a user message listener .",
+		"score":1
+	},
+	{
+		"code":"private int measureWidth ( int measureSpec ) { int specMode = MeasureSpec . getMode ( measureSpec ) ; int specSize = MeasureSpec . getSize ( measureSpec ) ; int result ; if ( specMode == MeasureSpec . EXACTLY ) { result = specSize ; } else { result = specSize + getPaddingLeft ( ) + getPaddingRight ( ) + ( _NUM * DEFAULT_PAINT_STROKE_WIDTH ) + ( int ) ( _NUM * radius ) ; if ( specMode == MeasureSpec . AT_MOST ) { result = Math . min ( result , specSize ) ; } } return result ; }\n",
+		"comment":"measures width according to the passed measure spec",
+		"score":1
+	},
+	{
+		"code":"public void verifyBeanPropertyExist ( String propertyName ) throws Exception { Class clazz = Class . forName ( className ) ; String getterMethodName = generateGetterMethodName ( propertyName ) ; verifyMethodExist ( getterMethodName ) ; String setterMethodName = generateSetterMethodName ( propertyName ) ; verifyMethodExist ( setterMethodName ) ; }\n",
+		"comment":"verify the class has the bean property",
+		"score":1
+	},
+	{
+		"code":"public static AsyncWorld wrap ( World world ) { if ( world instanceof AsyncWorld ) { return ( AsyncWorld ) world ; } return new AsyncWorld ( world , _BOOL ) ; }\n",
+		"comment":"wrap a world for async usage",
+		"score":1
+	},
+	{
+		"code":"public void clear ( Color color ) { offscreen . setColor ( color ) ; offscreen . fillRect ( _NUM , _NUM , width , height ) ; offscreen . setColor ( penColor ) ; draw ( ) ; }\n",
+		"comment":"clears the screen to the given color .",
+		"score":1
+	},
+	{
+		"code":"private ResourceIndex refreshResourceIndexFromDataStore ( ServiceType resourceType ) throws PolicyException { ResourceIndex resourceIndex = getResourceIndexFromDataStore ( resourceType ) ; resourceIndices . put ( resourceType . getName ( ) , resourceIndex ) ; return resourceIndex ; }\n",
+		"comment":"refreshes the resource index in the local cache reading from the data store",
+		"score":1
+	},
+	{
+		"code":"public SingleRequestSender ( CloseableHttpAsyncClient client , Integer timeoutSec ) { this ( client ) ; this . timeoutSec = timeoutSec ; }\n",
+		"comment":"construct a request sender that uses the given http client and the specified timeout .",
+		"score":1
+	},
+	{
+		"code":"public boolean removeHandler ( String columnName ) { if ( m_overrides == null ) return _BOOL ; else return m_overrides . remove ( columnName ) != null ; }\n",
+		"comment":"remove a custom data handler for a given column name .",
+		"score":1
+	},
+	{
+		"code":"private static String pickRandomStatsFields ( String [ ] fieldNames ) { String fieldName ; do { fieldName = fieldNames [ TestUtil . nextInt ( random ( ) , _NUM , fieldNames . length - _NUM ) ] ; } while ( fieldName . endsWith ( _STR ) || fieldName . endsWith ( _STR ) ) ; return fieldName ; }\n",
+		"comment":"picks a random field to use for stats",
+		"score":1
+	},
+	{
+		"code":"private void initPrimaryBackupMaps ( ) { Map < UUID , Set < Integer > > tmpPrm = new HashMap < > ( ) ; Map < UUID , Set < Integer > > tmpBkp = new HashMap < > ( ) ; for ( int partsCnt = assignment . size ( ) , p = _NUM ; p < partsCnt ; p ++ ) { Map < UUID , Set < Integer > > tmp = tmpPrm ; Map < UUID , Set < Integer > > map = primary ; for ( ClusterNode node : assignment . get ( p ) ) { UUID id = node . id ( ) ; Set < Integer > set = tmp . get ( id ) ; if ( set == null ) { tmp . put ( id , set = new HashSet < > ( ) ) ; map . put ( id , Collections . unmodifiableSet ( set ) ) ; } set . add ( p ) ; tmp = tmpBkp ; map = backup ; } } }\n",
+		"comment":"initializes primary and backup maps .",
+		"score":1
+	},
+	{
+		"code":"public static boolean isNetworkConnected ( Context context ) { if ( null == context ) { return _BOOL ; } ConnectivityManager connectivityManager = ( ConnectivityManager ) context . getSystemService ( Context . CONNECTIVITY_SERVICE ) ; if ( connectivityManager != null ) { NetworkInfo info = connectivityManager . getActiveNetworkInfo ( ) ; if ( info != null && info . isConnected ( ) ) { if ( info . getState ( ) == NetworkInfo . State . CONNECTED ) { return _BOOL ; } } } return _BOOL ; }\n",
+		"comment":"whether the network is connected",
+		"score":1
+	},
+	{
+		"code":"protected String calculateBaseSearchUrl ( ) { String baseUrl = Util . getAbsoluteUrl ( context . getActionPath ( ) ) ; if ( pk != null ) { for ( int i = _NUM ; i < pk . length ; i ++ ) { int lastSlashIndex = baseUrl . lastIndexOf ( _STR ) ; baseUrl = baseUrl . substring ( _NUM , lastSlashIndex ) ; } } return baseUrl ; }\n",
+		"comment":"computes the search url from the current url .",
+		"score":1
+	},
+	{
+		"code":"public void addDescriptor ( final SetupDescriptor desc ) { descriptors . add ( desc ) ; }\n",
+		"comment":"add a setup descriptor .",
+		"score":1
+	},
+	{
+		"code":"public CAddressSpaceConfiguration ( final CAddressSpace addressSpace , final AddressSpaceConfigurationBackend provider , final int addressSpaceId , final String name , final String description , final Date creationDate , final Date modificationDate , final DebuggerTemplate debuggerTemplate ) { m_addressSpace = addressSpace ; m_provider = provider ; m_id = addressSpaceId ; m_name = name ; m_description = description ; m_creationDate = new Date ( creationDate . getTime ( ) ) ; m_modificationDate = new Date ( modificationDate . getTime ( ) ) ; m_debuggerTemplate = debuggerTemplate ; }\n",
+		"comment":"creates a new address space configuration object .",
+		"score":1
+	},
+	{
+		"code":"public BufferedHeader ( final CharArrayBuffer buffer ) throws ParseException { super ( ) ; if ( buffer == null ) { throw new IllegalArgumentException ( _STR ) ; } int colon = buffer . indexOf ( _STR ) ; if ( colon == - _NUM ) { throw new ParseException ( _STR + buffer . toString ( ) ) ; } String s = buffer . substringTrimmed ( _NUM , colon ) ; if ( s . length ( ) == _NUM ) { throw new ParseException ( _STR + buffer . toString ( ) ) ; } this . buffer = buffer ; this . name = s ; this . valuePos = colon + _NUM ; }\n",
+		"comment":"creates a new header from a buffer .",
+		"score":1
+	},
+	{
+		"code":"public int execute ( String sql ) throws SQLException { if ( logger . isDebugEnabled ( ) ) logger . debug ( _STR + sql ) ; return statement . executeUpdate ( sql ) ; }\n",
+		"comment":"executes a sql statement .",
+		"score":1
+	},
+	{
+		"code":"private static RuntimeException outOfBounds ( BiFunction < String , List < Integer > , ? extends RuntimeException > oobef , String checkKind , Integer ... args ) { List < Integer > largs = Arrays . asList ( args ) ; RuntimeException e = oobef == null ? null : oobef . apply ( checkKind , largs ) ; return e == null ? new IndexOutOfBoundsException ( outOfBoundsMessage ( checkKind , largs ) ) : e ; }\n",
+		"comment":"maps out - of - bounds values to a runtime exception .",
+		"score":1
+	},
+	{
+		"code":"public static boolean isEqual ( ColorSpace a , ColorSpace b ) { if ( ( a instanceof ICC_ColorSpace ) && ( b instanceof ICC_ColorSpace ) ) { ICC_ColorSpace aicc = ( ICC_ColorSpace ) a ; ICC_ColorSpace bicc = ( ICC_ColorSpace ) b ; ICC_Profile ap = aicc . getProfile ( ) ; ICC_Profile bp = bicc . getProfile ( ) ; return ap . equals ( bp ) ; } else { return a . equals ( b ) ; } }\n",
+		"comment":"returns true , if the two color spaces are equal .",
+		"score":1
+	},
+	{
+		"code":"protected GeoPoint [ ] findIntersections ( final PlanetModel planetModel , final Plane q , final Membership [ ] bounds , final Membership [ ] moreBounds ) { final double lineVectorX = y * q . z - z * q . y ; final double lineVectorY = z * q . x - x * q . z ; final double lineVectorZ = x * q . y - y * q . x ; if ( Math . abs ( lineVectorX ) < MINIMUM_RESOLUTION && Math . abs ( lineVectorY ) < MINIMUM_RESOLUTION && Math . abs ( lineVectorZ ) < MINIMUM_RESOLUTION ) { return NO_POINTS ; } double x0 ; double y0 ; double z0 ; final double denomYZ = this . y * q . z - this . z * q . y ; final double denomXZ = this . x * q . z - this . z * q . x ; final double denomXY = this . x * q . y - this . y * q . x ; if ( Math . abs ( denomYZ ) >= Math . abs ( denomXZ ) && Math . abs ( denomYZ ) >= Math . abs ( denomXY ) ) { if ( Math . abs ( denomYZ ) < MINIMUM_RESOLUTION_SQUARED ) { return NO_POINTS ; } final double denom = _NUM / denomYZ ; x0 = _NUM ; y0 = ( - this . D * q . z - this . z * - q . D ) * denom ; z0 = ( this . y * - q . D + this . D * q . y ) * denom ; } else if ( Math . abs ( denomXZ ) >= Math . abs ( denomXY ) && Math . abs ( denomXZ ) >= Math . abs ( denomYZ ) ) { if ( Math . abs ( denomXZ ) < MINIMUM_RESOLUTION_SQUARED ) { return NO_POINTS ; } final double denom = _NUM / denomXZ ; x0 = ( - this . D * q . z - this . z * - q . D ) * denom ; y0 = _NUM ; z0 = ( this . x * - q . D + this . D * q . x ) * denom ; } else { if ( Math . abs ( denomXY ) < MINIMUM_RESOLUTION_SQUARED ) { return NO_POINTS ; } final double denom = _NUM / denomXY ; x0 = ( - this . D * q . y - this . y * - q . D ) * denom ; y0 = ( this . x * - q . D + this . D * q . x ) * denom ; z0 = _NUM ; } final double A = lineVectorX * lineVectorX * planetModel . inverseAbSquared + lineVectorY * lineVectorY * planetModel . inverseAbSquared + lineVectorZ * lineVectorZ * planetModel . inverseCSquared ; final double B = _NUM * ( lineVectorX * x0 * planetModel . inverseAbSquared + lineVectorY * y0 * planetModel . inverseAbSquared + lineVectorZ * z0 * planetModel . inverseCSquared ) ; final double C = x0 * x0 * planetModel . inverseAbSquared + y0 * y0 * planetModel . inverseAbSquared + z0 * z0 * planetModel . inverseCSquared - _NUM ; final double BsquaredMinus = B * B - _NUM * A * C ; if ( Math . abs ( BsquaredMinus ) < MINIMUM_RESOLUTION_SQUARED ) { final double inverse2A = _NUM / ( _NUM * A ) ; final double t = - B * inverse2A ; final double pointX = lineVectorX * t + x0 ; final double pointY = lineVectorY * t + y0 ; final double pointZ = lineVectorZ * t + z0 ; for ( final Membership bound : bounds ) { if ( ! bound . isWithin ( pointX , pointY , pointZ ) ) { return NO_POINTS ; } } for ( final Membership bound : moreBounds ) { if ( ! bound . isWithin ( pointX , pointY , pointZ ) ) { return NO_POINTS ; } } return new GeoPoint [ ] { new GeoPoint ( pointX , pointY , pointZ ) } ; } else if ( BsquaredMinus > _NUM ) { final double inverse2A = _NUM / ( _NUM * A ) ; final double sqrtTerm = Math . sqrt ( BsquaredMinus ) ; final double t1 = ( - B + sqrtTerm ) * inverse2A ; final double t2 = ( - B - sqrtTerm ) * inverse2A ; final double point1X = lineVectorX * t1 + x0 ; final double point1Y = lineVectorY * t1 + y0 ; final double point1Z = lineVectorZ * t1 + z0 ; final double point2X = lineVectorX * t2 + x0 ; final double point2Y = lineVectorY * t2 + y0 ; final double point2Z = lineVectorZ * t2 + z0 ; boolean point1Valid = _BOOL ; boolean point2Valid = _BOOL ; for ( final Membership bound : bounds ) { if ( ! bound . isWithin ( point1X , point1Y , point1Z ) ) { point1Valid = _BOOL ; break ; } } if ( point1Valid ) { for ( final Membership bound : moreBounds ) { if ( ! bound . isWithin ( point1X , point1Y , point1Z ) ) { point1Valid = _BOOL ; break ; } } } for ( final Membership bound : bounds ) { if ( ! bound . isWithin ( point2X , point2Y , point2Z ) ) { point2Valid = _BOOL ; break ; } } if ( point2Valid ) { for ( final Membership bound : moreBounds ) { if ( ! bound . isWithin ( point2X , point2Y , point2Z ) ) { point2Valid = _BOOL ; break ; } } } if ( point1Valid && point2Valid ) { return new GeoPoint [ ] { new GeoPoint ( point1X , point1Y , point1Z ) , new GeoPoint ( point2X , point2Y , point2Z ) } ; } if ( point1Valid ) { return new GeoPoint [ ] { new GeoPoint ( point1X , point1Y , point1Z ) } ; } if ( point2Valid ) { return new GeoPoint [ ] { new GeoPoint ( point2X , point2Y , point2Z ) } ; } return NO_POINTS ; } else { return NO_POINTS ; } }\n",
+		"comment":"find the intersection points between two planes , given a set of bounds .",
+		"score":1
+	},
+	{
+		"code":"public CompletableFuture < String > publish ( final String topic , final Message message ) { final TopicQueue queue = topics . computeIfAbsent ( topic , null ) ; final CompletableFuture < String > future = queue . send ( message ) ; listener . publishingMessage ( this , topic , message , future ) ; return future ; }\n",
+		"comment":"publish a message on a specific topic .",
+		"score":1
+	},
+	{
+		"code":"public void removeConsistencyGroupSnapshot ( String consistencyGroupId ) throws Exception { String systemId = getSystemId ( ) ; String uri = ScaleIOConstants . getRemoveConsistencyGroupSnapshotsURI ( systemId ) ; ScaleIORemoveConsistencyGroupSnapshots parm = new ScaleIORemoveConsistencyGroupSnapshots ( ) ; parm . setSnapGroupId ( consistencyGroupId ) ; post ( URI . create ( uri ) , getJsonForEntity ( parm ) ) ; }\n",
+		"comment":"remove snapshots , which are in a consistency group",
+		"score":1
+	},
+	{
+		"code":"private FileList filter ( boolean keep , String pattern ) { boolean start = _BOOL ; if ( pattern . endsWith ( _STR ) ) { pattern = pattern . substring ( _NUM , pattern . length ( ) - _NUM ) ; start = _BOOL ; } else if ( pattern . startsWith ( _STR ) ) { pattern = pattern . substring ( _NUM ) ; } if ( pattern . indexOf ( _STR ) >= _NUM ) { throw new RuntimeException ( _STR + pattern ) ; } pattern = BuildBase . replaceAll ( pattern , _STR , File . separator ) ; FileList list = new FileList ( ) ; for ( File f : this ) { String path = f . getPath ( ) ; boolean match = start ? path . startsWith ( pattern ) : path . endsWith ( pattern ) ; if ( match == keep ) { list . add ( f ) ; } } return list ; }\n",
+		"comment":"filter a list of file names .",
+		"score":1
+	},
+	{
+		"code":"public void addFieldAnnotations ( CstFieldRef field , Annotations annotations ) { if ( fieldAnnotations == null ) { fieldAnnotations = new ArrayList < FieldAnnotationStruct > ( ) ; } fieldAnnotations . add ( new FieldAnnotationStruct ( field , new AnnotationSetItem ( annotations ) ) ) ; }\n",
+		"comment":"adds a field annotations item to this instance .",
+		"score":1
+	},
+	{
+		"code":"private void loadOldUpdateProperties ( ) throws IOException { prop = new Properties ( ) ; InputStream is ; if ( oldFile . indexOf ( _STR ) > _NUM ) { URL url = new URL ( oldFile ) ; is = url . openStream ( ) ; } else { is = new FileInputStream ( oldFile ) ; } prop . load ( is ) ; is . close ( ) ; }\n",
+		"comment":"loads the current version of the update . properties",
+		"score":1
+	},
+	{
+		"code":"ExternalProblem ( Socket socket ) throws IOException { this ( socket . getInputStream ( ) , socket . getOutputStream ( ) ) ; }\n",
+		"comment":"constructs an external problem using the specified socket .",
+		"score":1
+	},
+	{
+		"code":"private static void generateGraphFile ( TransMeta transMeta , String graphFile ) throws GraphGeneratorException { DataOutputStream dos = null ; try { String xml = transMeta . getXML ( ) ; dos = new DataOutputStream ( new FileOutputStream ( new File ( graphFile ) ) ) ; dos . write ( xml . getBytes ( CarbonCommonConstants . DEFAULT_CHARSET ) ) ; } catch ( KettleException kettelException ) { throw new GraphGeneratorException ( _STR , kettelException ) ; } catch ( FileNotFoundException e ) { throw new GraphGeneratorException ( _STR , e ) ; } catch ( UnsupportedEncodingException ue ) { throw new GraphGeneratorException ( _STR , ue ) ; } catch ( IOException ioe ) { throw new GraphGeneratorException ( _STR , ioe ) ; } finally { if ( dos != null ) { try { dos . close ( ) ; } catch ( IOException e ) { e . getMessage ( ) ; } } } }\n",
+		"comment":"generate the graph file . . .",
+		"score":1
+	},
+	{
+		"code":"public void deleteSubscription ( Subscription subscription ) { Log . d ( TAG , _STR + subscription . toString ( ) ) ; SQLiteDatabase db = getWritableDatabase ( ) ; db . delete ( TABLE_SUBSCRIPTIONS , _ID + _STR , new String [ ] { String . valueOf ( subscription . getPersistenceId ( ) ) } ) ; db . close ( ) ; }\n",
+		"comment":"deletes a subscription from the database",
+		"score":1
+	},
+	{
+		"code":"private TemplateDruidQuery buildOuterQuery ( String metricDictionary , MetricField sourceMetric , TemplateDruidQuery innerQuery ) { Aggregation sum = createSummingAggregator ( sourceMetric ) ; Set < Aggregation > outerAggs = new LinkedHashSet < > ( Arrays . asList ( sum , COUNT_OUTER ) ) ; FieldAccessorPostAggregation sumPost = new FieldAccessorPostAggregation ( sum ) ; PostAggregation average = new ArithmeticPostAggregation ( metricDictionary , DIVIDE , Arrays . asList ( sumPost , COUNT_FIELD_OUTER ) ) ; Set < PostAggregation > outerPostAggs = Collections . singleton ( average ) ; return new TemplateDruidQuery ( outerAggs , outerPostAggs , innerQuery ) ; }\n",
+		"comment":"build the outer query for the average .",
+		"score":1
+	},
+	{
+		"code":"public BufferedImage drawLineGraphWithStdDev ( String graphTitle , String xLabel , String yLabel , HashMap < ComparableLabel , Integer > dataPoints , Long stdDevHigh , Long stdDevLow , Long graphMaxValue ) { BufferedImage bi = new BufferedImage ( this . WIDTH , this . HEIGHT , BufferedImage . TYPE_INT_ARGB ) ; Graphics2D g2d = bi . createGraphics ( ) ; RenderingHints renderHints = new RenderingHints ( RenderingHints . KEY_ANTIALIASING , RenderingHints . VALUE_ANTIALIAS_ON ) ; g2d . setRenderingHints ( renderHints ) ; drawChartAndGraphRectangles ( g2d ) ; drawLineLegend ( g2d , _STR , stdDevHigh , stdDevLow ) ; drawTitleAndLabels ( g2d , graphTitle , xLabel , yLabel ) ; Set < ComparableLabel > dateKeySet = dataPoints . keySet ( ) ; long maxValue = determineMaxYValue ( dataPoints , dateKeySet ) ; long yMaxMark = _NUM ; int yLabelXOffset = _NUM ; yMaxMark = determineYMaxMark ( maxValue , stdDevHigh , graphMaxValue ) ; drawYAxisDivisions ( g2d , yMaxMark , yLabelXOffset ) ; ArrayList < ComparableLabel > orderedDateSet = new ArrayList < ComparableLabel > ( ) ; orderedDateSet . addAll ( dateKeySet ) ; Collections . sort ( orderedDateSet ) ; drawXAxisDivisions ( g2d , orderedDateSet ) ; drawLinesAndPoints ( g2d , orderedDateSet , dataPoints , yMaxMark ) ; if ( stdDevHigh != null ) { drawStdDevLine ( g2d , stdDevHigh , yMaxMark , this . stdDevHighColor ) ; } if ( stdDevLow != null ) { drawStdDevLine ( g2d , stdDevLow , yMaxMark , this . stdDevLowColor ) ; } return bi ; }\n",
+		"comment":"draws a line graph with the standard deviation high and low lines",
+		"score":1
+	},
+	{
+		"code":"public BusinessObjectData createBusinessObjectDataFromEntity ( BusinessObjectDataEntity businessObjectDataEntity ) { return createBusinessObjectDataFromEntity ( businessObjectDataEntity , _BOOL ) ; }\n",
+		"comment":"creates the business object data from the persisted entity .",
+		"score":1
+	},
+	{
+		"code":"public < E extends GenericEvent > Event waitFor ( @ NonNull List < Class < ? extends E > > eventClasses , long timeout , @ NonNull TimeUnit unit ) throws InterruptedException { while ( _BOOL ) { Event curEvent = eventQueue . poll ( timeout , unit ) ; if ( curEvent == null ) return null ; for ( Class < ? extends GenericEvent > curEventClass : eventClasses ) if ( curEventClass . isInstance ( curEvent ) ) return curEvent ; } }\n",
+		"comment":"wait for events of the specified event class to appear in the queue .",
+		"score":1
+	},
+	{
+		"code":"private Double readDoubleNumberFromExpression ( String expression ) throws ParsingException { Character c = expression . charAt ( expressionIterator ) ; Double number = getDoubleDigit ( c ) ; while ( ++ expressionIterator < expression . length ( ) ) { c = expression . charAt ( expressionIterator ) ; if ( ! Character . isDigit ( c ) ) { break ; } number *= _NUM ; number += getDoubleDigit ( c ) ; } if ( c == _STR ) { if ( ++ expressionIterator == expression . length ( ) ) { throw new ParsingException ( ILLEGAL_POSITION_IN_EXPRESSION + c ) ; } c = expression . charAt ( expressionIterator ) ; double placeFactor = _NUM ; number += getDoubleDigit ( c ) / placeFactor ; if ( ! Character . isDigit ( c ) ) { throw new ParsingException ( ILLEGAL_POSITION_IN_EXPRESSION + c ) ; } while ( ++ expressionIterator < expression . length ( ) ) { c = expression . charAt ( expressionIterator ) ; if ( ! Character . isDigit ( c ) ) { break ; } placeFactor *= _NUM ; number += getDoubleDigit ( c ) / placeFactor ; } } -- expressionIterator ; return number ; }\n",
+		"comment":"read a double number from the expressioniterator position in expression",
+		"score":1
+	},
+	{
+		"code":"private void toggleUnderlayImage ( ) { if ( enableBgImage . isSelected ( ) ) { String imgFile = null ; int [ ] offsets ; double scale , rotate ; BufferedImage image ; try { Settings settings = new Settings ( UNDERLAY_NS ) ; imgFile = settings . getSetting ( _STR ) ; offsets = settings . getCsvInts ( _STR , _NUM ) ; scale = settings . getDouble ( _STR ) ; rotate = settings . getDouble ( _STR ) ; image = ImageIO . read ( new File ( imgFile ) ) ; } catch ( IOException ex ) { warn ( _STR + imgFile + _STR + ex . getMessage ( ) ) ; enableBgImage . setSelected ( _BOOL ) ; return ; } catch ( SettingsError er ) { warn ( _STR + er . getMessage ( ) ) ; return ; } field . setUnderlayImage ( image , offsets [ _NUM ] , offsets [ _NUM ] , scale , rotate ) ; } else { field . setUnderlayImage ( null , _NUM , _NUM , _NUM , _NUM ) ; } }\n",
+		"comment":"toggles the showing of underlay image .",
+		"score":1
+	},
+	{
+		"code":"static boolean isDate ( Object obj ) { return obj instanceof Date && obj . getClass ( ) == Date . class ; }\n",
+		"comment":"check whether this object is a date .",
+		"score":1
+	},
+	{
+		"code":"public final void tryClaimDraw ( String str ) { if ( str . startsWith ( _STR ) ) { String drawCmd = str . substring ( str . indexOf ( _STR ) + _NUM ) ; handleDrawCmd ( drawCmd , _BOOL ) ; } }\n",
+		"comment":"try claim a draw using a command string .",
+		"score":1
+	},
+	{
+		"code":"public TypeVariable typeVariable ( ) { int id = typeVariableList . size ( ) ; typeVariableList . add ( null ) ; TypeVariable result = new TypeVariable ( id , this ) ; typeVariableList . set ( id , result ) ; return result ; }\n",
+		"comment":"get new type variable",
+		"score":1
+	},
+	{
+		"code":"private void emitGetter ( Method getter , String fieldName , String returnType , StringBuilder builder ) { if ( getter . isAnnotationPresent ( javax . validation . constraints . NotNull . class ) ) { builder . append ( _STR ) ; } else if ( getter . isAnnotationPresent ( org . eclipse . che . commons . annotation . Nullable . class ) ) { builder . append ( _STR ) ; } builder . append ( _STR ) ; builder . append ( returnType ) ; builder . append ( _STR ) ; builder . append ( getter . getName ( ) ) ; builder . append ( _STR ) ; Class < ? > returnTypeClass = getter . getReturnType ( ) ; if ( isList ( returnTypeClass ) || isMap ( returnTypeClass ) ) { builder . append ( _STR ) ; builder . append ( getEnsureName ( fieldName ) ) ; builder . append ( _STR ) ; } builder . append ( _STR ) ; emitReturn ( getter , fieldName , builder ) ; builder . append ( _STR ) ; }\n",
+		"comment":"emits a method to get a field .",
+		"score":1
+	},
+	{
+		"code":"private void defineInternalFrameMaximizeButton ( UIDefaults d ) { String p = _STR ; String c = PAINTER_PREFIX + _STR ; d . put ( p + _STR , new TitlePaneMaximizeButtonWindowNotFocusedState ( ) ) ; d . put ( p + _STR , new TitlePaneMaximizeButtonWindowMaximizedState ( ) ) ; d . put ( p + _STR , new InsetsUIResource ( _NUM , _NUM , _NUM , _NUM ) ) ; d . put ( p + _STR , new LazyPainter ( c , TitlePaneMaximizeButtonPainter . Which . BACKGROUND_DISABLED ) ) ; d . put ( p + _STR , new LazyPainter ( c , TitlePaneMaximizeButtonPainter . Which . BACKGROUND_ENABLED ) ) ; d . put ( p + _STR , new LazyPainter ( c , TitlePaneMaximizeButtonPainter . Which . BACKGROUND_MOUSEOVER ) ) ; d . put ( p + _STR , new LazyPainter ( c , TitlePaneMaximizeButtonPainter . Which . BACKGROUND_PRESSED ) ) ; d . put ( p + _STR , new LazyPainter ( c , TitlePaneMaximizeButtonPainter . Which . BACKGROUND_ENABLED_WINDOWNOTFOCUSED ) ) ; d . put ( p + _STR , new LazyPainter ( c , TitlePaneMaximizeButtonPainter . Which . BACKGROUND_MOUSEOVER_WINDOWNOTFOCUSED ) ) ; d . put ( p + _STR , new LazyPainter ( c , TitlePaneMaximizeButtonPainter . Which . BACKGROUND_PRESSED_WINDOWNOTFOCUSED ) ) ; d . put ( p + _STR , new LazyPainter ( c , TitlePaneMaximizeButtonPainter . Which . BACKGROUND_MAXIMIZED_DISABLED ) ) ; d . put ( p + _STR , new LazyPainter ( c , TitlePaneMaximizeButtonPainter . Which . BACKGROUND_MAXIMIZED_ENABLED ) ) ; d . put ( p + _STR , new LazyPainter ( c , TitlePaneMaximizeButtonPainter . Which . BACKGROUND_MAXIMIZED_MOUSEOVER ) ) ; d . put ( p + _STR , new LazyPainter ( c , TitlePaneMaximizeButtonPainter . Which . BACKGROUND_MAXIMIZED_PRESSED ) ) ; d . put ( p + _STR , new LazyPainter ( c , TitlePaneMaximizeButtonPainter . Which . BACKGROUND_MAXIMIZED_ENABLED_WINDOWNOTFOCUSED ) ) ; d . put ( p + _STR , new LazyPainter ( c , TitlePaneMaximizeButtonPainter . Which . BACKGROUND_MAXIMIZED_MOUSEOVER_WINDOWNOTFOCUSED ) ) ; d . put ( p + _STR , new LazyPainter ( c , TitlePaneMaximizeButtonPainter . Which . BACKGROUND_MAXIMIZED_PRESSED_WINDOWNOTFOCUSED ) ) ; d . put ( p + _STR , new SeaGlassIcon ( p , _STR , _NUM , _NUM ) ) ; }\n",
+		"comment":"initialize the internal frame maximize button settings .",
+		"score":1
+	},
+	{
+		"code":"protected void drawPoint ( Graphics2D g , PlotterPoint point , ColorProvider colorProvider , int midX , int midY , double radius ) { int x = midX ; int y = midY ; x += ( int ) ( point . getX ( ) * radius * scale ) ; y -= ( int ) ( point . getY ( ) * radius * scale ) ; Color pointColor = Color . red ; if ( colorColumn != - _NUM ) { pointColor = colorProvider . getPointColor ( point . getColor ( ) ) ; } drawPoint ( g , x , y , pointColor , point . getBorderColor ( ) ) ; }\n",
+		"comment":"draw a data point .",
+		"score":1
+	},
+	{
+		"code":"@ VisibleForTesting public static boolean isDraggingStackInWrongDirection ( float downX , float downY , float x , float y , float dx , float dy , int orientation , int stackIndex ) { float switchDelta = orientation == Orientation . PORTRAIT ? x - downX : y - downY ; if ( Math . abs ( dx ) < Math . abs ( dy ) ) { return _BOOL ; } return ( stackIndex == _NUM && switchDelta < _NUM ) || ( stackIndex == _NUM && switchDelta > _NUM ) ; }\n",
+		"comment":"check if we are dragging stack in a wrong direction .",
+		"score":1
+	},
+	{
+		"code":"public void writeTo ( OutputStream os ) throws IOException { os . write ( getEncoded ( ) ) ; }\n",
+		"comment":"writes the key to an output stream",
+		"score":1
+	},
+	{
+		"code":"private boolean checkPath ( SpeakerNPC npc , StringBuilder msg ) { FixedPath path = npc . getPath ( ) ; if ( path == null ) { return _BOOL ; } boolean ok = _BOOL ; if ( ! path . isLoop ( ) ) { ok = _BOOL ; msg . append ( npc . getName ( ) ) ; msg . append ( _STR ) ; } if ( ! checkNodes ( npc , path , msg ) ) { ok = _BOOL ; } return ok ; }\n",
+		"comment":"check the path of an npc .",
+		"score":1
+	},
+	{
+		"code":"private AsciiImgCache ( final Dimension characterImageSize , final Map < Character , GrayscaleMatrix > imageCache , final char [ ] characters ) { this . characterImageSize = characterImageSize ; this . imageCache = imageCache ; }\n",
+		"comment":"instantiates a new ascii img cache .",
+		"score":1
+	},
+	{
+		"code":"public LineSegment transformBy ( Matrix m ) { Vector newStart = startPoint . cross ( m ) ; Vector newEnd = endPoint . cross ( m ) ; return new LineSegment ( newStart , newEnd ) ; }\n",
+		"comment":"transforms the segment by the specified matrix",
+		"score":1
+	},
+	{
+		"code":"private void logUpdateDetail ( int counter , String annotation ) { if ( annotation == null ) annotation = _STR ; if ( counter > _NUM ) { String detailType = m_detailTypes ; if ( counter == _NUM ) detailType = m_detailType ; s_logger . log ( Level . FINE , _STR , new Object [ ] { Integer . toString ( counter ) , detailType , annotation } ) ; } if ( m_detailCounterUpd == null ) m_detailCounterUpd = new Integer ( _NUM ) ; m_detailCounterUpd = new Integer ( m_detailCounterUpd . intValue ( ) + counter ) ; }\n",
+		"comment":"log number of details updated",
+		"score":1
+	},
+	{
+		"code":"private void updateIPEndPointDetails ( StoragePort port , CIMInstance ipPointInstance ) throws IOException { if ( null != port ) { updateIPAddress ( getCIMPropertyValue ( ipPointInstance , IPv4Address ) , port ) ; _dbClient . persistObject ( port ) ; } }\n",
+		"comment":"update end point details",
+		"score":1
+	},
+	{
+		"code":"public String nextToken ( ) { int len = _string . length ( ) ; int start = _pos ; while ( start < len && _del == _string . charAt ( start ) ) start ++ ; if ( start < len ) { _pos = _string . indexOf ( _del , start ) ; if ( start < _pos && _pos < len ) return _string . substring ( start , _pos ) ; else return _string . substring ( start ) ; } throw new NoSuchElementException ( ) ; }\n",
+		"comment":"returns the next token in the string as a string .",
+		"score":1
+	},
+	{
+		"code":"private void copyRawToFile ( int rawResId , File outFile ) throws NotFoundException { Resources res = mContext . getResources ( ) ; InputStream is = null ; try { is = res . openRawResource ( rawResId ) ; } catch ( NotFoundException e ) { Log . i ( LOG_TAG , _STR + rawResId ) ; throw e ; } FileUtils . setPermissions ( outFile . getPath ( ) , FileUtils . S_IRWXU | FileUtils . S_IRWXG | FileUtils . S_IRWXO , - _NUM , - _NUM ) ; assertTrue ( FileUtils . copyToFile ( is , outFile ) ) ; FileUtils . setPermissions ( outFile . getPath ( ) , FileUtils . S_IRWXU | FileUtils . S_IRWXG | FileUtils . S_IRWXO , - _NUM , - _NUM ) ; }\n",
+		"comment":"helper to copy a raw resource file to an actual specified file",
+		"score":1
+	},
+	{
+		"code":"public static void addClipboardListener ( final ClipboardListener l ) { listenerList . add ( l ) ; }\n",
+		"comment":"add the specified clipboard listener .",
+		"score":1
+	},
+	{
+		"code":"public Instance replaceSymbol ( Symbol symbol , int depth , Transform matrix2 , AlphaTransform cxform , int ratio , int clipDepth ) { Transform matrix = matrix2 ; Instance inst = new Instance ( symbol , depth ) ; if ( matrix == null ) { matrix = new Transform ( ) ; } Placement placement = new Placement ( inst , matrix , cxform , null , ratio , clipDepth , frameNumber , _BOOL , _BOOL , null ) ; placements . add ( placement ) ; return inst ; }\n",
+		"comment":"replace the symbol at the given depth with the new symbol",
+		"score":1
+	},
+	{
+		"code":"private void doSendCompressMessage ( GSTextMessageImpl message , Transaction tx , long ttl ) throws RemoteException , TransactionException { Object messageBody = message . Body ; try { MarshObject compressedObject = compressObject ( message . Body ) ; message . Body = compressedObject ; } catch ( IOException e ) { if ( _logger . isLoggable ( Level . SEVERE ) ) { _logger . severe ( _STR + message . Body ) ; } } try { m_space . write ( message , tx , ttl ) ; m_numOfProducedMsg ++ ; } finally { if ( message . Body instanceof MarshObject ) { message . Body = messageBody ; } } }\n",
+		"comment":"compresses a message and then sends it .",
+		"score":1
+	},
+	{
+		"code":"public void printCFG ( String label , AbstractBlockBase < ? > [ ] blocks , boolean printNodes ) { if ( lir == null ) { latestScheduling = new NodeMap < > ( cfg . getNodeToBlock ( ) ) ; for ( AbstractBlockBase < ? > abstractBlock : blocks ) { if ( abstractBlock == null ) { continue ; } Block block = ( Block ) abstractBlock ; Node cur = block . getBeginNode ( ) ; while ( _BOOL ) { assert inFixedSchedule ( cur ) && latestScheduling . get ( cur ) == block ; scheduleInputs ( cur , block ) ; if ( cur == block . getEndNode ( ) ) { break ; } assert cur . successors ( ) . count ( ) == _NUM ; cur = cur . successors ( ) . first ( ) ; } } } begin ( _STR ) ; out . print ( _STR ) . print ( label ) . println ( _STR ) ; for ( AbstractBlockBase < ? > block : blocks ) { printBlock ( block , printNodes ) ; } end ( _STR ) ; if ( method != null ) { printBytecodes ( new BytecodeDisassembler ( _BOOL ) . disassemble ( method ) ) ; } latestScheduling = null ; }\n",
+		"comment":"prints the specified list of blocks .",
+		"score":1
+	},
+	{
+		"code":"public void rootAdded ( ISVNRepositoryLocation root ) { Iterator it = listeners . iterator ( ) ; while ( it . hasNext ( ) ) { IRepositoryListener listener = ( IRepositoryListener ) it . next ( ) ; listener . repositoryAdded ( root ) ; } }\n",
+		"comment":"a repository root has been added .",
+		"score":5
+	},
+	{
+		"code":"public void addInterPassOrderingConstraint ( DetectorOrderingConstraint constraint ) { interPassConstraintList . add ( constraint ) ; }\n",
+		"comment":"add an inter - pass detector ordering constraint .",
+		"score":1
+	},
+	{
+		"code":"private Encoding fromExternalToWrapperEncoding ( org . carbondata . format . Encoding encoderThrift ) { switch ( encoderThrift ) { case DICTIONARY : return Encoding . DICTIONARY ; case DELTA : return Encoding . DELTA ; case RLE : return Encoding . RLE ; case INVERTED_INDEX : return Encoding . INVERTED_INDEX ; case BIT_PACKED : return Encoding . BIT_PACKED ; case DIRECT_DICTIONARY : return Encoding . DIRECT_DICTIONARY ; default : return Encoding . DICTIONARY ; } }\n",
+		"comment":"below method is convert the thrift encoding to wrapper encoding",
+		"score":1
+	},
+	{
+		"code":"public void generateLootPot ( World world , Random random , BlockPos pos , int min , int max , ResourceLocation list ) { world . setBlockState ( pos , getRandomLootPot ( random ) , _NUM ) ; TileEntityLootPot lootPot = ( TileEntityLootPot ) world . getTileEntity ( pos ) ; if ( lootPot != null ) lootPot . setLootTable ( LootTableRegistry . COMMON_CHEST_LOOT , random . nextLong ( ) ) ; }\n",
+		"comment":"generates a loot pot at a location",
+		"score":1
+	},
+	{
+		"code":"public NamingEnumeration listBindings ( String name ) throws NamingException { return listBindings ( nameParser . parse ( name ) ) ; }\n",
+		"comment":"lists all bindings for context with name name .",
+		"score":1
+	},
+	{
+		"code":"private int keepSpriteOnMapY ( Sprite sprite , int sy ) { sy = Math . max ( sy , _NUM ) ; if ( wh != _NUM ) { sy = Math . min ( sy , Math . max ( getHeight ( ) + svy , convertWorldYToScaledScreen ( wh ) ) - sprite . getHeight ( ) ) ; } return sy ; }\n",
+		"comment":"try to keep a sprite on the map .",
+		"score":1
+	},
+	{
+		"code":"public void removeListener ( final FileAlterationListener listener ) { if ( listener != null ) { while ( listeners . remove ( listener ) ) { } } }\n",
+		"comment":"remove a file system listener .",
+		"score":1
+	},
+	{
+		"code":"private void generateCode ( VelocityEngine ve , String templateDir , File file , VelocityContext context ) { Template tm = ve . getTemplate ( templateDir + File . separator + PIPELINE_TEMPLATE ) ; StringWriter sw = new StringWriter ( ) ; tm . merge ( context , sw ) ; try ( PrintWriter writer = new PrintWriter ( file . getAbsolutePath ( ) , _STR ) ) { writer . println ( sw ) ; } catch ( UnsupportedEncodingException | FileNotFoundException e ) { logger . log ( Level . SEVERE , _STR , e ) ; } }\n",
+		"comment":"creates a file and generates code in it using templates .",
+		"score":1
+	},
+	{
+		"code":"public boolean isComponentPartOfCurrentMenu ( Component c ) { if ( selection . size ( ) > _NUM ) { MenuElement me = selection . elementAt ( _NUM ) ; return isComponentPartOfCurrentMenu ( me , c ) ; } else return _BOOL ; }\n",
+		"comment":"return true if c is part of the currently used menu",
+		"score":1
+	},
+	{
+		"code":"public static Map < String , Set < String > > cloneMap ( Map < String , Set < String > > map ) { Map < String , Set < String > > clone = new HashMap < String , Set < String > > ( ) ; for ( String key : map . keySet ( ) ) { Set < String > set = new HashSet < String > ( ) ; Set < String > orig = ( Set < String > ) map . get ( key ) ; set . addAll ( orig ) ; clone . put ( key , set ) ; } return clone ; }\n",
+		"comment":"returns a cloned map of string to set of string .",
+		"score":1
+	},
+	{
+		"code":"public void commitChanges ( SynapseGroup synapseGroup ) { double percentExcitatory = Utils . doubleParsable ( eRatio ) / _NUM ; if ( ! Double . isNaN ( percentExcitatory ) ) synapseGroup . setExcitatoryRatio ( percentExcitatory ) ; excitatoryRandomizerPanel . commitChanges ( ) ; inhibitoryRandomizerPanel . commitChanges ( ) ; synapseGroup . setExcitatoryRandomizer ( exRandomizer ) ; synapseGroup . setInhibitoryRandomizer ( inRandomizer ) ; }\n",
+		"comment":"commits changes to a synapse group .",
+		"score":1
+	},
+	{
+		"code":"public static SimEvent findFirstDeferred ( int src , Predicate p ) { SimEvent ev = null ; Iterator < SimEvent > iterator = deferred . iterator ( ) ; while ( iterator . hasNext ( ) ) { ev = iterator . next ( ) ; if ( ev . getDestination ( ) == src && p . match ( ev ) ) { break ; } } return ev ; }\n",
+		"comment":"find first deferred event matching a predicate .",
+		"score":1
+	},
+	{
+		"code":"protected void scanDirectory ( ) { if ( System . currentTimeMillis ( ) - scanIntervalMillis >= lastScanMillis ) { Set < Path > newPaths = scanner . scan ( fs , filePath , processedFiles ) ; for ( Path newPath : newPaths ) { String newPathString = newPath . toString ( ) ; pendingFiles . add ( newPathString ) ; processedFiles . add ( newPathString ) ; localProcessedFileCount . increment ( ) ; } lastScanMillis = System . currentTimeMillis ( ) ; } }\n",
+		"comment":"scans the directory for new files .",
+		"score":1
+	},
+	{
+		"code":"public UpdateActionCustom ( final Workspace workspace , final File file ) { this . updater = workspace . getUpdater ( ) ; StringBuilder scriptText = new StringBuilder ( ) ; String newLine = System . getProperty ( _STR ) ; Scanner scanner = null ; try { scanner = new Scanner ( new FileInputStream ( file ) ) ; while ( scanner . hasNextLine ( ) ) { scriptText . append ( scanner . nextLine ( ) + newLine ) ; } } catch ( FileNotFoundException e ) { e . printStackTrace ( ) ; } finally { scanner . close ( ) ; } this . scriptString = scriptText . toString ( ) ; init ( ) ; }\n",
+		"comment":"create a new custom update action from a file containing the custom script .",
+		"score":1
+	},
+	{
+		"code":"private float [ ] convertDashListToArray ( List < Float > dashList ) { if ( dashList == null ) { return null ; } float [ ] dashes = new float [ dashList . size ( ) ] ; int i = _NUM ; for ( Float f : dashList ) { dashes [ i ++ ] = ( f != null ? f : Float . NaN ) ; } return dashes ; }\n",
+		"comment":"convert dash list to array .",
+		"score":1
+	},
+	{
+		"code":"public void replace ( Component existingComponent , Component newComponent ) { if ( existingComponent == null || newComponent == null ) { throw new IllegalArgumentException ( _STR ) ; } if ( springsChanged ) { registerComponents ( horizontalGroup , HORIZONTAL ) ; registerComponents ( verticalGroup , VERTICAL ) ; } ComponentInfo info = ( ComponentInfo ) componentInfos . remove ( existingComponent ) ; if ( info == null ) { throw new IllegalArgumentException ( _STR ) ; } host . removeComponent ( existingComponent ) ; if ( newComponent . getParent ( ) != host ) { host . addComponent ( newComponent ) ; } info . setComponent ( newComponent ) ; componentInfos . put ( newComponent , info ) ; invalidateHost ( ) ; }\n",
+		"comment":"removes an existing component replacing it with the specified component .",
+		"score":1
+	},
+	{
+		"code":"@ Override public void endOfStream ( ) throws AdeException { if ( m_inPeriod ) { closePeriod ( ) ; } }\n",
+		"comment":"handle the the of stream",
+		"score":1
+	},
+	{
+		"code":"private void validateDebugSettings ( ) { verifyDiffCheckBox . setSelected ( controller . isDiffVerificationEnabled ( ) ) ; verifyEncodingCheckBox . setSelected ( controller . isEncodingVerificationEnabled ( ) ) ; statsOutputCheckBox . setSelected ( controller . isStatsOutputEnabled ( ) ) ; boolean flagA = controller . isDiffVerificationEnabled ( ) || controller . isEncodingVerificationEnabled ( ) ; debugOuputCheckBox . setEnabled ( flagA ) ; debugOuputCheckBox . setSelected ( controller . isDebugOutputEnabled ( ) ) ; boolean flagB = controller . isDebugOutputEnabled ( ) ; debugOutputLabel . setEnabled ( flagA && flagB ) ; debugOutputField . setEnabled ( flagA && flagB ) ; }\n",
+		"comment":"validates the debug settings .",
+		"score":1
+	},
+	{
+		"code":"public AemTags addTag ( String tag ) throws DeniedTagException { input . click ( ) ; input . sendKeys ( _STR ) ; StringTokenizer tagElements = new StringTokenizer ( tag , _STR , _BOOL ) ; final int tagsCount = getTagCount ( ) ; while ( tagElements . hasMoreTokens ( ) ) { input . sendKeys ( tagElements . nextToken ( ) ) ; } waitUntilTagCreated ( tagsCount ) ; AemTagItem item = getLastAddedTag ( ) ; if ( item . isDenied ( ) ) { throw new DeniedTagException ( ) ; } return this ; }\n",
+		"comment":"adds a tag .",
+		"score":1
+	},
+	{
+		"code":"private List < Item > moveItemsFromSlotToList ( RPSlot slot ) { List < Item > items = new LinkedList < Item > ( ) ; for ( RPObject item : slot ) { if ( item instanceof Item ) { items . add ( ( Item ) item ) ; } } slot . clear ( ) ; return items ; }\n",
+		"comment":"moves all items from a slot to a list , clearing the slot in the end",
+		"score":4
+	},
+	{
+		"code":"public void processInvite ( RequestEvent requestEvent , ServerTransaction serverTransaction ) { final Request request = requestEvent . getRequest ( ) ; final SipProvider sipProvider = ( SipProvider ) requestEvent . getSource ( ) ; ServerTransaction st = serverTransaction ; try { if ( st == null ) { try { st = sipProvider . getNewServerTransaction ( request ) ; } catch ( TransactionUnavailableException tae ) { tae . printStackTrace ( ) ; return ; } catch ( TransactionAlreadyExistsException taex ) { return ; } } final String toTag = _STR + System . nanoTime ( ) ; Response response = messageFactory . createResponse ( Response . RINGING , request ) ; ToHeader toHeader = ( ToHeader ) response . getHeader ( ToHeader . NAME ) ; toHeader . setTag ( toTag ) ; st . sendResponse ( response ) ; response = messageFactory . createResponse ( Response . OK , request ) ; final Address address = addressFactory . createAddress ( _STR + myAddress + _STR + myPort + _STR ) ; final ContactHeader contactHeader = headerFactory . createContactHeader ( address ) ; response . addHeader ( contactHeader ) ; toHeader = ( ToHeader ) response . getHeader ( ToHeader . NAME ) ; toHeader . setTag ( toTag ) ; st . sendResponse ( response ) ; } catch ( Exception ex ) { ex . printStackTrace ( ) ; } }\n",
+		"comment":"process the invite request .",
+		"score":1
+	},
+	{
+		"code":"private String readByteArray ( ) { final byte [ ] stream_ = this . stream ; final StringBuffer buf = new StringBuffer ( ) ; int count = _NUM ; char w = ( char ) _NUM ; for ( int to = stream_ . length ; ( loc < to ) && ( stream_ [ loc ] != _STR ) ; ) { final char c = ( char ) stream_ [ loc ] ; byte b = ( byte ) _NUM ; if ( c >= _STR && c <= _STR ) { b = ( byte ) ( c - _STR ) ; } else if ( c >= _STR && c <= _STR ) { b = ( byte ) ( _NUM + ( c - _STR ) ) ; } else if ( c >= _STR && c <= _STR ) { b = ( byte ) ( _NUM + ( c - _STR ) ) ; } else { loc ++ ; continue ; } final int offset = _NUM - ( count % _NUM ) ; w |= ( _NUM & b ) << ( offset << _NUM ) ; if ( offset == _NUM ) { buf . append ( w ) ; w = ( char ) _NUM ; } ++ count ; ++ loc ; } ++ loc ; return buf . toString ( ) ; }\n",
+		"comment":"read a byte array from the stream .",
+		"score":1
+	},
+	{
+		"code":"public static final List < INaviRawModule > loadRawModules ( final AbstractSQLProvider provider ) throws CouldntLoadDataException { Preconditions . checkNotNull ( provider , _STR ) ; final CConnection connection = provider . getConnection ( ) ; final List < INaviRawModule > modules = new ArrayList < INaviRawModule > ( ) ; if ( ! PostgreSQLHelpers . hasTable ( connection , CTableNames . RAW_MODULES_TABLE ) ) { return modules ; } final String query = _STR + CTableNames . RAW_MODULES_TABLE + _STR ; try ( ResultSet resultSet = connection . executeQuery ( query , _BOOL ) ) { while ( resultSet . next ( ) ) { final int rawModuleId = resultSet . getInt ( _STR ) ; final String name = PostgreSQLHelpers . readString ( resultSet , _STR ) ; final boolean isComplete = PostgreSQLDatabaseFunctions . checkRawModulesTables ( provider . getConnection ( ) , PostgreSQLHelpers . getDatabaseName ( provider . getConnection ( ) ) , rawModuleId ) ; final int functionCount = isComplete ? PostgreSQLDatabaseFunctions . getRawModuleFunctionCount ( connection , rawModuleId ) : _NUM ; final CRawModule module = new CRawModule ( rawModuleId , name , functionCount , isComplete , provider ) ; modules . add ( module ) ; } } catch ( final SQLException e ) { throw new CouldntLoadDataException ( e ) ; } return modules ; }\n",
+		"comment":"loads the raw modules of a database .",
+		"score":1
+	},
+	{
+		"code":"private static void populateExtensions ( ToolSelectionInterface toolMgr ) { extensionList . add ( new GeoServerInput ( toolMgr ) ) ; extensionList . add ( new FileSystemInput ( toolMgr ) ) ; }\n",
+		"comment":"populate default file extensions .",
+		"score":1
+	},
+	{
+		"code":"public static double sampleKurtosisStandardError ( int size ) { int n = size ; return Math . sqrt ( _NUM * n * ( n - _NUM ) * ( n - _NUM ) / ( ( n - _NUM ) * ( n - _NUM ) * ( n + _NUM ) * ( n + _NUM ) ) ) ; }\n",
+		"comment":"return the standard error of the sample kurtosis .",
+		"score":1
+	},
+	{
+		"code":"public JarMap ( ) { _entries = new JarList [ _NUM ] ; _mask = _entries . length - _NUM ; }\n",
+		"comment":"creates a new jar map",
+		"score":1
+	},
+	{
+		"code":"public void addInstallApk ( String apkFileName , String packageName ) { mInstallFileNames . add ( apkFileName ) ; mUninstallPackages . add ( packageName ) ; }\n",
+		"comment":"add an apk to install .",
+		"score":1
+	},
+	{
+		"code":"public static String [ ] splitMultiplePacket ( String packet ) { String _partitioningPacket [ ] = packet . split ( Settings . sReceiverSplitMultipleToken ) ; return _partitioningPacket ; }\n",
+		"comment":"split the multiple packet to packets",
+		"score":1
+	},
+	{
+		"code":"public static void removeAnalysisCacheForCurrentThread ( ) { analysisCacheThreadLocal . remove ( ) ; }\n",
+		"comment":"remove the analysis cache for the current thread .",
+		"score":1
+	},
+	{
+		"code":"public static Integer toInteger ( String value , Integer defValue ) { try { return Integer . parseInt ( value ) ; } catch ( NumberFormatException e ) { return defValue ; } }\n",
+		"comment":"parse the given string value as an integer .",
+		"score":1
+	},
+	{
+		"code":"public void put ( String sample , String attribute , Object value ) { if ( ! sampleOrder . contains ( sample ) ) sampleOrder . add ( sample ) ; if ( ! attributeOrder . contains ( attribute ) ) attributeOrder . add ( attribute ) ; table . put ( sample , attribute , value ) ; }\n",
+		"comment":"put a value in the table",
+		"score":1
+	},
+	{
+		"code":"private byte [ ] concat ( byte [ ] ... arrays ) { int lastPos = _NUM ; byte [ ] combined = new byte [ combinedLength ( arrays ) ] ; for ( byte [ ] array : arrays ) { System . arraycopy ( array , _NUM , combined , lastPos , array . length ) ; lastPos += array . length ; } return combined ; }\n",
+		"comment":"utility to concat byte arrays",
+		"score":1
+	},
+	{
+		"code":"@ Override public void syntaxError ( Recognizer < ? , ? > recognizer , Object offendingSymbol , int line , int charPositionInLine , String msg , RecognitionException e ) { parseIssues . add ( new ParseIssue ( line , charPositionInLine , msg , currentFileName , ParseIssueType . SYNTAX_ERROR ) ) ; try { setAtLeastOneError ( _BOOL ) ; if ( currentFileName == null ) log . error ( _STR + line + _STR + charPositionInLine + _STR + msg ) ; else { String fileName = currentFileName ; log . error ( fileName + _STR + line + _STR + charPositionInLine + _STR + msg ) ; } } catch ( Exception e1 ) { log . error ( _STR + e1 ) ; } }\n",
+		"comment":"syntax error occurred .",
+		"score":3
+	}
+]
