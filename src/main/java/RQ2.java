@@ -46,18 +46,22 @@ public class RQ2 {
         int size = sortMESIA.size()/10;
         double bleu[] = new double[10];
         double rouge_l[] = new double[10];
+        double mesia[] = new double[10];
         for(int i=0;i<10;++i){
             bleu[i]=0;
             rouge_l[i]=0;
+            mesia[i]=0;
         }
         for(int i=0;i<size*10;++i){
             bleu[i/size]+=Bleu.get(sortMESIA.get(i).getKey());
             rouge_l[i/size]+=Rouge_l.get(sortMESIA.get(i).getKey());
+            mesia[i/size]+=sortMESIA.get(i).getValue();
         }
 
         for(int i=0;i<10;++i){
             bleu[i]/=size;
             rouge_l[i]/=size;
+            mesia[i]/=size;
         }
 
         System.out.println("BLEU:");
@@ -69,6 +73,13 @@ public class RQ2 {
         for(int i=0;i<10;++i){
             System.out.println(rouge_l[i]);
         }
+
+        System.out.println("MESIA:");
+        for(int i=0;i<10;++i){
+            System.out.println(mesia[i]);
+        }
+
+        System.out.println("------------------------------------");
     }
 
     public static void main(String args[]){
