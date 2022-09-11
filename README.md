@@ -54,9 +54,14 @@ Answering this research question helps investigate whether the capability of the
 | Denoised  | 53597 | 7562 |7584 |
 | Deduplicated  | 53506 | 6040 |5905 |
 
+The denoised version of TL_CodeSum can be found in <link herf="https://github.com/BuiltOntheRock/FSE22_BuiltOntheRock">https://github.com/BuiltOntheRock/FSE22_BuiltOntheRock</link>
+
+
 #### Neural Approaches
 - Seq2seq (CodeNN)
 - Transformer (NCS)
+
+We follow the implementation of previous work, which can be found in <link herf="https://github.com/wasiahmad/NeuralCodeSum">https://github.com/wasiahmad/NeuralCodeSum</link>
 
 ## RQ1 Result
 <img src="fig/RQ1-MESIA.png" width="330" height="200" alt="MESIA of code comments in the existing dataset"/>            <img src="fig/RQ1 Category.png" width="350" height="180" alt="Distribution of different kinds of code comments"/>
