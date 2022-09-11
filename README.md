@@ -70,12 +70,15 @@ Answering this research question helps investigate whether the capability of the
   **Existing dataset is a mixture of code comments with various extent of supplementary information, and larger-MESIA comments can provide various kinds of useful information about methods. MESIA is consistent with manual assessment of the relative supplementary extent of code comments.**
   
 ## RQ2 Result
+<img src="fig/EvaluationApproach.png" width="500" height="250"/>
 <img src="fig/RQ2.png" width="300" height="270" alt="MESIA of code comments in the existing dataset"/> 
 
 ### Summary for RQ2:
   **Existing neural approaches are more capable of generating smaller-MESIA comments in the dataset. The generation of larger-MESIA comments has a lot of room for improvement.**
   
 ## RQ3 Result
+<img src="fig/TrainingSplit.png" width="500" height="250"/>
+
 <img src="fig/seq2seqHighSup.png" width="350" height="200" alt="MESIA of code comments in the existing dataset"/> <img src="fig/TransformerHighSup.png" width="350" height="200" alt="MESIA of code comments in the existing dataset"/> 
 
 <img src="fig/RQ3good.png" width="350" height="200" alt="MESIA of code comments in the existing dataset"/> <img src="fig/RQ3bad.png" width="350" height="200" alt="MESIA of code comments in the existing dataset"/> 
