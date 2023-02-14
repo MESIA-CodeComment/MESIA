@@ -3,7 +3,7 @@
 ## Introduction
 Code comments are important for developers in program comprehension. In scenarios of comprehending and reusing a method, developers often read the method-level comment in a hybrid mode (read both the method signature and the comment) and expect the comment to provide more supplementary information beyond the method signature. However, the extent of such supplementary information varies a lot in different code comments. We raise the awareness of the supplementary nature of method-level comments in this paper.
 
-<div align=center> <img src="/fig/MotivatingExample.png" width="700" height="220" alt="Different code comments that provide different extent of supplementary information"/></div>
+<div align=center> <img src="/fig/MotivatingExample.png" width="650" height="220" alt="Different code comments that provide different extent of supplementary information"/></div>
 ## MESIA
   As the first attempt to quantify the extent of supplementary information that a code comment can provide beyond the method signature, we propose a new metric named MESIA.
 
