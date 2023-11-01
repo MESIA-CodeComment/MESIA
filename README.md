@@ -78,7 +78,7 @@ various kinds of essential information about methods.**
 
 ## RQ2 Result
 <img src="fig/EvaluationApproach.png" width="500" height="250"/>
-<img src="fig/RQ2.png" width="300" height="270" alt="MESIA of code comments in the existing dataset"/> 
+<img src="fig/RQ2-10-4.png" width="300" height="270" alt="MESIA of code comments in the existing dataset"/> 
 
 ### Summary for RQ2:
   **Existing neural approaches tend to get higher BLEU scores in generating the small-MESIA comments. The generation of large-MESIA comments has a lot of room for improvement.**
@@ -86,7 +86,7 @@ various kinds of essential information about methods.**
 ## RQ3 Result
 <img src="fig/TrainingSplit.png" width="500" height="250"/>
 
-<img src="fig/seq2seqHighSup.png" width="320" height="200" alt="MESIA of code comments in the existing dataset"/> <img src="fig/TransformerHighSup.png" width="320" height="200" alt="MESIA of code comments in the existing dataset"/> 
+<img src="fig/RQ3All.png" width="500" height="200" alt="MESIA of code comments in the existing dataset"/> 
 
 <img src="fig/RQ3Ex1.png" width="320" height="200" alt="MESIA of code comments in the existing dataset"/> <img src="fig/RQ3Ex2.png" width="320" height="200" alt="MESIA of code comments in the existing dataset"/> 
 
