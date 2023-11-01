@@ -86,7 +86,7 @@ various kinds of essential information about methods.**
 ## RQ3 Result
 <img src="fig/TrainingSplit.png" width="500" height="250"/>
 
-<img src="fig/RQ3All.png" width="800" height="200" alt="MESIA of code comments in the existing dataset"/> 
+<img src="fig/RQ3All.png" width="800" height="300" alt="MESIA of code comments in the existing dataset"/> 
 
 <img src="fig/RQ3Ex1.png" width="320" height="200" alt="MESIA of code comments in the existing dataset"/> <img src="fig/RQ3Ex2.png" width="320" height="200" alt="MESIA of code comments in the existing dataset"/> 
 
